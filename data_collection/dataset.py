@@ -1,0 +1,96 @@
+import os, sys, math, itertools
+import pandas as pd
+import torch
+from torch.utils.data import DataLoader, Dataset
+from omegaconf import OmegaConf
+from collections import OrderedDict
+import random
+import copy
+import hook
+
+
+
+NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
+ADVANCED_PATH = '/import/c4dm-datasets/PianoJudge/advanced/metadata.csv'
+VIRTUOSO_PATH = '/import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv'
+
+
+class PerformanceDataloader:
+    def __init__(self, mode='train', split_ratio=0.8):
+        self.novice_data = pd.read_csv(NOVICE_PATH)
+        self.advanced_data = pd.read_csv(ADVANCED_PATH)
+        self.virtuoso_data = pd.read_csv(VIRTUOSO_PATH)
+        self.balance_data()
+        self.pairs = self.create_pairs()
+
+        # Split the data into train and test
+        total_pairs = len(self.pairs)
+        split_index = int(total_pairs * split_ratio)
+
+        if mode == 'train':
+            self.pairs = self.pairs[:split_index]
+        elif mode == 'test':
+            self.pairs = self.pairs[split_index:]
+
+    def balance_data(self):
+        # Find the size of the smallest group
+        min_size = min(len(self.novice_data), len(self.advanced_data), len(self.virtuoso_data))
+
+        # Randomly sample each group to match the size of the smallest group
+        self.novice_data = self.novice_data.sample(n=min_size, random_state=42)
+        self.advanced_data = self.advanced_data.sample(n=min_size, random_state=42)
+        self.virtuoso_data = self.virtuoso_data.sample(n=min_size, random_state=42)
+
+
+    def create_pairs(self):
+        # Combine all data with labels: 0 for novice, 1 for advanced, 2 for virtuoso
+        combined_data = [
+            ('/import/c4dm-datasets/PianoJudge/novice/' + row['id'] + ".wav", 0) for _, row in self.novice_data.iterrows()
+        ] + [
+            ('/import/c4dm-datasets/PianoJudge/advanced/' + row['id'] + ".wav", 1) for _, row in self.advanced_data.iterrows()
+        ] + [
+            ('/import/c4dm-datasets/ATEPP-audio/' + row['audio_path'], 2) for _, row in self.virtuoso_data.iterrows()
+        ]
+
+        # Create all possible pairs
+        pairs = list(itertools.combinations(combined_data, 2))
+        reversed_pairs = [(b, a) for a, b in pairs]
+
+        all_pairs = pairs + reversed_pairs
+
+        # Assign labels to pairs: 1 if first is better, -1 if second is better, 0 if same level
+        labeled_pairs = []
+        for (path1, level1), (path2, level2) in all_pairs:
+            label = 0
+            if level1 > level2:
+                label = 1
+            elif level1 < level2:
+                label = -1
+            labeled_pairs.append(((path1, path2), label))
+
+        return labeled_pairs
+
+    def __len__(self):
+        return len(self.pairs)
+
+    def __getitem__(self, idx):
+        (p1, p2), label = self.pairs[idx]
+        
+        return {
+            "audio_path_1": p1,
+            "audio_path_2": p2,
+            "label": label
+        }
+
+
+if __name__ == "__main__":
+
+    # Create dataloader
+    dataloader = PerformanceDataloader()
+
+    # Get pairs
+    pairs = dataloader.get_data()
+
+    # Example usage: print first 5 pairs
+    for pair in pairs[:5]:
+        print(pair)

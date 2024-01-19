@@ -1,0 +1,30 @@
+
+defaults:
+  - _self_
+
+encoder: 'jukebox'
+mode: 'train'
+
+train:
+  batch_size: 8
+  epochs: 5
+  
+
+eval:
+  batch_size: 8
+
+model:
+  learning_rate: 0.001
+
+device: 'cuda:1'
+
+distributed:
+  masterport: '12355'
+
+# config.yaml
+
+
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .

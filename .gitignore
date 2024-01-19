@@ -1,1 +1,7 @@
-hook.py
+**/hook.py
+jukebox/
+outputs/
+wandb/
+checkpoints/
+*.log
+**/__pycache__/
