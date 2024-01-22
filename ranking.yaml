@@ -16,7 +16,7 @@ eval:
 model:
   learning_rate: 0.001
 
-device: 'cuda:1'
+gpu: 6
 
 distributed:
   masterport: '12355'

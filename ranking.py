@@ -21,40 +21,30 @@ from data_collection.dataset import PerformanceDataloader
 
 
 
-def compute_mert_embeddings(audio_paths, model, processor, resample_rate):
+def compute_mert_embeddings(audio_path, model, processor, resample_rate):
     import torchaudio
     import torchaudio.transforms as T
 
-    batch_embeddings = []
+    audio, sampling_rate = torchaudio.load(audio_path)
+    if resample_rate != sampling_rate: # 24000
+        resampler = T.Resample(sampling_rate, resample_rate)
+        audio = resampler(audio)
 
-    for path in audio_paths:
-        # Load and process each audio file
-        audio, sampling_rate = torchaudio.load(path)
-        if resample_rate != sampling_rate:
-            resampler = T.Resample(sampling_rate, resample_rate)
-            audio = resampler(audio)
+    audio = reduce(audio, 'c t -> t', 'mean')
+    audio = audio[:100 * resample_rate]
+    input_features = processor(audio.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True)
 
-        inputs = processor(audio.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True)
+    with torch.no_grad():
+        outputs = model(**input_features, output_hidden_states=True)
 
-        with torch.no_grad():
-            outputs = model(**inputs, output_hidden_states=True)
+    all_layer_hidden_states = torch.stack(outputs.hidden_states).squeeze() # (25, t, e=1024)
+    embedding = all_layer_hidden_states[-1, :, :]
 
-        all_layer_hidden_states = torch.stack(outputs.hidden_states).squeeze()
-        # Flatten the tensor to concatenate all layers
-        flattened_embedding = all_layer_hidden_states.view(-1)
-        batch_embeddings.append(flattened_embedding)
-
-    # Stack all embeddings into a batch
-    return torch.stack(batch_embeddings)
+    return embedding # (7499, 1024)
 
 
 def compute_jukebox_embeddings(audio_path, vqvae, device_):
-    audio = load_audio(audio_path).to(device_)
-    embeddings = encode(vqvae, audio.contiguous())
 
-    return rearrange(embeddings, "1 e t -> t e")
-
-def load_audio(audio_path):
     try: # in case there is problem with audio loading.
         audio = load_audio_for_jbx(audio_path, dur=100)
     except:
@@ -64,10 +54,45 @@ def load_audio(audio_path):
     # You may need to pad the audio to have the same length
     # batch_audio = torch.nn.utils.rnn.pad_sequence(batch_audio, batch_first=True)
 
-    return rearrange(audio, "t -> 1 t 1")
+    audio =  rearrange(audio, "t -> 1 t 1").to(device_)
+    embeddings = encode(vqvae, audio.contiguous())
+
+    return rearrange(embeddings, "1 e t -> t e") # (68906, 64)
 
 
-def load_or_compute_embedding(audio_paths, method, device_, vqvae=None, mert_model=None, mert_processor=None):
+def compute_dac_embeddings(audio_path, dac_model):
+    from audiotools import AudioSignal
+
+    # Load audio signal file
+    signal = AudioSignal(audio_path, duration=24)
+    signal.resample(16000)
+    signal.to_mono()
+
+    # Encode audio signal as one long file
+    # (may run out of GPU memory on long files)
+    signal.to(dac_model.device)
+
+    x = dac_model.preprocess(signal.audio_data, signal.sample_rate)
+    z, codes, latents, _, _ = dac_model.encode(x)
+
+    return rearrange(z, "1 e t -> t e") # (1200, 1024)
+
+
+def compute_audiomae_embeddings(audio_path, amae, fp, device_):
+
+    try:
+        wav, fbank, _ = fp(audio_path)
+    except:
+        print(f"audio failed to read for {audio_path}")
+        fbank = torch.zeros(1, 10240, 128)
+    fbank = rearrange(fbank, 'c t f -> 1 c t f').to(device_).to(torch.float16)
+    output = amae.get_audio_embedding(fbank)
+    audio_emb = output["patch_embedding"]
+
+    return rearrange(audio_emb, "x t e -> (t x) e") # (5120, 768)
+
+
+def load_or_compute_embedding(audio_paths, method, device_, audio_inits):
 
     embeddings = []
     for audio_path in audio_paths:
@@ -79,29 +104,40 @@ def load_or_compute_embedding(audio_paths, method, device_, vqvae=None, mert_mod
             embedding = torch.from_numpy(np.load(save_path)).to(device_)
         else:
             if method == 'jukebox':
+                vqvae = audio_inits['audio_encoder']
                 embedding = compute_jukebox_embeddings(audio_path, vqvae, device_)
             elif method == 'mert':
-                embedding = compute_mert_embeddings(audio_path, mert_model, mert_processor, device_, mert_processor.sampling_rate)
+                mert_model = audio_inits['audio_encoder']
+                mert_processor = audio_inits['processor']
+                embedding = compute_mert_embeddings(audio_path, mert_model, mert_processor, mert_processor.sampling_rate)
+            elif method == 'dac':
+                dac_model = audio_inits['audio_encoder']
+                embedding = compute_dac_embeddings(audio_path, dac_model)
+            elif method == 'audiomae':
+                amae = audio_inits['audio_encoder']
+                fp = audio_inits['fp']
+                embedding = compute_audiomae_embeddings(audio_path, amae, fp, device_)
             else:
                 raise ValueError("Invalid method specified")
 
-            np.save(save_path, embedding.cpu().numpy())
+            np.save(save_path, embedding.cpu().detach().numpy())
 
         embeddings.append(embedding)
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)  # (b t e)
+    embeddings.to(device_)
 
     return embeddings
 
 
 
-def init_encoder(mode, device):
+def init_encoder(encoder, device):
 
-    if mode == 'jukebox':
+    if encoder == 'jukebox':
         audio_encoder = setup_jbx('5b', device)
         return {"audio_encoder": audio_encoder}
     
-    if mode == 'mert':
+    if encoder == 'mert':
         from transformers import Wav2Vec2FeatureExtractor
         from transformers import AutoModel
 
@@ -111,24 +147,44 @@ def init_encoder(mode, device):
         return {"audio_encoder": audio_encoder, 
                 "processor": processor}
 
+    if encoder == 'dac':
+        import dac
+        model_path = dac.utils.download(model_type="16khz")
+        model = dac.DAC.load(model_path)
+
+        model.to('cuda:6')
+        return {'audio_encoder': model}
+    
+
+    if encoder == 'audiomae':
+        from audio_processor import _fbankProcessor
+        from audiomae_wrapper import AudioMAE
+
+        amae = AudioMAE.create_audiomae(ckpt_path='AudioMAE/finetuned.pth', device=device)
+
+        return {'audio_encoder': amae,
+                'fp': _fbankProcessor.build_processor()}
     
 
 
 
 class SimpleNNLightning(pl.LightningModule):
-    def __init__(self, device, learning_rate=0.001, encoder='jukebox'):
+    def __init__(self, device, input_dim, learning_rate=0.001, encoder='jukebox'):
         super(SimpleNNLightning, self).__init__()
         # Define your model architecture
         self.layers = nn.Sequential(
-            nn.Linear(64, 128),
+            nn.Linear(input_dim, input_dim * 2),
             nn.ReLU(),
-            nn.Linear(128, 1)
+            nn.Linear(input_dim * 2, input_dim),
+            nn.ReLU(),
+            nn.Linear(input_dim, 1)
         )
+
         self.learning_rate = learning_rate
 
         self.device_ = device
         self.encoder = encoder
-        self.inits = init_encoder(mode=encoder, device=device)
+        self.audio_inits = init_encoder(encoder=encoder, device=device)
 
         self.criterion = nn.MSELoss()
         print(self.device)
@@ -158,7 +214,6 @@ class SimpleNNLightning(pl.LightningModule):
         # Convert labels to tensor
         labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device)
 
-
         # Convert regression output to classification labels based on nearest point
         predicted_labels = torch.tensor([np.argmin([abs(x + 1), abs(x), abs(x - 1)]) - 1 for x in outputs], device=outputs.device)
 
@@ -179,7 +234,7 @@ class SimpleNNLightning(pl.LightningModule):
 
     def train_valid_pass(self, batch):
 
-        combined_emb = self.batch_to_embedding(batch)
+        combined_emb = self.batch_to_embedding(batch).to(self.device)
 
         # Convert labels to tensor
         labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device)
@@ -191,15 +246,11 @@ class SimpleNNLightning(pl.LightningModule):
         return loss
 
     def batch_to_embedding(self, batch):
-        if self.encoder == 'jukebox':
-            # Compute embeddings for both sets of audio paths
-            emb1 = load_or_compute_embedding(batch["audio_path_1"], 'jukebox', self.device_, vqvae=self.inits['audio_encoder'])
-            emb2 = load_or_compute_embedding(batch["audio_path_2"], 'jukebox', self.device_, vqvae=self.inits['audio_encoder'])
-        elif self.encoder == 'mert':
-            emb1 = load_or_compute_embedding(batch["audio_path_1"], 'mert', self.device_,
-                                            mert_model=self.inits['audio_encoder'], mert_processor=self.inits['processor'])
-            emb2 = load_or_compute_embedding(batch["audio_path_2"], 'mert', self.device_,
-                                            mert_model=self.inits['audio_encoder'], mert_processor=self.inits['processor'])
+        emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.device_, self.audio_inits)
+        emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.device_, self.audio_inits)
+
+        emb1 = emb1.to(self.device_)
+        emb2 = emb2.to(self.device_)
 
         # Concatenate or otherwise combine the embeddings
         combined_emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
@@ -210,6 +261,13 @@ class SimpleNNLightning(pl.LightningModule):
         return torch.optim.Adam(self.parameters(), lr=self.learning_rate)
 
 
+def encoder_input_dim(encoder):
+    if encoder == 'jukebox':
+        return 64
+    elif encoder == 'mert' or encoder == 'dac':
+        return 1024
+    elif encoder == 'audiomae':
+        return 768
 
 
 @hydra.main(config_path=".", config_name="ranking")
@@ -221,12 +279,16 @@ def main(cfg: DictConfig):
     os.environ['WORLD_SIZE'] = '1'           # total number of processes
     os.environ['RANK'] = '0'                 # rank of this process
     os.environ['HYDRA_FULL_ERROR'] = '1'
+    os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
+
+    experiment_name = f"enc_{cfg.encoder}"
+
     # Checkpoint callback
     checkpoint_callback = ModelCheckpoint(
-        dirpath="checkpoints",
+        dirpath=f"checkpoints/{experiment_name}",
         filename="{epoch}-{step}-{val_loss:.2f}",
         monitor="val_loss",
         mode="min",
@@ -235,7 +297,7 @@ def main(cfg: DictConfig):
     )
 
     # Wandb logger
-    wandb_logger = WandbLogger(project="expertise_ranking", entity="huanz")
+    wandb_logger = WandbLogger(name=experiment_name, project="expertise_ranking", entity="huanz")
 
     # Initialize the trainer
     trainer = pl.Trainer(
@@ -243,14 +305,14 @@ def main(cfg: DictConfig):
         callbacks=[checkpoint_callback],
         max_epochs=50,
         accelerator="gpu",
-        devices=[1],
+        devices=[cfg.gpu],
     )
 
     print("init model...")
-    device = torch.device(cfg.device)
+    device = torch.device(f'cuda:{cfg.gpu}')
 
     # Initialize your Lightning module
-    model = SimpleNNLightning(device)
+    model = SimpleNNLightning(device, input_dim=encoder_input_dim(cfg.encoder), encoder=cfg.encoder)
 
     train_loader = DataLoader(
         PerformanceDataloader(mode='train'), 
@@ -268,7 +330,7 @@ def main(cfg: DictConfig):
     if cfg.mode == 'train':
         trainer.fit(model, train_loader, test_loader)
     elif cfg.mode == 'test':
-        model.load_from_checkpoint("checkpoints/epoch=1-step=64184-val_loss=1.23.ckpt", device=device)
+        model.load_from_checkpoint("checkpoints/last.ckpt", device=device)
         trainer.test(model, dataloaders=test_loader)
 
     

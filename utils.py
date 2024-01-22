@@ -11,9 +11,6 @@ from torch.utils.data import DataLoader, Sampler
 import soundfile as sf
 from scipy.signal import resample
 
-from jukebox.make_models import make_vqvae, MODELS
-from jukebox.hparams import setup_hparams, Hyperparams, DEFAULTS
-
 
 from tqdm import tqdm
 import  hook
@@ -31,6 +28,10 @@ N_COMPETITIOR = 120
 
 def setup_jbx(model, device, levels=3, sample_length=1048576):
     """Sets up the Jukebox VQ-VAE."""
+
+    from jukebox.make_models import make_vqvae, MODELS
+    from jukebox.hparams import setup_hparams, Hyperparams, DEFAULTS
+
     vqvae = MODELS[model][0]
     hparams = setup_hparams(vqvae, dict(sample_length=sample_length,
                                         levels=levels))

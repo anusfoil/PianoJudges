@@ -5,3 +5,5 @@ wandb/
 checkpoints/
 *.log
 **/__pycache__/
+try_*
+AudioMAE/
