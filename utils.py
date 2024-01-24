@@ -1,4 +1,3 @@
-import librosa
 import numpy as np
 import torch
 from torch import nn
@@ -8,8 +7,8 @@ from torch.optim import Adam
 # import torchaudio.transforms as T
 from torch.utils.data import DataLoader, Sampler
 
-import soundfile as sf
 from scipy.signal import resample
+from einops import rearrange, reduce, repeat
 
 
 from tqdm import tqdm
@@ -64,6 +63,8 @@ def audio_for_jbx(audio, trunc_sec=None, device='cuda'):
 
 def load_audio_for_jbx(path, offset=0.0, dur=None, trunc_sec=None, device='cpu'):
 
+    import librosa
+    import soundfile as sf
     if 'mp3' in path:
         """Loads a path for use with Jukebox."""
         audio, sr = librosa.load(path, sr=None, offset=offset, duration=dur)
@@ -75,6 +76,7 @@ def load_audio_for_jbx(path, offset=0.0, dur=None, trunc_sec=None, device='cpu')
 
     # Load audio file. 'sf.read' returns both audio data and the sample rate
     audio, sr = sf.read(path, dtype='float32')
+    audio = reduce(audio, 't c -> t', 'mean')
 
     # Handle offset and duration
     if offset or dur:
@@ -86,7 +88,6 @@ def load_audio_for_jbx(path, offset=0.0, dur=None, trunc_sec=None, device='cpu')
     if sr != JUKEBOX_SAMPLE_RATE:
         num_samples = round(len(audio) * float(JUKEBOX_SAMPLE_RATE) / sr)
         audio = resample(audio, num_samples)
-
 
     return  audio_for_jbx(audio, trunc_sec, device=device)
 

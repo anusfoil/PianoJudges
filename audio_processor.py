@@ -13,8 +13,8 @@ class _baseAudioProcessor:
     r"""An abstract class for wav and label processing."""
     _OUTPUT_FORMAT_ = []
 
-    def __call__(self, filename, filename2=None):
-        return self.extract_features(filename, filename2)
+    def __call__(self, filename, filename2=None, **kwargs):
+        return self.extract_features(filename, filename2, **kwargs)
 
     def extract_features(self, filename, filename2=None):
         r"""Dummy func to extract features."""
@@ -25,9 +25,15 @@ class _baseAudioProcessor:
         wav_file: str,
         resample: bool = True,
         normalize: bool = True,
+        start_sec: float = 0.0,
+        dur_sec: float = None
     ) -> list:
         r"""Return (torch.Tensor, float), Tensor shape = (c, n_temporal_step)."""
         audio, sr = torchaudio.load(wav_file)
+        frame_offset = int(start_sec * sr)
+        num_frames = int(dur_sec * sr) if dur_sec else -1
+        audio = audio[:, frame_offset : frame_offset + num_frames]
+
         # Resample the audio if `resample` = True
         if resample and (sr != self.sampling_rate):
             audio = torchaudio.functional.resample(
@@ -219,10 +225,10 @@ class _fbankProcessor(_baseAudioProcessor):
         if summary_processor:
             self.summary_processor()
 
-    def extract_features(self, filename, filename2=None):
+    def extract_features(self, filename, filename2=None, start_sec=0.0, dur_sec=None):
         r"""Return (`waveform`, `fbank`, `mix_lamda`)."""
         # FIXME: enable resample in fbank extraction
-        wav, _ = self.load_wav(filename)
+        wav, _ = self.load_wav(filename, start_sec=start_sec, dur_sec=dur_sec)
         wav2 = self.load_wav(filename2)[0] if filename2 != None else None
 
         fbank, mix_lamda = self.wav2fbank(wav, wav2)
@@ -347,7 +353,7 @@ class _fbankProcessor(_baseAudioProcessor):
 
         audio_configs["sampling_rate"] = audio_configs.get("sampling_rate", 32000)
         audio_configs["n_mels"] = audio_configs.get("n_mels", 128)
-        audio_configs["target_length"] = audio_configs.get("target_length", 10240)
+        audio_configs["target_length"] = audio_configs.get("target_length", 1024)
         audio_configs["resample"] = audio_configs.get("resample", True)
         audio_configs["normalize"] = audio_configs.get("normalize", True)
         audio_configs["timem"] = audio_configs.get("timem", 0)

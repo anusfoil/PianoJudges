@@ -6,6 +6,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, Sampler
+import torchmetrics
 import torch.distributed as dist
 from sklearn.metrics import classification_report
 from tqdm import tqdm
@@ -21,78 +22,124 @@ from data_collection.dataset import PerformanceDataloader
 
 
 
-def compute_mert_embeddings(audio_path, model, processor, resample_rate):
+def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment_duration=10):
     import torchaudio
     import torchaudio.transforms as T
 
-    audio, sampling_rate = torchaudio.load(audio_path)
+    try:
+        audio, sampling_rate = torchaudio.load(audio_path)
+    except:
+        print(f"audio failed to read for {audio_path}")
+        return []
+
     if resample_rate != sampling_rate: # 24000
         resampler = T.Resample(sampling_rate, resample_rate)
         audio = resampler(audio)
-
     audio = reduce(audio, 'c t -> t', 'mean')
-    audio = audio[:100 * resample_rate]
-    input_features = processor(audio.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True)
 
-    with torch.no_grad():
-        outputs = model(**input_features, output_hidden_states=True)
+    embeddings = []
+    num_segments = int(len(audio) / resample_rate // segment_duration)
+    for i in range(num_segments):
 
-    all_layer_hidden_states = torch.stack(outputs.hidden_states).squeeze() # (25, t, e=1024)
-    embedding = all_layer_hidden_states[-1, :, :]
+        offset = i * segment_duration
+        audio_seg = audio[offset * resample_rate: (offset + segment_duration) * resample_rate]
+        input_features = processor(audio_seg.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True)
 
-    return embedding # (7499, 1024)
+        with torch.no_grad():
+            outputs = model(**input_features, output_hidden_states=True)
+
+        all_layer_hidden_states = torch.stack(outputs.hidden_states).squeeze() 
+        embeddings.append(all_layer_hidden_states[-1, :, :])
+
+    embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
+    assert(embeddings.shape[1:] == torch.Size([749, 1024]))
+    return embeddings # (n_segs, 749, 1024)  For some reason the output missed timestep. Should be 75 as frame rate.
 
 
-def compute_jukebox_embeddings(audio_path, vqvae, device_):
+def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
+    JUKEBOX_SAMPLE_RATE = 44100
 
     try: # in case there is problem with audio loading.
-        audio = load_audio_for_jbx(audio_path, dur=100)
+        audio = load_audio_for_jbx(audio_path)
     except:
         print(f"audio failed to read for {audio_path}")
-        audio = torch.zeros(4410000)
+        return torch.zeros(1, 3445, 64)
 
-    # You may need to pad the audio to have the same length
-    # batch_audio = torch.nn.utils.rnn.pad_sequence(batch_audio, batch_first=True)
+    embeddings = []
+    num_segments = int(len(audio) / JUKEBOX_SAMPLE_RATE // segment_duration)
+    for i in range(num_segments):
+        offset = i * segment_duration
+        audio_seg = audio[offset * JUKEBOX_SAMPLE_RATE: (offset + segment_duration) * JUKEBOX_SAMPLE_RATE]
+        audio_seg =  rearrange(audio_seg, "t -> 1 t 1").to(device_)
 
-    audio =  rearrange(audio, "t -> 1 t 1").to(device_)
-    embeddings = encode(vqvae, audio.contiguous())
+        embeddings.append(encode(vqvae, audio_seg.contiguous()))
 
-    return rearrange(embeddings, "1 e t -> t e") # (68906, 64)
+    embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
+    embeddings = rearrange(embeddings, "b 1 e t -> b t e")
+    assert(embeddings.shape[1:] == torch.Size([3445, 64]))
+    return embeddings # (n_segs, 3445, 64)
 
 
-def compute_dac_embeddings(audio_path, dac_model):
+def compute_dac_embeddings(audio_path, dac_model,  segment_duration=1, concat_duration=10):
     from audiotools import AudioSignal
 
-    # Load audio signal file
-    signal = AudioSignal(audio_path, duration=24)
-    signal.resample(16000)
+    # Load the full audio signal
+    signal = AudioSignal(audio_path)
+    signal.resample(44100)
     signal.to_mono()
 
-    # Encode audio signal as one long file
-    # (may run out of GPU memory on long files)
-    signal.to(dac_model.device)
+    # Calculate the number of samples per segment and per concatenation
+    samples_per_segment = segment_duration * signal.sample_rate
 
-    x = dac_model.preprocess(signal.audio_data, signal.sample_rate)
-    z, codes, latents, _, _ = dac_model.encode(x)
+    # Process in segments
+    total_samples = signal.audio_data.shape[-1]
+    num_segments = (total_samples + samples_per_segment - 1) // samples_per_segment  # Ceiling division
+    embeddings = []
 
-    return rearrange(z, "1 e t -> t e") # (1200, 1024)
+    signal.audio_data = signal.audio_data.to(dac_model.device)
+    for i in range(num_segments):
+        start = i * samples_per_segment
+        end = min(start + samples_per_segment, total_samples)
+        segment = signal.audio_data[:, :, start:end]
+
+        # Process each segment
+        x = dac_model.preprocess(segment, signal.sample_rate)
+        z, _, _, _, _ = dac_model.encode(x)
+        embeddings.append(rearrange(z, '1 e t -> t e'))
+
+    embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
+    end = embeddings.shape[0] - embeddings.shape[0] % concat_duration
+    final_embeddings = rearrange(embeddings[:end], '(s x) t e -> s (x t) e', x=5)
+
+    assert(final_embeddings.shape[1:] == torch.Size([870, 1024]))
+    return final_embeddings  # (n_segs, 870, 1024)
 
 
-def compute_audiomae_embeddings(audio_path, amae, fp, device_):
+
+def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=10):
+    import torchaudio
 
     try:
-        wav, fbank, _ = fp(audio_path)
+        audio, sr = torchaudio.load(audio_path)
+        num_segments = int(len(audio[0]) / sr // segment_duration)
     except:
         print(f"audio failed to read for {audio_path}")
-        fbank = torch.zeros(1, 10240, 128)
-    fbank = rearrange(fbank, 'c t f -> 1 c t f').to(device_).to(torch.float16)
-    output = amae.get_audio_embedding(fbank)
-    audio_emb = output["patch_embedding"]
+        return torch.zeros(1, 512, 768)
+        
+    embeddings = []
+    for i in range(num_segments):
+        wav, fbank, _ = fp(audio_path, start_sec=i*segment_duration, dur_sec=segment_duration)
 
-    return rearrange(audio_emb, "x t e -> (t x) e") # (5120, 768)
+        fbank = rearrange(fbank, 'c t f -> 1 c t f').to(device_).to(torch.float16)
+        output = amae.get_audio_embedding(fbank)
+        embeddings.append(output["patch_embedding"])
+
+    embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
+    assert(embeddings.shape[1:] == torch.Size([512, 768]))
+    return rearrange(embeddings, "s 1 t e -> s t e") # (n_segs, 512, 768)
 
 
-def load_or_compute_embedding(audio_paths, method, device_, audio_inits):
+def load_or_compute_embedding(audio_paths, method, device_, audio_inits, recompute=False):
 
     embeddings = []
     for audio_path in audio_paths:
@@ -100,8 +147,11 @@ def load_or_compute_embedding(audio_paths, method, device_, audio_inits):
         save_path = save_path.replace('ATEPP-audio', 'ATEPP-audio-embeddings')
         os.makedirs("/".join(save_path.split("/")[:-1]), exist_ok=True)
 
-        if os.path.exists(save_path):
+        if os.path.exists(save_path) and (not recompute):
             embedding = torch.from_numpy(np.load(save_path)).to(device_)
+
+            if len(embedding.shape) >= 3:
+                embedding = rearrange(embedding, "1 t e -> t e")
         else:
             if method == 'jukebox':
                 vqvae = audio_inits['audio_encoder']
@@ -125,6 +175,7 @@ def load_or_compute_embedding(audio_paths, method, device_, audio_inits):
         embeddings.append(embedding)
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)  # (b t e)
+    hook()
     embeddings.to(device_)
 
     return embeddings
@@ -149,10 +200,10 @@ def init_encoder(encoder, device):
 
     if encoder == 'dac':
         import dac
-        model_path = dac.utils.download(model_type="16khz")
+        model_path = dac.utils.download(model_type="44khz")
         model = dac.DAC.load(model_path)
 
-        model.to('cuda:6')
+        model.to(device)
         return {'audio_encoder': model}
     
 
@@ -169,7 +220,7 @@ def init_encoder(encoder, device):
 
 
 class SimpleNNLightning(pl.LightningModule):
-    def __init__(self, device, input_dim, learning_rate=0.001, encoder='jukebox'):
+    def __init__(self, cfg, device_, input_dim, learning_rate=0.001, encoder='jukebox'):
         super(SimpleNNLightning, self).__init__()
         # Define your model architecture
         self.layers = nn.Sequential(
@@ -181,30 +232,55 @@ class SimpleNNLightning(pl.LightningModule):
         )
 
         self.learning_rate = learning_rate
-
-        self.device_ = device
+        self.cfg = cfg
+        self.device_ = device_
         self.encoder = encoder
-        self.audio_inits = init_encoder(encoder=encoder, device=device)
+        self.audio_inits = init_encoder(encoder=encoder, device=device_)
 
         self.criterion = nn.MSELoss()
-        print(self.device)
+
+        self.precision_metric = torchmetrics.Precision(num_classes=3, average='macro', task='multiclass')
+        self.recall = torchmetrics.Recall(num_classes=3, average='macro', task='multiclass')
+        self.f1 = torchmetrics.F1Score(num_classes=3, average='macro', task='multiclass')
+        self.accuracy = torchmetrics.Accuracy(num_classes=3, task='multiclass')
+
 
     def forward(self, x):
-        x = rearrange(self.layers(x), "b t 1 -> b t")
+        x = self.layers(x)
+        x = rearrange(x, "b t 1 -> b t")
         return torch.mean(x, dim=-1)
+
 
     def training_step(self, batch, batch_idx):
 
-        loss = self.train_valid_pass(batch)
+        outputs, loss = self.train_valid_pass(batch)
         self.log("train_loss", loss)
         return loss
 
     def validation_step(self, batch, batch_idx):
 
-        loss = self.train_valid_pass(batch)
+        outputs, loss = self.train_valid_pass(batch)
         self.log("val_loss", loss)
 
+        # Convert labels to tensor (note that I added 1 to both label and pred for the metrics)
+        labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device) + 1
+
+        # Convert regression output to classification labels
+        predicted_labels = torch.tensor([torch.argmin(torch.abs(torch.tensor([x + 1, x, x - 1]))).item() for x in outputs], device=self.device)
+
+        # Update metrics
+        precision = self.precision_metric(predicted_labels, labels)
+        recall = self.recall(predicted_labels, labels)
+        f1_score = self.f1(predicted_labels, labels)
+        accuracy = self.accuracy(predicted_labels, labels)
+
+        self.log('val_precision', precision, on_epoch=True, prog_bar=True)
+        self.log('val_recall', recall, on_epoch=True, prog_bar=True)
+        self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
+        self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
+
         return loss
+
     
     def test_step(self, batch, batch_idx):
 
@@ -243,11 +319,11 @@ class SimpleNNLightning(pl.LightningModule):
         outputs = self(combined_emb)
         loss = self.criterion(outputs, labels)
 
-        return loss
+        return outputs, loss
 
     def batch_to_embedding(self, batch):
-        emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.device_, self.audio_inits)
-        emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.device_, self.audio_inits)
+        emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
+        emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
 
         emb1 = emb1.to(self.device_)
         emb2 = emb2.to(self.device_)
@@ -264,7 +340,9 @@ class SimpleNNLightning(pl.LightningModule):
 def encoder_input_dim(encoder):
     if encoder == 'jukebox':
         return 64
-    elif encoder == 'mert' or encoder == 'dac':
+    elif encoder == 'mert':
+        return 1024
+    elif encoder == 'dac':
         return 1024
     elif encoder == 'audiomae':
         return 768
@@ -312,11 +390,12 @@ def main(cfg: DictConfig):
     device = torch.device(f'cuda:{cfg.gpu}')
 
     # Initialize your Lightning module
-    model = SimpleNNLightning(device, input_dim=encoder_input_dim(cfg.encoder), encoder=cfg.encoder)
+    model = SimpleNNLightning(cfg, device, input_dim=encoder_input_dim(cfg.encoder), encoder=cfg.encoder)
 
     train_loader = DataLoader(
         PerformanceDataloader(mode='train'), 
         batch_size=cfg.train.batch_size, 
+        num_workers=8,
         shuffle=True
     )
     test_loader = DataLoader(

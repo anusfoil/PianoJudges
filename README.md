@@ -1,2 +1,2 @@
-## Tuning Audio Encoders to be Piano Judges
+# Adapting Audio Encoders to be Piano Judges
 

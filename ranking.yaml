@@ -4,6 +4,7 @@ defaults:
 
 encoder: 'jukebox'
 mode: 'train'
+recompute: False
 
 train:
   batch_size: 8

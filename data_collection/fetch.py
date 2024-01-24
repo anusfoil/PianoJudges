@@ -14,14 +14,14 @@ def should_download(title, filter_keywords):
             return False
     return True
 
-def download_channel_videos(channel_url, filter_keywords):
-    # Define the yt-dlp command with necessary options
-    command = [
-        'yt-dlp',
-        '--dump-json',
-        '--flat-playlist',
-        channel_url
-    ]
+def download_channel_videos(url, filter_keywords):
+    # Check if the URL is a channel or a single video
+    if "channel" in url or "user" in url:
+        # Channel URL: fetch video information from the channel
+        command = ['yt-dlp', '--dump-json', '--flat-playlist', url]
+    else:
+        # Single video URL: only fetch information for this video
+        command = ['yt-dlp', '--dump-json', url]
 
     # Get video information without downloading
     result = subprocess.run(command, stdout=subprocess.PIPE, text=True)
@@ -30,7 +30,7 @@ def download_channel_videos(channel_url, filter_keywords):
     for video_info in videos_info:
         video_json = json.loads(video_info)
         title = video_json.get('title', '')
-        video_url = video_json.get('url', '')
+        video_url = 'https://www.youtube.com/watch?v=' + video_json['id']
 
         # Check if the video should be downloaded
         if should_download(title, filter_keywords):
@@ -119,22 +119,24 @@ def delete_unreferenced_wav_files(metadata_path, audio_dir):
 
 if __name__ == "__main__":
 
-    category = 'advanced'
+    category = 'novice'
 
-    DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}"
+    DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
+    # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}"
+    # url_file = f"{category}_channels.txt"
 
     # channel_url = 'https://www.youtube.com/@nixxpiano'
 
-    # Define keywords to filter out
+    # Define keywords to filter out, and download
     filter_keywords = ['concerto']
-
-    with open(f"{category}_channels.txt") as f:
+    with open(url_file) as f:
         urls = f.readlines()
+    for url in urls:
+        download_channel_videos(url, filter_keywords)
+        hook()
 
-    # for url in urls:
-    #     download_channel_videos(url, filter_keywords)
-
-    write_metadata_to_csv()
-    cleanup_artifacts()
+    # write_metadata_to_csv()
+    # cleanup_artifacts()
 
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR)
