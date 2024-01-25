@@ -134,9 +134,8 @@ if __name__ == "__main__":
         urls = f.readlines()
     for url in urls:
         download_channel_videos(url, filter_keywords)
-        hook()
 
-    # write_metadata_to_csv()
-    # cleanup_artifacts()
+    write_metadata_to_csv()
+    cleanup_artifacts()
 
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR)
