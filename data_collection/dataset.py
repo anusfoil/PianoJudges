@@ -21,6 +21,9 @@ class PerformanceDataloader:
         self.novice_data = pd.read_csv(NOVICE_PATH)
         self.advanced_data = pd.read_csv(ADVANCED_PATH)
         self.virtuoso_data = pd.read_csv(VIRTUOSO_PATH)
+
+        self.pair_mode = pair_mode
+
         self.balance_data()
         self.pairs = self.create_pairs()
 
@@ -33,7 +36,6 @@ class PerformanceDataloader:
         elif mode == 'test':
             self.pairs = self.pairs[split_index:]
 
-        self.pair_mode = pair_mode
 
     def balance_data(self):
         # Find the size of the smallest group
@@ -61,7 +63,7 @@ class PerformanceDataloader:
             reversed_pairs = [(b, a) for a, b in pairs]
             all_pairs = pairs + reversed_pairs
         elif self.pair_mode == 'once':
-            shuffled_data = random.sample(combined_data, len(combined_data), random_state=13)
+            shuffled_data = random.sample(combined_data, len(combined_data))
             it = iter(shuffled_data)
             all_pairs = list(zip(it, it))
 

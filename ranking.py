@@ -1,7 +1,7 @@
 import hydra
 from omegaconf import DictConfig
 import hook
-import os
+import os, random
 import numpy as np
 import torch
 from torch import nn
@@ -16,7 +16,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
-from utils import setup_jbx, load_audio_for_jbx, encode
+from utils import init_encoder, load_or_compute_embedding, encoder_input_dim
 from data_collection.dataset import PerformanceDataloader, ICPCDataloader
 
 
@@ -90,33 +90,35 @@ class AudioCNNTransformer(nn.Module):
 
         return output
 
-# Example Usage
-model = AudioCNNTransformer(
-    input_dim=1024,  # Embedding dimension
-    nhead=8,
-    num_encoder_layers=4,
-    dim_feedforward=2048,
-    cnn_channels=16,  # Number of CNN channels
-    kernel_size=(3, 3),  # Kernel size for CNN
-    dropout=0.1
-)
+# # Example Usage
+# model = AudioCNNTransformer(
+#     input_dim=1024,  # Embedding dimension
+#     nhead=4,
+#     num_encoder_layers=2,
+#     dim_feedforward=512,
+#     cnn_channels=16,  # Number of CNN channels
+#     kernel_size=(3, 3),  # Kernel size for CNN
+#     dropout=0.1
+# ).to('cuda:1')
 
-# Example input tensor
-input_tensor = torch.rand(32, 70, 870*2, 1024)  # (batch, n_segs, seg_timesteps * 2, embedding dimension)
-output = model(input_tensor)
-print(output.shape)  # Should be (batch_size,)
+# # Example input tensor
+# input_tensor = torch.rand(2, 70, 870*2, 1024).to('cuda:1')  # (batch, n_segs, seg_timesteps * 2, embedding dimension)
+# output = model(input_tensor)
+# print(output.shape)  # Should be (batch_size,)
 
 
-class SimpleNNLightning(pl.LightningModule):
+class RankerLightning(pl.LightningModule):
     def __init__(self, cfg, device_, input_dim, learning_rate=0.001, encoder='jukebox'):
-        super(SimpleNNLightning, self).__init__()
+        super(RankerLightning, self).__init__()
         # Define your model architecture
-        self.layers = nn.Sequential(
-            nn.Linear(input_dim, input_dim * 2),
-            nn.ReLU(),
-            nn.Linear(input_dim * 2, input_dim),
-            nn.ReLU(),
-            nn.Linear(input_dim, 1)
+        self.model = AudioCNNTransformer(
+            input_dim=input_dim,  # Embedding dimension
+            nhead=4,
+            num_encoder_layers=2,
+            dim_feedforward=512,
+            cnn_channels=8,  # Number of CNN channels
+            kernel_size=(3, 3),  # Kernel size for CNN
+            dropout=0.1
         )
 
         self.learning_rate = learning_rate
@@ -213,6 +215,7 @@ class SimpleNNLightning(pl.LightningModule):
         emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
         emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
 
+        # emb: ()
         emb1 = emb1.to(self.device_)
         emb2 = emb2.to(self.device_)
 
@@ -228,6 +231,11 @@ class SimpleNNLightning(pl.LightningModule):
 
 @hydra.main(config_path=".", config_name="ranking")
 def main(cfg: DictConfig):
+
+    random.seed(cfg.random_seed)
+    torch.manual_seed(cfg.random_seed)
+    torch.cuda.manual_seed(cfg.random_seed)
+    torch.backends.cudnn.deterministic = True
 
     # Set the environment variables for distributed training
     os.environ['MASTER_ADDR'] = 'localhost'  # or the IP address of the master node
@@ -268,14 +276,16 @@ def main(cfg: DictConfig):
     device = torch.device(f'cuda:{cfg.gpu}')
 
     # Initialize your Lightning module
-    model = SimpleNNLightning(cfg, device, input_dim=encoder_input_dim(cfg.encoder), encoder=cfg.encoder)
-
+    model = RankerLightning(cfg, device, 
+                            input_dim=encoder_input_dim(cfg.encoder), 
+                            encoder=cfg.encoder,
+                            learning_rate=cfg.learning_rate)
     train_loader = DataLoader(
-        PerformanceDataloader(mode='train', pair_mode=cfg.pair_mode), 
+        PerformanceDataloader(mode='train', pair_mode=cfg.dataset.pair_mode), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        PerformanceDataloader(mode='test', pair_mode=cfg.pair_mode), 
+        PerformanceDataloader(mode='test', pair_mode=cfg.dataset.pair_mode), 
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(

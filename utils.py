@@ -172,7 +172,6 @@ def load_or_compute_embedding(audio_paths, method, device_, audio_inits, recompu
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)  # (b s t e)
 
-    hook()
     embeddings.to(device_)
 
     return embeddings
