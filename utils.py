@@ -1,4 +1,4 @@
-import os
+import os, gc
 import numpy as np
 import torch
 from torch import nn
@@ -76,7 +76,7 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
     return embeddings # (n_segs, 3445, 64)
 
 
-def compute_dac_embeddings(audio_path, dac_model,  segment_duration=1, concat_duration=10):
+def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_duration=10):
     from audiotools import AudioSignal
 
     # Load the full audio signal
@@ -85,27 +85,29 @@ def compute_dac_embeddings(audio_path, dac_model,  segment_duration=1, concat_du
     signal.to_mono()
 
     # Calculate the number of samples per segment and per concatenation
-    samples_per_segment = segment_duration * signal.sample_rate
+    samples_per_segment = process_duration * signal.sample_rate
 
     # Process in segments
     total_samples = signal.audio_data.shape[-1]
     num_segments = (total_samples + samples_per_segment - 1) // samples_per_segment  # Ceiling division
     embeddings = []
 
-    signal.audio_data = signal.audio_data.to(dac_model.device)
+    signal.audio_data = signal.audio_data
     for i in range(num_segments):
+
         start = i * samples_per_segment
         end = min(start + samples_per_segment, total_samples)
-        segment = signal.audio_data[:, :, start:end]
+        segment = signal.audio_data[:, :, start:end].to(dac_model.device)
 
         # Process each segment
         x = dac_model.preprocess(segment, signal.sample_rate)
-        z, _, _, _, _ = dac_model.encode(x)
-        embeddings.append(rearrange(z, '1 e t -> t e'))
+        with torch.no_grad():
+            z, codes, latents, commitment_loss, codebook_loss = dac_model.encode(x)
+        embeddings.append(rearrange(z, '1 e t -> t e')) 
 
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
-    end = embeddings.shape[0] - embeddings.shape[0] % concat_duration
-    final_embeddings = rearrange(embeddings[:end], '(s x) t e -> s (x t) e', x=concat_duration)
+    end = embeddings.shape[0] - embeddings.shape[0] % segment_duration
+    final_embeddings = rearrange(embeddings[:end], '(s x) t e -> s (x t) e', x=segment_duration)
 
     assert(final_embeddings.shape[1:] == torch.Size([870, 1024]))
     return final_embeddings  # (n_segs, 870, 1024)
@@ -131,11 +133,47 @@ def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=
         embeddings.append(output["patch_embedding"])
 
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
-    assert(embeddings.shape[1:] == torch.Size([512, 768]))
+    assert(embeddings.shape[-2:] == torch.Size([512, 768]))
     return rearrange(embeddings, "s 1 t e -> s t e") # (n_segs, 512, 768)
 
 
-def load_or_compute_embedding(audio_paths, method, device_, audio_inits, recompute=False):
+
+def compute_audio_embeddings(audio_path, audio_inits, method, device_, segment_duration=10):
+    if method == 'jukebox':
+        vqvae = audio_inits['audio_encoder']
+        return compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration)
+    
+    elif method == 'mert':
+        mert_model = audio_inits['audio_encoder']
+        mert_processor = audio_inits['processor']
+        return compute_mert_embeddings(audio_path, mert_model, mert_processor, mert_processor.sampling_rate, segment_duration)
+    
+    elif method == 'dac':
+        dac_model = audio_inits['audio_encoder']
+        return compute_dac_embeddings(audio_path, dac_model, segment_duration=segment_duration)
+    
+    elif method == 'audiomae':
+        amae = audio_inits['audio_encoder']
+        fp = audio_inits['fp']
+        return compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration)
+    
+    else:
+        raise ValueError("Invalid method specified")
+
+
+def pad_and_clip_sequences(sequences, max_length):
+    # Clip and pad the sequences
+    clipped = [seq if len(seq) <= max_length else seq[:max_length] for seq in sequences]
+    padded_sequences = torch.nn.utils.rnn.pad_sequence(clipped, batch_first=True)
+
+    if padded_sequences.shape[1] != max_length:
+        padding_shape = (padded_sequences.shape[0], max_length - padded_sequences.shape[1], padded_sequences.shape[2],  padded_sequences.shape[3])
+        padded_sequences = torch.cat((padded_sequences, torch.zeros(padding_shape).to(padded_sequences.device)), dim=1)
+
+    assert(padded_sequences.shape[1] == max_length)
+    return padded_sequences
+
+def load_or_compute_embedding(audio_paths, method, ae_device, audio_inits, recompute=False):
 
     embeddings = []
     for audio_path in audio_paths:
@@ -144,35 +182,26 @@ def load_or_compute_embedding(audio_paths, method, device_, audio_inits, recompu
         os.makedirs("/".join(save_path.split("/")[:-1]), exist_ok=True)
 
         if os.path.exists(save_path) and (not recompute):
-            embedding = torch.from_numpy(np.load(save_path)).to(device_)
+            embedding = torch.from_numpy(np.load(save_path))
 
-            if len(embedding.shape) >= 3:
+            if len(embedding.shape) >= 4: # the case of [??]
                 embedding = rearrange(embedding, "1 t e -> t e")
-        else:
-            if method == 'jukebox':
-                vqvae = audio_inits['audio_encoder']
-                embedding = compute_jukebox_embeddings(audio_path, vqvae, device_)
-            elif method == 'mert':
-                mert_model = audio_inits['audio_encoder']
-                mert_processor = audio_inits['processor']
-                embedding = compute_mert_embeddings(audio_path, mert_model, mert_processor, mert_processor.sampling_rate)
-            elif method == 'dac':
-                dac_model = audio_inits['audio_encoder']
-                embedding = compute_dac_embeddings(audio_path, dac_model)
-            elif method == 'audiomae':
-                amae = audio_inits['audio_encoder']
-                fp = audio_inits['fp']
-                embedding = compute_audiomae_embeddings(audio_path, amae, fp, device_)
-            else:
-                raise ValueError("Invalid method specified")
 
+            if (embedding.shape[-2:] != encoding_shape(method)):
+                print(f"Embedding shape mismatch for {audio_path} with shape {embedding.shape} for method {method}, recomputing")
+                embedding = compute_audio_embeddings(audio_path, audio_inits, method, ae_device)
+                np.save(save_path, embedding.cpu().detach().numpy())
+
+        else:
+            # Now you can call compute_audio_embeddings with the method of choice:
+            embedding = compute_audio_embeddings(audio_path, audio_inits, method, ae_device)
             np.save(save_path, embedding.cpu().detach().numpy())
 
         embeddings.append(embedding)
 
-    embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)  # (b s t e)
+    embeddings = pad_and_clip_sequences(embeddings, 30) # maximum of 30 the 10s sequences (5mins audio in)
 
-    embeddings.to(device_)
+    # embeddings = embeddings.clone().detach()
 
     return embeddings
 
@@ -214,16 +243,15 @@ def init_encoder(encoder, device):
     
 
 
-def encoder_input_dim(encoder):
+def encoding_shape(encoder):
     if encoder == 'jukebox':
-        return 64
+        return (3450, 64)
     elif encoder == 'mert':
-        return 1024
+        return (750, 1024)
     elif encoder == 'dac':
-        return 1024
+        return (870, 1024)
     elif encoder == 'audiomae':
-        return 768
-
+        return (512, 768)
 
 
 ################# Utility function for Jukebox ###################

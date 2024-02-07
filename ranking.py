@@ -1,7 +1,7 @@
 import hydra
 from omegaconf import DictConfig
 import hook
-import os, random
+import os, random, math
 import numpy as np
 import torch
 from torch import nn
@@ -10,24 +10,25 @@ import torchmetrics
 import torch.distributed as dist
 from sklearn.metrics import classification_report
 from tqdm import tqdm
-from einops import reduce, rearrange
+from einops import reduce, rearrange, repeat
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
-from utils import init_encoder, load_or_compute_embedding, encoder_input_dim
+from utils import init_encoder, load_or_compute_embedding, encoding_shape
 from data_collection.dataset import PerformanceDataloader, ICPCDataloader
 
 
 
 class ConvBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, dropout):
+    def __init__(self, in_channels, out_channels, kernel_size, dropout, skip=False):
         super(ConvBlock, self).__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=2, padding=1)
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, padding=1, stride=5)
         self.bn = nn.BatchNorm2d(out_channels)
         self.dropout = nn.Dropout(dropout)
         self.relu = nn.ReLU()
+        self.skip = skip
 
     def forward(self, x):
         identity = x
@@ -36,28 +37,35 @@ class ConvBlock(nn.Module):
         out = self.relu(out)
         out = self.dropout(out)
 
-        # Skip Connection - Ensuring the channel dimensions match
-        if identity.shape != out.shape:
-            identity = nn.Conv2d(identity.shape[1], out.shape[1], kernel_size=1)(identity)
+        if self.skip:
+            # Skip Connection - Ensuring the channel dimensions match
+            if identity.shape != out.shape:
+                if identity.shape[1] < out.shape[1]:
+                    identity = repeat(identity, f"b c w h -> b (c repeat) w h", repeat=int(out.shape[1] / identity.shape[1]))
+                else:
+                    identity = identity[:, :out.shape[1], :, :]
 
-        out += identity
+            out += identity
         return out
 
 
 class AudioCNNTransformer(nn.Module):
-    def __init__(self, input_dim, nhead, num_encoder_layers, dim_feedforward, cnn_channels, kernel_size, dropout=0.1):
+    def __init__(self, input_dim, input_seg_len, n_segs,
+                 nhead, num_encoder_layers, dim_feedforward, cnn_channels, kernel_size, dropout=0.1, n_dim=256):
         super(AudioCNNTransformer, self).__init__()
-
         # CNN blocks with skip connections
         self.conv_block1 = ConvBlock(1, cnn_channels, kernel_size, dropout)
-        self.conv_block2 = ConvBlock(cnn_channels, 2 * cnn_channels, kernel_size, dropout)
+        self.conv_block2 = ConvBlock(cnn_channels, 1, kernel_size, dropout)
 
-        # Calculate the new sequence length after CNN
-        self.new_seq_len = (input_dim // 4)  # Adjust based on your CNN architecture
+        conv_out_input_dim = int((((input_dim - kernel_size[0] + 2) / 5) + 1 - kernel_size[0] + 2) / 5 + 1)
+        conv_out_input_seg_len = int((((input_seg_len * 2 - kernel_size[0] + 2) / 5) + 1 - kernel_size[0] + 2) / 5 + 1)
+
+        # fc layer that projects the dimension to transformer dimension
+        self.fc = nn.Linear(conv_out_input_dim * conv_out_input_seg_len, n_dim)
 
         # Transformer Encoder Layer
         encoder_layer = nn.TransformerEncoderLayer(
-            d_model=self.new_seq_len,
+            d_model=n_dim,
             nhead=nhead,
             dim_feedforward=dim_feedforward,
             dropout=dropout
@@ -65,7 +73,7 @@ class AudioCNNTransformer(nn.Module):
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_encoder_layers)
 
         # Regression Layer
-        self.regression = nn.Linear(self.new_seq_len * 2 * cnn_channels, 1)
+        self.regression = nn.Linear(n_dim * n_segs , 1)
 
     def forward(self, x):
         # x shape: (batch, n_segs, seg_timesteps * 2, embedding dimension)
@@ -78,6 +86,7 @@ class AudioCNNTransformer(nn.Module):
 
         # Flatten and transpose for Transformer
         x = x.view(batch_size, n_segs, -1).transpose(0, 1)  # (n_segs, batch, flattened emb_dim)
+        x = self.fc(x)
 
         # Apply Transformer Encoder
         transformer_output = self.transformer_encoder(x)
@@ -108,24 +117,25 @@ class AudioCNNTransformer(nn.Module):
 
 
 class RankerLightning(pl.LightningModule):
-    def __init__(self, cfg, device_, input_dim, learning_rate=0.001, encoder='jukebox'):
+    def __init__(self, cfg, ae_device, input_dim, input_seg_len, learning_rate=0.001, encoder='jukebox'):
         super(RankerLightning, self).__init__()
         # Define your model architecture
         self.model = AudioCNNTransformer(
-            input_dim=input_dim,  # Embedding dimension
-            nhead=4,
-            num_encoder_layers=2,
-            dim_feedforward=512,
-            cnn_channels=8,  # Number of CNN channels
-            kernel_size=(3, 3),  # Kernel size for CNN
+            input_dim=input_dim, 
+            input_seg_len=input_seg_len,
+            n_segs=cfg.dataset.n_segs,
+            nhead=2,
+            num_encoder_layers=1,
+            dim_feedforward=64,
+            cnn_channels=2,  # Number of CNN channels
+            kernel_size=(7, 7),  # Kernel size for CNN
             dropout=0.1
         )
-
+        self.ae_device = ae_device
         self.learning_rate = learning_rate
         self.cfg = cfg
-        self.device_ = device_
         self.encoder = encoder
-        self.audio_inits = init_encoder(encoder=encoder, device=device_)
+        self.audio_inits = init_encoder(encoder=encoder, device=ae_device)
 
         self.criterion = nn.MSELoss()
 
@@ -134,12 +144,9 @@ class RankerLightning(pl.LightningModule):
         self.f1 = torchmetrics.F1Score(num_classes=3, average='macro', task='multiclass')
         self.accuracy = torchmetrics.Accuracy(num_classes=3, task='multiclass')
 
-
     def forward(self, x):
-        x = self.layers(x)
-        x = rearrange(x, "b t 1 -> b t")
-        return torch.mean(x, dim=-1)
-
+        x = self.model(x)
+        return x
 
     def training_step(self, batch, batch_idx):
 
@@ -212,12 +219,12 @@ class RankerLightning(pl.LightningModule):
         return outputs, loss
 
     def batch_to_embedding(self, batch):
-        emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
-        emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.device_, self.audio_inits, recompute=self.cfg.recompute)
+        emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute)
+        emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute)
 
         # emb: ()
-        emb1 = emb1.to(self.device_)
-        emb2 = emb2.to(self.device_)
+        emb1 = emb1.to(self.device)
+        emb2 = emb2.to(self.device)
 
         # Concatenate or otherwise combine the embeddings
         combined_emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
@@ -269,15 +276,17 @@ def main(cfg: DictConfig):
         callbacks=[checkpoint_callback],
         max_epochs=50,
         accelerator="gpu",
-        devices=[cfg.gpu],
+        devices=cfg.gpu,
     )
 
     print("init model...")
-    device = torch.device(f'cuda:{cfg.gpu}')
+    device = torch.device(f'cuda:5')
 
     # Initialize your Lightning module
-    model = RankerLightning(cfg, device, 
-                            input_dim=encoder_input_dim(cfg.encoder), 
+    model = RankerLightning(cfg, 
+                            ae_device=device,
+                            input_dim=encoding_shape(cfg.encoder)[1], 
+                            input_seg_len=encoding_shape(cfg.encoder)[0],
                             encoder=cfg.encoder,
                             learning_rate=cfg.learning_rate)
     train_loader = DataLoader(

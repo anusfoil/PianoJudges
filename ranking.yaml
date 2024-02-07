@@ -11,21 +11,22 @@ random_seed: 13
 
 dataset:
   pair_mode: 'once'
+  n_segs: 30
   train:
-    batch_size: 8
-    num_workers: 4
+    batch_size: 2
+    num_workers: 0
     shuffle: True
   eval:
-    batch_size: 8
+    batch_size: 2
     shuffle: False
   test:
-    batch_size: 8
+    batch_size: 2
     shuffle: False
 
 model:
   learning_rate: 0.001
 
-gpu: 6
+gpu: [6]
 
 distributed:
   masterport: '12355'
