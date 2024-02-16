@@ -13,7 +13,7 @@ from einops import rearrange, reduce, repeat
 
 
 from tqdm import tqdm
-import  hook
+from .. import hook
 
 ################# Utility function for encoders ###################
 
@@ -129,7 +129,8 @@ def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=
         wav, fbank, _ = fp(audio_path, start_sec=i*segment_duration, dur_sec=segment_duration)
 
         fbank = rearrange(fbank, 'c t f -> 1 c t f').to(device_).to(torch.float16)
-        output = amae.get_audio_embedding(fbank)
+        with torch.no_grad():
+            output = amae.get_audio_embedding(fbank)
         embeddings.append(output["patch_embedding"])
 
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
@@ -247,7 +248,7 @@ def encoding_shape(encoder):
     if encoder == 'jukebox':
         return (3450, 64)
     elif encoder == 'mert':
-        return (750, 1024)
+        return (749, 1024)
     elif encoder == 'dac':
         return (870, 1024)
     elif encoder == 'audiomae':

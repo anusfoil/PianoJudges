@@ -1,16 +1,14 @@
-
-defaults:
-  - _self_
-
-encoder: 'jukebox'
+task: 'diff'
+encoder: 'dac'
 mode: 'train'
 recompute: False
-learning_rate: 0.0001
 epochs: 5
 random_seed: 13
+max_epochs: 500
+learning_rate: 1e-4
 
 dataset:
-  pair_mode: 'once'
+  num_classes: 8
   n_segs: 30
   train:
     batch_size: 2
@@ -23,8 +21,8 @@ dataset:
     batch_size: 2
     shuffle: False
 
-model:
-  learning_rate: 0.001
+defaults:
+  - model: AudioCNNTransformer
 
 gpu: [6]
 

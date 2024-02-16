@@ -1,0 +1,40 @@
+task: 'rank'
+encoder: 'jukebox'
+mode: 'train'
+recompute: False
+epochs: 5
+random_seed: 13
+max_epochs: 500
+learning_rate: 1e-4
+
+dataset:
+  num_classes: 3
+  pair_mode: 'once'
+  n_segs: 30
+  train:
+    batch_size: 2
+    num_workers: 0
+    shuffle: True
+  eval:
+    batch_size: 2
+    shuffle: False
+  test:
+    batch_size: 2
+    shuffle: False
+  
+
+defaults:
+  - model: AudioCNNTransformer
+
+gpu: [6]
+
+distributed:
+  masterport: '12355'
+
+# config.yaml
+
+
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .

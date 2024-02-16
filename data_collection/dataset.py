@@ -1,22 +1,25 @@
 import os, sys, math, itertools
 import pandas as pd
+import numpy as np
 import random
 from torch.utils.data import DataLoader, Dataset
 from omegaconf import OmegaConf
 from collections import OrderedDict, Counter
 
-import hook
+from .. import hook
 
 
 NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
 ADVANCED_PATH = '/import/c4dm-datasets/PianoJudge/advanced/metadata.csv'
 VIRTUOSO_PATH = '/import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv'
+DIFFICULTY_PATH = '/import/c4dm-datasets/ATEPP/atepp_metadata_difficulty_henle_.csv'
+ATEPP_DIR = '/import/c4dm-datasets/ATEPP-audio/'
 
 ICPC_PATH = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv'
 ICPC_RESULT_PATH = "/import/c4dm-datasets/ICPC2015-dataset/data/results.tsv"
 
 
-class PerformanceDataloader:
+class ExpertiseDataloader:
     def __init__(self, mode='train', split_ratio=0.8, pair_mode='all'):
         self.novice_data = pd.read_csv(NOVICE_PATH)
         self.advanced_data = pd.read_csv(ADVANCED_PATH)
@@ -54,7 +57,7 @@ class PerformanceDataloader:
         ] + [
             ('/import/c4dm-datasets/PianoJudge/advanced/' + row['id'] + ".wav", 1) for _, row in self.advanced_data.iterrows()
         ] + [
-            ('/import/c4dm-datasets/ATEPP-audio/' + row['audio_path'], 2) for _, row in self.virtuoso_data.iterrows()
+            (ATEPP_DIR + row['audio_path'], 2) for _, row in self.virtuoso_data.iterrows()
         ]
 
         # Create all possible pairs
@@ -93,20 +96,31 @@ class PerformanceDataloader:
 
 
 class ICPCDataloader:
-    def __init__(self, split_ratio=0.8):
+    def __init__(self, split_ratio=0.8, pair_mode='all'):
 
         self.metadata = pd.read_csv(ICPC_PATH)
         self.metadata = self.metadata[self.metadata['ranking_score'] != -1] # remove rows with no ranking score
 
+        self.pair_mode = pair_mode
         self.pairs = self.create_pairs()
 
 
     def create_pairs(self):
-        pairs = []
+        return_pairs = []
         label_counter = Counter()
-        for (idx1, row1), (idx2, row2) in itertools.combinations(self.metadata.iterrows(), 2):
-            path1 = row1['id'] + ".wav"
-            path2 = row2['id'] + ".wav"
+
+        if self.pair_mode == 'all':
+            pairs = list(itertools.combinations(self.metadata.iterrows(), 2))
+            reversed_pairs = [(b, a) for a, b in pairs]
+            all_pairs = pairs + reversed_pairs
+        elif self.pair_mode == 'once':
+            shuffled_data = random.sample(list(self.metadata.iterrows()), len(self.metadata))
+            it = iter(shuffled_data)
+            all_pairs = list(zip(it, it))
+
+        for (idx1, row1), (idx2, row2) in all_pairs:
+            path1 = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row1['id'] + ".wav"
+            path2 = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row2['id'] + ".wav"
             score1 = row1['ranking_score']
             score2 = row2['ranking_score']
 
@@ -119,11 +133,13 @@ class ICPCDataloader:
                 label = 0
 
             label_counter[label] += 1
-            pairs.append(((path1, path2), label))
+            return_pairs.append(((path1, path2), label))
 
         print(f"Label Distribution: {dict(label_counter)}")
 
-        return pairs
+        return return_pairs
+    
+
     def __len__(self):
         return len(self.pairs)
 
@@ -137,11 +153,45 @@ class ICPCDataloader:
         }
 
 
+class DifficultyDataloader:
+    def __init__(self, mode='train', split_ratio=0.8):
+
+        self.metadata = pd.read_csv(DIFFICULTY_PATH)
+        self.metadata = self.metadata[~self.metadata['difficulty_label'].isna()] # remove rows with no difficulty label
+
+        # Split based on the piece / movement to avoid leaking
+        piece_paths = self.metadata['piece_path'].unique()
+        random.shuffle(piece_paths)
+        total_pieces = len(piece_paths)
+        split_index = int(total_pieces * split_ratio)
+
+        if mode == 'train':
+            train_pieces = piece_paths[:split_index]
+            self.metadata = self.metadata[self.metadata['piece_path'].isin(train_pieces)]
+        elif mode == 'test':
+            test_pieces = piece_paths[split_index:]
+            self.metadata = self.metadata[self.metadata['piece_path'].isin(test_pieces)] 
+
+
+    def __len__(self):
+        return len(self.metadata)
+
+    def __getitem__(self, idx):
+        
+        p = ATEPP_DIR + self.metadata.iloc[idx]['audio_path']
+        label = int(self.metadata.iloc[idx]['difficulty_label'])
+        return {
+            "audio_path": p,
+            "label": label
+        }
+
+
 
 if __name__ == "__main__":
 
     # Create dataloader
-    dataloader = ICPCDataloader()
+    dataloader = DifficultyDataloader()
+    # dataloader = ICPCDatalocader()
     # dataloader = PerformanceDataloader()
 
     # Get pairs
