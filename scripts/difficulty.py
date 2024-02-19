@@ -16,7 +16,7 @@ from pytorch_lightning.loggers import WandbLogger
 
 from .utils import init_encoder, load_or_compute_embedding, encoding_shape
 from ..data_collection.dataset import DifficultyDataloader
-from .ranker_modules import PredictionHead
+from .modules_ import PredictionHead
 
 
 
@@ -38,7 +38,7 @@ def main(cfg: DictConfig):
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
-
+    print('here')
     experiment_name = f"{cfg.task}_{cfg.encoder}"
 
     # Checkpoint callback

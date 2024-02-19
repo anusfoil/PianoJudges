@@ -1,12 +1,23 @@
-https://www.youtube.com/@YidiDing/videos 
-https://www.youtube.com/@kevingao2000/videos 
-https://www.youtube.com/@VincentLing_/videos
-https://www.youtube.com/@andrewg6031/videos 
-https://www.youtube.com/@MEIHSIN/videos 
-https://www.youtube.com/@williamfengpiano/videos 
-https://www.youtube.com/@piano2010sept/videos 
-https://www.youtube.com/@shalynnchoipiano5612/videos 
-https://www.youtube.com/@jonah_ho/videos 
-https://www.youtube.com/@kevincareymusicalbrothers6344/videos 
-https://www.youtube.com/@lenagrozman/videos 
-https://www.youtube.com/@bellevuepianoteachers6208/videos 
+# https://www.youtube.com/@YidiDing/videos 
+# https://www.youtube.com/@kevingao2000/videos 
+# https://www.youtube.com/@VincentLing_/videos
+# https://www.youtube.com/@andrewg6031/videos 
+# https://www.youtube.com/@MEIHSIN/videos 
+# https://www.youtube.com/@williamfengpiano/videos 
+# https://www.youtube.com/@piano2010sept/videos 
+# https://www.youtube.com/@shalynnchoipiano5612/videos 
+# https://www.youtube.com/@jonah_ho/videos 
+# https://www.youtube.com/@kevincareymusicalbrothers6344/videos 
+# https://www.youtube.com/@lenagrozman/videos 
+# https://www.youtube.com/@bellevuepianoteachers6208/videos 
+# 
+https://www.youtube.com/@TheClassicalMusicTV/videos 
+# https://www.youtube.com/@BusoniInternational/videos
+# Cliburn has a mix of individual pieces and round videos. 
+https://www.youtube.com/@TheCliburn/videos
+# this one have timestamps and will need to be cutted. 
+# https://www.youtube.com/@SingaporeInternationalPianoCom/videos
+# 20~30 min videos, no timestamps
+# https://www.youtube.com/@aarhuscompetition/videos 
+https://www.youtube.com/@steinwaypianocompetitionbe2447/videos
+

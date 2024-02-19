@@ -1,6 +1,6 @@
 import hydra
 from omegaconf import DictConfig
-import hook
+from .. import hook
 import os, random
 import numpy as np
 import torch
@@ -13,9 +13,9 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
-from utils import init_encoder, load_or_compute_embedding, encoding_shape
-from data_collection.dataset import ExpertiseDataloader, ICPCDataloader
-from ranker_modules import PredictionHead
+from .utils import init_encoder, load_or_compute_embedding, encoding_shape
+from ..data_collection.dataset import ExpertiseDataloader, ICPCDataloader
+from .modules_ import PredictionHead
 
 
 

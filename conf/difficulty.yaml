@@ -5,17 +5,17 @@ recompute: False
 epochs: 5
 random_seed: 13
 max_epochs: 500
-learning_rate: 1e-4
+learning_rate: 1e-5
 
 dataset:
-  num_classes: 8
+  num_classes: 9
   n_segs: 30
   train:
-    batch_size: 2
+    batch_size: 8
     num_workers: 0
     shuffle: True
   eval:
-    batch_size: 2
+    batch_size: 8
     shuffle: False
   test:
     batch_size: 2
@@ -27,7 +27,7 @@ defaults:
 gpu: [6]
 
 distributed:
-  masterport: '12355'
+  masterport: '12356'
 
 # config.yaml
 

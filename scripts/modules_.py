@@ -152,12 +152,20 @@ class PredictionHead(pl.LightningModule):
         # Convert regression output to classification labels
         predicted_labels = self.output_to_label(outputs)
 
+        if self.cfg.task == 'rank': # rank: -1, 0, 1 -> 0, 1, 2
+            labels = labels + 1
+            predicted_labels = predicted_labels + 1
+        elif self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
+            labels = labels - 1
+            predicted_labels = predicted_labels - 1
+
         # Update metrics
         precision = self.precision_metric(predicted_labels, labels)
         recall = self.recall(predicted_labels, labels)
         f1_score = self.f1(predicted_labels, labels)
         accuracy = self.accuracy(predicted_labels, labels)
 
+        print(predicted_labels, labels)
         self.log('val_precision', precision, on_epoch=True, prog_bar=True)
         self.log('val_recall', recall, on_epoch=True, prog_bar=True)
         self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
@@ -211,14 +219,11 @@ class PredictionHead(pl.LightningModule):
     def batch_to_embedding(self, batch):
 
         if 'audio_path_1' in batch:
-            emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute)
-            emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute)
+            emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
+            emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
             emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
         else:
-            emb = load_or_compute_embedding(batch["audio_path"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute)
-
-        # emb1 = emb1.to(self.device)
-        # emb2 = emb2.to(self.device)
+            emb = load_or_compute_embedding(batch["audio_path"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
 
         return emb
 
@@ -226,7 +231,13 @@ class PredictionHead(pl.LightningModule):
     def output_to_label(self, output, threshold=1):
         '''thrshold: '''
         # Convert regression output to classification labels based on nearest point
-        return torch.argmin(torch.abs(torch.stack([output + threshold, output, output - threshold])), dim=0) - 1
+        # res = torch.argmin(torch.abs(torch.stack([output + threshold, output, output - threshold])), dim=0) - 1
+
+        label_classes = self.cfg.dataset.num_classes
+        # convert the output to the nearest label class integer (clip to the range of label_classes)
+        res = output.int().clip(0, label_classes - 1)
+
+        return res
 
 
     def configure_optimizers(self):

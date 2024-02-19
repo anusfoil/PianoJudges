@@ -4,24 +4,38 @@ import json
 import csv
 import glob
 import pandas as pd
-import hook
+from .. import hook
 
 
-def should_download(title, filter_keywords):
-    """ Check if the video should be downloaded based on the title. """
+def should_download(title, duration, filter_keywords, max_duration=600):
+    """Check if the video should be downloaded based on the title and duration.
+    
+    Args:
+        title (str): The title of the video.
+        duration (int): The duration of the video in seconds.
+        filter_keywords (list): A list of keywords to filter out.
+        max_duration (int): The maximum duration allowed for a video in seconds.
+        
+    Returns:
+        bool: True if the video should be downloaded, False otherwise.
+    """
+    # Check title against filter keywords
     for keyword in filter_keywords:
         if keyword.lower() in title.lower():
             return False
+    
+    # Check duration
+    if duration > max_duration:
+        return False
+    
     return True
 
 def download_channel_videos(url, filter_keywords):
-    # Check if the URL is a channel or a single video
+    # Command to fetch video information
     if "channel" in url or "user" in url:
-        # Channel URL: fetch video information from the channel
-        command = ['yt-dlp', '--dump-json', '--flat-playlist', url]
+        command = ['yt-dlp', '--dump-json', '--verbose', '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', '--flat-playlist', url]
     else:
-        # Single video URL: only fetch information for this video
-        command = ['yt-dlp', '--dump-json', url]
+        command = ['yt-dlp', '--dump-json', '--verbose', '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', url]
 
     # Get video information without downloading
     result = subprocess.run(command, stdout=subprocess.PIPE, text=True)
@@ -30,11 +44,12 @@ def download_channel_videos(url, filter_keywords):
     for video_info in videos_info:
         video_json = json.loads(video_info)
         title = video_json.get('title', '')
+        duration = video_json.get('duration', 0)  # Get the duration in seconds
         video_url = 'https://www.youtube.com/watch?v=' + video_json['id']
 
-        # Check if the video should be downloaded
-        if should_download(title, filter_keywords):
-            # Download the video if it passes the filter
+        # Check if the video should be downloaded based on title and duration
+        if should_download(title, duration, filter_keywords):
+            # Download command
             download_command = [
                 'yt-dlp',
                 '--format', 'bestaudio/best',
@@ -51,13 +66,12 @@ def download_channel_videos(url, filter_keywords):
             subprocess.run(download_command)
 
 
-
 def write_metadata_to_csv():
     metadata_files = glob.glob(os.path.join(DATA_DIR, '*.info.json'))
 
-    with open(os.path.join(DATA_DIR, 'metadata.csv'), 'w', newline='', encoding='utf-8') as file:
+    with open(os.path.join(DATA_DIR, 'metadata.csv'), 'a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(['id', 'title', 'upload_date', 'duration', 'view_count', 'like_count', 'dislike_count', 'comment_count', 'description', 'webpage_url', 'channel_url', 'comments'])
+        writer.writerow(['id', 'mark_sub_level', 'title', 'upload_date', 'duration', 'view_count', 'like_count', 'dislike_count', 'comment_count', 'description', 'webpage_url', 'channel_url', 'comments'])
 
         for metadata_file in metadata_files:
             with open(metadata_file, 'r', encoding='utf-8') as f:
@@ -71,6 +85,7 @@ def write_metadata_to_csv():
                         pass
                 writer.writerow([
                     metadata.get('id'),
+                    '',  # my custom field for my notes
                     metadata.get('title'), 
                     metadata.get('upload_date'), 
                     metadata.get('duration'),
@@ -83,6 +98,11 @@ def write_metadata_to_csv():
                     metadata.get('channel_url'),
                     comments
                 ])
+    
+    # make a copy of the metadata file
+    category = DATA_DIR.split('/')[-1]
+    os.system(f"cp {DATA_DIR}/metadata.csv {category}_metadata.csv")
+    print(f"{category}_metadata.csv")
 
 
 
@@ -101,7 +121,8 @@ def cleanup_artifacts():
 def delete_unreferenced_wav_files(metadata_path, audio_dir):
     # Load the updated metadata
     updated_metadata = pd.read_csv(metadata_path)
-    referenced_files = set(updated_metadata['path'])
+    referenced_files = list(updated_metadata['id'])
+    referenced_files = set(['/import/c4dm-datasets/PianoJudge/novice/' + path + '.wav' for path in referenced_files])
 
     # Get all .wav files in the directory
     wav_files = set(glob.glob(os.path.join(audio_dir, '*.wav')))
@@ -119,23 +140,25 @@ def delete_unreferenced_wav_files(metadata_path, audio_dir):
 
 if __name__ == "__main__":
 
-    category = 'novice'
+    category = 'advanced'
 
-    DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
-    url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
-    # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}"
-    # url_file = f"{category}_channels.txt"
+    # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
+    DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
+    url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
+    # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR)
     # channel_url = 'https://www.youtube.com/@nixxpiano'
 
     # Define keywords to filter out, and download
-    filter_keywords = ['concerto']
+    filter_keywords = ['concerto', 'duets']
     with open(url_file) as f:
         urls = f.readlines()
     for url in urls:
-        download_channel_videos(url, filter_keywords)
+        if url[0] != '#': # not commented out
+            download_channel_videos(url, filter_keywords)
 
     write_metadata_to_csv()
     cleanup_artifacts()
 
-    # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR)
+    

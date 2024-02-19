@@ -7,6 +7,7 @@ from omegaconf import OmegaConf
 from collections import OrderedDict, Counter
 
 from .. import hook
+import pandas as pd
 
 
 NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
@@ -154,23 +155,27 @@ class ICPCDataloader:
 
 
 class DifficultyDataloader:
-    def __init__(self, mode='train', split_ratio=0.8):
+    def __init__(self, mode='train', split_ratio=0.8, class_size=50, rs=42):
+        # Read the metadata CSV file
+        metadata = pd.read_csv(DIFFICULTY_PATH)
+        metadata = metadata[~metadata['difficulty_label'].isna()]  # Remove rows with no difficulty label
 
-        self.metadata = pd.read_csv(DIFFICULTY_PATH)
-        self.metadata = self.metadata[~self.metadata['difficulty_label'].isna()] # remove rows with no difficulty label
+        # Sample for class balance regarding difficulty_label
+        class_counts = metadata['difficulty_label'].value_counts()
+        sampled_metadata = metadata.groupby('difficulty_label').apply(lambda x: x.sample(class_size, replace=True, random_state=rs))
 
-        # Split based on the piece / movement to avoid leaking
-        piece_paths = self.metadata['piece_path'].unique()
-        random.shuffle(piece_paths)
+        # Split based on the piece/movement to avoid leaking
+        piece_paths = sampled_metadata['piece_path'].unique()
+        random.Random(rs).shuffle(piece_paths)
         total_pieces = len(piece_paths)
         split_index = int(total_pieces * split_ratio)
 
         if mode == 'train':
             train_pieces = piece_paths[:split_index]
-            self.metadata = self.metadata[self.metadata['piece_path'].isin(train_pieces)]
+            self.metadata = sampled_metadata[sampled_metadata['piece_path'].isin(train_pieces)]
         elif mode == 'test':
             test_pieces = piece_paths[split_index:]
-            self.metadata = self.metadata[self.metadata['piece_path'].isin(test_pieces)] 
+            self.metadata = sampled_metadata[sampled_metadata['piece_path'].isin(test_pieces)]
 
 
     def __len__(self):

@@ -182,6 +182,11 @@ def load_or_compute_embedding(audio_paths, method, ae_device, audio_inits, recom
         save_path = save_path.replace('ATEPP-audio', 'ATEPP-audio-embeddings')
         os.makedirs("/".join(save_path.split("/")[:-1]), exist_ok=True)
 
+        try:
+            embedding = torch.from_numpy(np.load(save_path))
+        except:
+            recompute = True
+            
         if os.path.exists(save_path) and (not recompute):
             embedding = torch.from_numpy(np.load(save_path))
 
