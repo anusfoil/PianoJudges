@@ -1,6 +1,6 @@
 import hydra
 from omegaconf import DictConfig
-from .. import hook
+import hook
 import os, random
 import numpy as np
 import torch
@@ -63,11 +63,11 @@ def main(cfg: DictConfig):
     )
 
     print("init model...")
-    device = torch.device(f'cuda:5')
+    if cfg.encoder == 'mert' or cfg.encoder ==  'audiomae': # some hydra config version diff...
+        cfg.model = cfg.model.model
 
     # Initialize your Lightning module
     model = PredictionHead(cfg, 
-                            ae_device=device,
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
     train_loader = DataLoader(
@@ -91,7 +91,6 @@ def main(cfg: DictConfig):
     elif cfg.mode == 'test':
         model = PredictionHead.load_from_checkpoint(checkpoint_path="checkpoints/enc_dac/epoch=44-step=3915-val_loss=0.47.ckpt", 
                                     cfg=cfg,
-                                    ae_device=device,
                                     embedding_dim=encoding_shape(cfg.encoder)[1], 
                                     embedding_len=encoding_shape(cfg.encoder)[0]
                                     )

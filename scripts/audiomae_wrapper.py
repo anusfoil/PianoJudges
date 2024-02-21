@@ -9,7 +9,7 @@ from torch import nn
 
 import sys
 sys.path.append("AudioMAE")
-from AudioMAE import models_vit
+from ..AudioMAE import models_vit
 
 
 class PatchEmbed(nn.Module):

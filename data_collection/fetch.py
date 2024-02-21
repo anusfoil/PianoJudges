@@ -4,10 +4,10 @@ import json
 import csv
 import glob
 import pandas as pd
-from .. import hook
+import numpy as np
+import hook
 
-
-def should_download(title, duration, filter_keywords, max_duration=600):
+def should_download(title, duration, filter_keywords, max_duration=300):
     """Check if the video should be downloaded based on the title and duration.
     
     Args:
@@ -118,11 +118,11 @@ def cleanup_artifacts():
 
 
 
-def delete_unreferenced_wav_files(metadata_path, audio_dir):
+def delete_unreferenced_wav_files(metadata_path, audio_dir, category):
     # Load the updated metadata
     updated_metadata = pd.read_csv(metadata_path)
     referenced_files = list(updated_metadata['id'])
-    referenced_files = set(['/import/c4dm-datasets/PianoJudge/novice/' + path + '.wav' for path in referenced_files])
+    referenced_files = set([f'/import/c4dm-datasets/PianoJudge/{category}/' + path + '.wav' for path in referenced_files])
 
     # Get all .wav files in the directory
     wav_files = set(glob.glob(os.path.join(audio_dir, '*.wav')))
@@ -136,18 +136,77 @@ def delete_unreferenced_wav_files(metadata_path, audio_dir):
         print(f"Deleted: {file_path}")
 
 
+def recover_download(csv_file_path, output_directory):
+    """
+    Download audio files from YouTube based on IDs in a CSV file.
+
+    Parameters:
+    - csv_file_path: Path to the CSV file containing YouTube video IDs.
+    - output_directory: Directory where the .wav files will be saved.
+    """
+
+    # Read the YouTube IDs from the CSV file
+    with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        youtube_ids = [row['id'] for row in reader if int(row['duration']) < 400] # only download videos less than 5min (a bit tolerance)
+
+    for youtube_id in youtube_ids:
+        # Construct the YouTube URL
+        url = f"https://www.youtube.com/watch?v={youtube_id}"
+
+        # Define the yt-dlp command to download the audio as .wav
+        command = [
+            'yt-dlp',
+            '-x',  # Extract audio
+            '--audio-format', 'wav',  # Convert audio to wav format
+            '--audio-quality', '0',  # Best audio quality
+            '-o', f'{output_directory}/%(id)s.%(ext)s',  # Output template
+            url  # YouTube URL
+        ]
+
+        # Execute the download command
+        try:
+            subprocess.run(command, check=True)
+            print(f"Downloaded and converted {youtube_id} successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to download {youtube_id}: {e}")
+
+
+def delete_large_embeddings(directory):
+    """
+    Delete .npy audio embeddings with the first dimension size greater than 400.
+
+    Parameters:
+    - directory: The directory to scan for .npy files.
+    """
+    
+    # Loop through all files in the specified directory
+    for file in os.listdir(directory):
+        if file.endswith(".npy"):
+            file_path = os.path.join(directory, file)
+            # embedding = np.load(file_path)
+            # Check the size of the first dimension
+            if '_jukebox.npy' in file_path:
+            # if embedding.shape[0] > 400:
+                # Delete the file if the first dimension is greater than 400
+                os.remove(file_path)
+                print(f"Deleted {file_path} due to size constraint.")
+
 
 
 if __name__ == "__main__":
 
-    category = 'advanced'
+    category = 'novice'
 
     # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
     # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
     DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
     url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
-    # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR)
+    # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR, category)
+    # recover_download(DATA_DIR + "metadata.csv", DATA_DIR)
+    delete_large_embeddings(DATA_DIR)
+    hook()
     # channel_url = 'https://www.youtube.com/@nixxpiano'
 
     # Define keywords to filter out, and download

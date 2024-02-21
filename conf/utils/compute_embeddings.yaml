@@ -1,0 +1,23 @@
+
+port: 17574
+
+category:
+  novice:
+    folder_path: /import/c4dm-datasets/PianoJudge/novice/
+    metadata: /import/c4dm-datasets/PianoJudge/novice/metadata.csv
+    save_path: /import/c4dm-datasets/PianoJudge/novice/
+  advanced:
+    folder_path: /import/c4dm-datasets/PianoJudge/advanced/
+    metadata: /import/c4dm-datasets/PianoJudge/advanced/metadata.csv
+    save_path: /import/c4dm-datasets/PianoJudge/advanced/
+  atepp:
+    folder_path: /import/c4dm-datasets/ATEPP-audio/
+    metadata: /import/c4dm-datasets/ATEPP-audio/metadata.csv
+    save_path: /import/c4dm-datasets/ATEPP-audio-embeddings/
+
+encoder:
+  # - dac
+  # - jukebox
+  - mert
+  - audiomae
+  

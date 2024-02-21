@@ -1,4 +1,3 @@
-from .. import hook
 import numpy as np
 import torch
 from torch import nn
@@ -6,9 +5,10 @@ import torchmetrics
 import torch.distributed as dist
 from sklearn.metrics import classification_report
 from einops import reduce, rearrange, repeat
+import hook
 
 import pytorch_lightning as pl
-from .utils import init_encoder, load_or_compute_embedding, encoding_shape
+from .utils import init_encoder, load_embedding_from_hdf5, encoding_shape
 
 
 class ConvBlock(nn.Module):
@@ -103,7 +103,7 @@ class AudioCNNTransformer(nn.Module):
 
 
 class PredictionHead(pl.LightningModule):
-    def __init__(self, cfg, ae_device, embedding_dim, embedding_len):
+    def __init__(self, cfg, embedding_dim, embedding_len):
         super(PredictionHead, self).__init__()
         self.save_hyperparameters()
 
@@ -117,11 +117,10 @@ class PredictionHead(pl.LightningModule):
             n_segs=cfg.dataset.n_segs,
             **cfg.model.args
         )
-        self.ae_device = ae_device
         self.learning_rate = cfg.learning_rate
         self.cfg = cfg
         self.encoder = cfg.encoder
-        self.audio_inits = init_encoder(encoder=cfg.encoder, device=ae_device)
+        self.audio_inits = init_encoder(encoder=cfg.encoder, device=torch.device(f'cuda:{cfg.gpu[0]}'))   
 
         self.criterion = nn.MSELoss()
 
@@ -219,11 +218,11 @@ class PredictionHead(pl.LightningModule):
     def batch_to_embedding(self, batch):
 
         if 'audio_path_1' in batch:
-            emb1 = load_or_compute_embedding(batch["audio_path_1"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
-            emb2 = load_or_compute_embedding(batch["audio_path_2"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
+            emb1 = load_embedding_from_hdf5(batch["audio_path_1"], self.encoder, self.device).to(self.device)
+            emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, self.device).to(self.device)
             emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
         else:
-            emb = load_or_compute_embedding(batch["audio_path"], self.encoder, self.ae_device, self.audio_inits, recompute=self.cfg.recompute).to(self.device)
+            emb = load_embedding_from_hdf5(batch["audio_path"], self.encoder, self.device).to(self.device)
 
         return emb
 

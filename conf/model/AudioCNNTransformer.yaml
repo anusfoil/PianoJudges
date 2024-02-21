@@ -1,11 +1,12 @@
-name: 'AudioCNNTransformer'
-args:
-  nhead: 2
-  num_encoder_layers: 1
-  dim_feedforward: 64
-  dim_transformer: 128
-  cnn_channels: 2 
-  kernel_size: 7
-  dropout: 0.1
-  padding: 1
-  stride: 5
+model:
+  name: 'AudioCNNTransformer'
+  args:
+    nhead: 2
+    num_encoder_layers: 1
+    dim_feedforward: 64
+    dim_transformer: 128
+    cnn_channels: 2 
+    kernel_size: 7
+    dropout: 0.1
+    padding: 1
+    stride: 5

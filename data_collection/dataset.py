@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, Dataset
 from omegaconf import OmegaConf
 from collections import OrderedDict, Counter
 
-from .. import hook
+import hook
 import pandas as pd
 
 
@@ -25,6 +25,11 @@ class ExpertiseDataloader:
         self.novice_data = pd.read_csv(NOVICE_PATH)
         self.advanced_data = pd.read_csv(ADVANCED_PATH)
         self.virtuoso_data = pd.read_csv(VIRTUOSO_PATH)
+
+        # limit the duration of the piece to 5 minutes
+        self.novice_data = self.novice_data[self.novice_data['duration'].astype(int) < 400]
+        self.advanced_data = self.advanced_data[self.advanced_data['duration'].astype(int) < 400]
+        self.virtuoso_data = self.virtuoso_data[self.virtuoso_data['audio_duration'].astype(int) < 400]
 
         self.pair_mode = pair_mode
 
@@ -155,10 +160,11 @@ class ICPCDataloader:
 
 
 class DifficultyDataloader:
-    def __init__(self, mode='train', split_ratio=0.8, class_size=50, rs=42):
+    def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
         # Read the metadata CSV file
         metadata = pd.read_csv(DIFFICULTY_PATH)
         metadata = metadata[~metadata['difficulty_label'].isna()]  # Remove rows with no difficulty label
+        metadata = metadata[metadata['audio_duration'] < 400]
 
         # Sample for class balance regarding difficulty_label
         class_counts = metadata['difficulty_label'].value_counts()

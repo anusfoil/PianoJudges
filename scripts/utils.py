@@ -1,4 +1,4 @@
-import os, gc
+import os, glob
 import numpy as np
 import torch
 from torch import nn
@@ -7,13 +7,15 @@ from torch.optim import Adam
 # import torchaudio
 # import torchaudio.transforms as T
 from torch.utils.data import DataLoader, Sampler
+import h5py
+import torch.distributed as dist
 
 from scipy.signal import resample
 from einops import rearrange, reduce, repeat
 
-
+import hook
 from tqdm import tqdm
-from .. import hook
+from ..data_collection.dataset import *
 
 ################# Utility function for encoders ###################
 
@@ -39,13 +41,19 @@ def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment
 
         offset = i * segment_duration
         audio_seg = audio[offset * resample_rate: (offset + segment_duration) * resample_rate]
-        input_features = processor(audio_seg.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True)
+        input_features = processor(audio_seg.squeeze(0), sampling_rate=resample_rate, return_tensors="pt", padding=True).to(model.device)
 
-        with torch.no_grad():
-            outputs = model(**input_features, output_hidden_states=True)
+        try:
+            with torch.no_grad():
+                outputs = model(**input_features, output_hidden_states=True)
+        except:
+            print(f"embedding failed to compute for {audio_path}, seg {i}")
 
         all_layer_hidden_states = torch.stack(outputs.hidden_states).squeeze() 
         embeddings.append(all_layer_hidden_states[-1, :, :])
+
+    if num_segments == 0:
+        embeddings = [torch.zeros(749, 1024)]
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     assert(embeddings.shape[1:] == torch.Size([749, 1024]))
@@ -69,6 +77,9 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
         audio_seg =  rearrange(audio_seg, "t -> 1 t 1").to(device_)
 
         embeddings.append(encode(vqvae, audio_seg.contiguous()))
+
+    if num_segments == 0:
+        embeddings = [torch.zeros(1, 3445, 64)]
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     embeddings = rearrange(embeddings, "b 1 e t -> b t e")
@@ -133,6 +144,9 @@ def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=
             output = amae.get_audio_embedding(fbank)
         embeddings.append(output["patch_embedding"])
 
+    if num_segments == 0:
+        embeddings = [torch.zeros(512, 768)]
+
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     assert(embeddings.shape[-2:] == torch.Size([512, 768]))
     return rearrange(embeddings, "s 1 t e -> s t e") # (n_segs, 512, 768)
@@ -174,7 +188,7 @@ def pad_and_clip_sequences(sequences, max_length):
     assert(padded_sequences.shape[1] == max_length)
     return padded_sequences
 
-def load_or_compute_embedding(audio_paths, method, ae_device, audio_inits, recompute=False):
+def load_or_compute_embedding(audio_paths, method, device, audio_inits, recompute=False):
 
     embeddings = []
     for audio_path in audio_paths:
@@ -195,12 +209,12 @@ def load_or_compute_embedding(audio_paths, method, ae_device, audio_inits, recom
 
             if (embedding.shape[-2:] != encoding_shape(method)):
                 print(f"Embedding shape mismatch for {audio_path} with shape {embedding.shape} for method {method}, recomputing")
-                embedding = compute_audio_embeddings(audio_path, audio_inits, method, ae_device)
+                embedding = compute_audio_embeddings(audio_path, audio_inits, method, device)
                 np.save(save_path, embedding.cpu().detach().numpy())
 
         else:
             # Now you can call compute_audio_embeddings with the method of choice:
-            embedding = compute_audio_embeddings(audio_path, audio_inits, method, ae_device)
+            embedding = compute_audio_embeddings(audio_path, audio_inits, method, device)
             np.save(save_path, embedding.cpu().detach().numpy())
 
         embeddings.append(embedding)
@@ -211,6 +225,27 @@ def load_or_compute_embedding(audio_paths, method, ae_device, audio_inits, recom
 
     return embeddings
 
+
+def load_embedding_from_hdf5(audio_paths, encoder, device):
+
+    embeddings = []
+
+    for audio_path in audio_paths:
+        parent_folder = "/".join(audio_path.split("/")[:-1])
+        hdf5_path = os.path.join(parent_folder, f"{encoder}_embeddings.hdf5")
+
+        with h5py.File(hdf5_path, 'r') as hdf5_file:
+            audio_id = os.path.basename(audio_path).split('.')[0]
+
+            if audio_id in hdf5_file:
+                embedding_np = hdf5_file[audio_id][:]
+                embedding = torch.from_numpy(embedding_np).to(device)
+                embeddings.append(embedding)
+            else:
+                print(f"Embedding for {audio_id} not found.")
+    
+    embeddings = pad_and_clip_sequences(embeddings, 30)  # Adjust as necessary
+    return embeddings
 
 
 def init_encoder(encoder, device):
@@ -223,7 +258,7 @@ def init_encoder(encoder, device):
         from transformers import Wav2Vec2FeatureExtractor
         from transformers import AutoModel
 
-        audio_encoder = AutoModel.from_pretrained("m-a-p/MERT-v1-330M", trust_remote_code=True)
+        audio_encoder = AutoModel.from_pretrained("m-a-p/MERT-v1-330M", trust_remote_code=True).to(device)
         # loading the corresponding preprocessor config
         processor = Wav2Vec2FeatureExtractor.from_pretrained("m-a-p/MERT-v1-330M",trust_remote_code=True)
         return {"audio_encoder": audio_encoder, 
@@ -239,10 +274,10 @@ def init_encoder(encoder, device):
     
 
     if encoder == 'audiomae':
-        from audio_processor import _fbankProcessor
-        from audiomae_wrapper import AudioMAE
+        from .audio_processor import _fbankProcessor
+        from .audiomae_wrapper import AudioMAE
 
-        amae = AudioMAE.create_audiomae(ckpt_path='AudioMAE/finetuned.pth', device=device)
+        amae = AudioMAE.create_audiomae(ckpt_path='/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth', device=device)
 
         return {'audio_encoder': amae,
                 'fp': _fbankProcessor.build_processor()}
@@ -251,7 +286,7 @@ def init_encoder(encoder, device):
 
 def encoding_shape(encoder):
     if encoder == 'jukebox':
-        return (3450, 64)
+        return (3445, 64)
     elif encoder == 'mert':
         return (749, 1024)
     elif encoder == 'dac':
@@ -259,6 +294,32 @@ def encoding_shape(encoder):
     elif encoder == 'audiomae':
         return (512, 768)
 
+
+
+def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, device, audio_inits):
+    hdf5_path = os.path.join(save_path, f"{encoder}_embeddings.hdf5")
+
+    metadata = pd.read_csv(metadata)
+    if 'duration' in metadata.columns:
+        metadata = metadata[metadata['duration'].astype(int) < 400]
+    else:
+        metadata = metadata[metadata['audio_duration'].astype(int) < 400]
+
+    with h5py.File(hdf5_path, 'w') as hdf5_file:
+        if 'id' in metadata.columns:
+            audio_ids = metadata['id'].tolist()
+        
+
+        for audio_id in tqdm(audio_ids):
+            wav_path = os.path.join(folder_with_wavs, audio_id + ".wav")
+            
+            # Compute the embeddings
+            embedding = compute_audio_embeddings(wav_path, audio_inits, encoder, device)
+            embedding_np = embedding.cpu().detach().numpy()
+
+            # Save the embedding
+            hdf5_file.create_dataset(audio_id, data=embedding_np, compression="gzip")
+    
 
 ################# Utility function for Jukebox ###################
 
@@ -358,6 +419,36 @@ def encode(vqvae, x):
 
 
 
+
+import hydra
+from omegaconf import DictConfig
+
+@hydra.main(config_path="/homes/hz009/Research/PianoJudge/conf/utils/", config_name='compute_embeddings')
+def main(cfg: DictConfig):
+    # Set the environment variables for distributed training
+    os.environ['MASTER_ADDR'] = 'localhost'  # or the IP address of the master node
+    os.environ['MASTER_PORT'] = str(cfg.port)  # an open port
+    os.environ['WORLD_SIZE'] = '1'           # total number of processes
+    os.environ['RANK'] = '0'                 # rank of this process
+    os.environ['HYDRA_FULL_ERROR'] = '1'
+    os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
+
+    dist.init_process_group(backend="nccl", init_method="env://")
+
+    device = torch.device('cuda:6')
+
+    for category in cfg.category:
+        for encoder in cfg.encoder:
+            audio_inits = init_encoder(encoder, device)
+            compute_all_embeddings(encoder, cfg.category[category].folder_path, 
+                                            cfg.category[category].metadata, 
+                                            cfg.category[category].save_path, device, audio_inits)
+            print(f"Embeddings for {encoder} in {category} computed and saved.")
+
+
+if __name__ == '__main__':
+
+    main()
 
 
 
