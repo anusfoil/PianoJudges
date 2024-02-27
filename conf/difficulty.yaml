@@ -1,5 +1,6 @@
 task: 'diff'
 encoder: 'dac'
+use_trained: False
 mode: 'train'
 recompute: False
 epochs: 5

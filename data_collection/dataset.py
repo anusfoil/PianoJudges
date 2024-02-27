@@ -8,6 +8,7 @@ from collections import OrderedDict, Counter
 
 import hook
 import pandas as pd
+from ..scripts.utils import *
 
 
 NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
@@ -21,7 +22,7 @@ ICPC_RESULT_PATH = "/import/c4dm-datasets/ICPC2015-dataset/data/results.tsv"
 
 
 class ExpertiseDataloader:
-    def __init__(self, mode='train', split_ratio=0.8, pair_mode='all'):
+    def __init__(self, mode='train', split_ratio=0.8, pair_mode='all', num_classes=2):
         self.novice_data = pd.read_csv(NOVICE_PATH)
         self.advanced_data = pd.read_csv(ADVANCED_PATH)
         self.virtuoso_data = pd.read_csv(VIRTUOSO_PATH)
@@ -29,12 +30,29 @@ class ExpertiseDataloader:
         # limit the duration of the piece to 5 minutes
         self.novice_data = self.novice_data[self.novice_data['duration'].astype(int) < 400]
         self.advanced_data = self.advanced_data[self.advanced_data['duration'].astype(int) < 400]
-        self.virtuoso_data = self.virtuoso_data[self.virtuoso_data['audio_duration'].astype(int) < 400]
+        self.virtuoso_data = self.virtuoso_data[self.virtuoso_data['audio_duration'].astype(int) < 300]
+
+        # check how many of the atepp are computed
+        # hdf5_path = f"/import/c4dm-datasets-ext/ATEPP-audio-embeddings/dac_embeddings.hdf5" 
+        # hdf5_file = h5py.File(hdf5_path, 'r')
+        # for ap in self.virtuoso_data['audio_path']:
+        #     dataset = traverse_long_id(hdf5_file, ap[:-4])
 
         self.pair_mode = pair_mode
-
         self.balance_data()
-        self.pairs = self.create_pairs()
+
+        if num_classes == 2: # only comparing intra-groups
+            novice_data = [('/import/c4dm-datasets/PianoJudge/novice/' + row['id'] + ".wav", 0) for _, row in self.novice_data.iterrows()]
+            advanced_data = [('/import/c4dm-datasets/PianoJudge/advanced/' + row['id'] + ".wav", 1) for _, row in self.advanced_data.iterrows()]
+            virtuoso_data = [(ATEPP_DIR + row['audio_path'], 2) for _, row in self.virtuoso_data.iterrows()]
+
+            if self.pair_mode == 'all':
+                self.pairs = self.create_all_pairs([novice_data, advanced_data, virtuoso_data])
+            elif self.pair_mode == 'once':
+                self.pairs = self.create_once_pairs([novice_data, advanced_data, virtuoso_data])
+        elif num_classes == 3:
+            self.pairs = self.create_pairs()
+
 
         # Split the data into train and test
         total_pairs = len(self.pairs)
@@ -56,6 +74,30 @@ class ExpertiseDataloader:
         self.virtuoso_data = self.virtuoso_data.sample(n=min_size, random_state=42)
 
 
+    # Function to create all possible pairs
+    def create_all_pairs(self, groups):
+        pairs = []
+        for group1, group2 in itertools.combinations(groups, 2):
+            for item1 in group1:
+                for item2 in group2:
+                    pairs.append(((item1, item2), 0 if item1[1] > item2[1] else 1))
+        return pairs
+
+    # Function to create pairs such that each recording is included at least once
+    def create_once_pairs(self, groups):
+        pairs = []
+        for group1, group2 in itertools.combinations(groups, 2):
+            # Combine the groups and shuffle
+            combined = list(group1) + list(group2)
+            random.shuffle(combined)   # note: the random seed would be fixed in each run
+
+            # Pair up the shuffled items
+            for i in range(0, len(combined), 2):
+                if i + 1 < len(combined):
+                    pairs.append(((combined[i], combined[i+1]), 0 if combined[i][1] > combined[i+1][1] else 1))
+        return pairs
+
+
     def create_pairs(self):
         # Combine all data with labels: 0 for novice, 1 for advanced, 2 for virtuoso
         combined_data = [
@@ -72,18 +114,18 @@ class ExpertiseDataloader:
             reversed_pairs = [(b, a) for a, b in pairs]
             all_pairs = pairs + reversed_pairs
         elif self.pair_mode == 'once':
-            shuffled_data = random.sample(combined_data, len(combined_data))
+            shuffled_data = random.sample(combined_data, len(combined_data))   # note: the random seed would be fixed in each run
             it = iter(shuffled_data)
             all_pairs = list(zip(it, it))
 
         # Assign labels to pairs: 1 if first is better, -1 if second is better, 0 if same level
         labeled_pairs = []
         for (path1, level1), (path2, level2) in all_pairs:
-            label = 0
+            label = 1
             if level1 > level2:
-                label = 1
+                label = 0
             elif level1 < level2:
-                label = -1
+                label = 2
             labeled_pairs.append(((path1, path2), label))
 
         return labeled_pairs
@@ -201,9 +243,9 @@ class DifficultyDataloader:
 if __name__ == "__main__":
 
     # Create dataloader
-    dataloader = DifficultyDataloader()
+    # dataloader = DifficultyDataloader()
     # dataloader = ICPCDatalocader()
-    # dataloader = PerformanceDataloader()
+    dataloader = ExpertiseDataloader()
 
     # Get pairs
     pairs = dataloader.get_data()

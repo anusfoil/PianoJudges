@@ -3,8 +3,10 @@ import torch
 from torch import nn
 import torchmetrics
 import torch.distributed as dist
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 from einops import reduce, rearrange, repeat
+import matplotlib.pyplot as plt
+import itertools
 import hook
 
 import pytorch_lightning as pl
@@ -47,7 +49,7 @@ class ConvBlock(nn.Module):
 class AudioCNNTransformer(nn.Module):
     def __init__(self, h, w, n_segs,
                  nhead, num_encoder_layers, dim_feedforward, dim_transformer, 
-                 cnn_channels, kernel_size, dropout, padding, stride):
+                 cnn_channels, kernel_size, dropout, padding, stride, out_classes=1):
         super(AudioCNNTransformer, self).__init__()
         # CNN blocks with skip connections
         self.conv_block1 = ConvBlock(1, cnn_channels, kernel_size, dropout, padding, stride)
@@ -69,7 +71,7 @@ class AudioCNNTransformer(nn.Module):
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_encoder_layers)
 
         # Regression Layer
-        self.regression = nn.Linear(dim_transformer * n_segs , 1)
+        self.regression = nn.Linear(dim_transformer * n_segs , out_classes)
 
     def forward(self, x):
         # x shape: (batch, n_segs, seg_timesteps * 2, embedding dimension)
@@ -115,6 +117,7 @@ class PredictionHead(pl.LightningModule):
             h=embedding_dim, 
             w=embedding_len,
             n_segs=cfg.dataset.n_segs,
+            out_classes=cfg.dataset.num_classes if cfg.objective == "classification" else 1,
             **cfg.model.args
         )
         self.learning_rate = cfg.learning_rate
@@ -122,7 +125,14 @@ class PredictionHead(pl.LightningModule):
         self.encoder = cfg.encoder
         self.audio_inits = init_encoder(encoder=cfg.encoder, device=torch.device(f'cuda:{cfg.gpu[0]}'))   
 
-        self.criterion = nn.MSELoss()
+        # Set criterion based on the task
+        if cfg.objective == "classification":
+            self.projection = nn.Linear(embedding_dim, cfg.dataset.num_classes)
+            self.criterion = nn.CrossEntropyLoss()
+            self.label_dtype = torch.long
+        else:  # default to regression if not classification
+            self.criterion = nn.MSELoss()
+            self.label_dtype = torch.float32
 
         self.precision_metric = torchmetrics.Precision(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
         self.recall = torchmetrics.Recall(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
@@ -132,31 +142,21 @@ class PredictionHead(pl.LightningModule):
 
     def forward(self, x):
         x = self.model(x)
+        # If classification, add a softmax layer to project the logits to probabilities
+        if self.cfg.objective == "classification":
+            x = torch.softmax(x, dim=-1)
         return x
 
     def training_step(self, batch, batch_idx):
-
         outputs, loss = self.train_valid_pass(batch)
         self.log("train_loss", loss)
         return loss
 
     def validation_step(self, batch, batch_idx):
-
         outputs, loss = self.train_valid_pass(batch)
         self.log("val_loss", loss)
 
-        # Convert labels to tensor
-        labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device)
-
-        # Convert regression output to classification labels
-        predicted_labels = self.output_to_label(outputs)
-
-        if self.cfg.task == 'rank': # rank: -1, 0, 1 -> 0, 1, 2
-            labels = labels + 1
-            predicted_labels = predicted_labels + 1
-        elif self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
-            labels = labels - 1
-            predicted_labels = predicted_labels - 1
+        labels, predicted_labels = self.outputs_conversion(batch, outputs)
 
         # Update metrics
         precision = self.precision_metric(predicted_labels, labels)
@@ -170,14 +170,54 @@ class PredictionHead(pl.LightningModule):
         self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
         self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
 
-        return loss
+        return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
+
+
+    def validation_epoch_end(self, outputs):
+        all_true_labels = torch.cat([x['true_labels'] for x in outputs], dim=0).cpu().numpy()
+        all_predicted_labels = torch.cat([x['predicted_labels'] for x in outputs], dim=0).cpu().numpy()
+
+        # Calculate the confusion matrix
+        cm = confusion_matrix(all_true_labels, all_predicted_labels)
+        class_names = [str(i) for i in range(self.cfg.dataset.num_classes)]
+
+        # Plot the confusion matrix
+        fig, ax = plt.subplots(figsize=(10, 10))
+        im = ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+        ax.figure.colorbar(im, ax=ax)
+        ax.set(xticks=np.arange(cm.shape[1]),
+            yticks=np.arange(cm.shape[0]),
+            xticklabels=class_names, yticklabels=class_names,
+            title='Confusion Matrix',
+            ylabel='True label',
+            xlabel='Predicted label')
+
+        # Rotate the tick labels and set their alignment
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+
+        # Loop over data dimensions and create text annotations
+        fmt = 'd'
+        thresh = cm.max() / 2.
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            ax.text(j, i, format(cm[i, j], fmt),
+                    ha="center", va="center",
+                    color="white" if cm[i, j] > thresh else "black")
+        fig.tight_layout()
+
+        # Check if wandb is used and log the plot
+        if self.logger and isinstance(self.logger, pl.loggers.WandbLogger):
+            import wandb
+            wandb.log({"confusion_matrix": wandb.Image(fig)})
+
+        plt.close(fig)
+
 
     def train_valid_pass(self, batch):
 
         emb = self.batch_to_embedding(batch).to(self.device)
 
         # Convert labels to tensor
-        labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device)
+        labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
 
         # Forward pass
         outputs = self(emb)
@@ -191,11 +231,7 @@ class PredictionHead(pl.LightningModule):
         combined_emb = self.batch_to_embedding(batch)
         outputs = self(combined_emb)  # Regression output
 
-        # Convert labels to tensor
-        labels = torch.tensor(batch["label"], dtype=torch.float32, device=self.device)
-
-        # Convert regression output to classification labels based on nearest point
-        predicted_labels = self.output_to_label(outputs)
+        labels, predicted_labels = self.outputs_conversion(batch, outputs)
 
         loss = self.criterion(outputs, labels)
         # print(loss.item())
@@ -215,11 +251,26 @@ class PredictionHead(pl.LightningModule):
         loss = self.criterion(torch.tensor(all_predicted_outputs), torch.tensor(all_true_labels))
 
 
+    def outputs_conversion(self, batch, outputs):
+        # Convert labels to tensor
+        labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
+
+        if self.cfg.objective == "classification":
+            predicted_labels = outputs.max(dim=1)[1]    
+        else:
+            predicted_labels = self.output_to_label(outputs)        
+
+        if self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
+            labels = labels - 1
+            predicted_labels = predicted_labels - 1
+
+        return labels, predicted_labels
+
     def batch_to_embedding(self, batch):
 
         if 'audio_path_1' in batch:
-            emb1 = load_embedding_from_hdf5(batch["audio_path_1"], self.encoder, self.device).to(self.device)
-            emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, self.device).to(self.device)
+            emb1 = load_embedding_from_hdf5(batch["audio_path_1"], self.encoder, self.device, self.cfg.max_segs).to(self.device)
+            emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, self.device, self.cfg.max_segs).to(self.device)
             emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
         else:
             emb = load_embedding_from_hdf5(batch["audio_path"], self.encoder, self.device).to(self.device)
@@ -241,4 +292,6 @@ class PredictionHead(pl.LightningModule):
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.learning_rate)
+
+
 

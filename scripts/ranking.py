@@ -13,7 +13,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
-from .utils import init_encoder, load_or_compute_embedding, encoding_shape
+from .utils import encoding_shape, load_latest_checkpoint, checkpointing_paths
 from ..data_collection.dataset import ExpertiseDataloader, ICPCDataloader
 from .modules_ import PredictionHead
 
@@ -37,12 +37,11 @@ def main(cfg: DictConfig):
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
-
-    experiment_name = f"enc_{cfg.encoder}"
+    experiment_name, checkpoint_dir = checkpointing_paths(cfg)
 
     # Checkpoint callback
     checkpoint_callback = ModelCheckpoint(
-        dirpath=f"checkpoints/{experiment_name}",
+        dirpath=checkpoint_dir,
         filename="{epoch}-{step}-{val_loss:.2f}",
         monitor="val_loss",
         mode="min",
@@ -89,7 +88,7 @@ def main(cfg: DictConfig):
     if cfg.mode == 'train':
         trainer.fit(model, train_loader, valid_loader)
     elif cfg.mode == 'test':
-        model = PredictionHead.load_from_checkpoint(checkpoint_path="checkpoints/enc_dac/epoch=44-step=3915-val_loss=0.47.ckpt", 
+        model = PredictionHead.load_from_checkpoint(checkpoint_path=load_latest_checkpoint(checkpoint_dir), 
                                     cfg=cfg,
                                     embedding_dim=encoding_shape(cfg.encoder)[1], 
                                     embedding_len=encoding_shape(cfg.encoder)[0]

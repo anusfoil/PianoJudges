@@ -1,8 +1,7 @@
 import os, glob
 import numpy as np
 import torch
-from torch import nn
-import torch.nn.functional as F
+import pandas as pd
 from torch.optim import Adam
 # import torchaudio
 # import torchaudio.transforms as T
@@ -20,7 +19,7 @@ from ..data_collection.dataset import *
 ################# Utility function for encoders ###################
 
 
-def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment_duration=10):
+def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment_duration=10, max_segs=None):
     import torchaudio
     import torchaudio.transforms as T
 
@@ -37,6 +36,8 @@ def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment
 
     embeddings = []
     num_segments = int(len(audio) / resample_rate // segment_duration)
+    if max_segs:
+        num_segments = min(num_segments, max_segs)
     for i in range(num_segments):
 
         offset = i * segment_duration
@@ -60,7 +61,7 @@ def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment
     return embeddings # (n_segs, 749, 1024)  For some reason the output missed timestep. Should be 75 as frame rate.
 
 
-def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
+def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10, max_segs=None):
     JUKEBOX_SAMPLE_RATE = 44100
 
     try: # in case there is problem with audio loading.
@@ -71,6 +72,8 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
 
     embeddings = []
     num_segments = int(len(audio) / JUKEBOX_SAMPLE_RATE // segment_duration)
+    if max_segs:
+        num_segments = min(num_segments, max_segs)
     for i in range(num_segments):
         offset = i * segment_duration
         audio_seg = audio[offset * JUKEBOX_SAMPLE_RATE: (offset + segment_duration) * JUKEBOX_SAMPLE_RATE]
@@ -79,7 +82,7 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
         embeddings.append(encode(vqvae, audio_seg.contiguous()))
 
     if num_segments == 0:
-        embeddings = [torch.zeros(1, 3445, 64)]
+        embeddings = [torch.zeros(1, 64, 3445)]
 
     embeddings = torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     embeddings = rearrange(embeddings, "b 1 e t -> b t e")
@@ -87,34 +90,40 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10):
     return embeddings # (n_segs, 3445, 64)
 
 
-def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_duration=10):
+def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_duration=10, max_segs=None):
     from audiotools import AudioSignal
 
-    # Load the full audio signal
-    signal = AudioSignal(audio_path)
-    signal.resample(44100)
-    signal.to_mono()
+    try:
+        # Load the full audio signal
+        signal = AudioSignal(audio_path)
+        signal.resample(44100)
+        signal.to_mono()
 
-    # Calculate the number of samples per segment and per concatenation
-    samples_per_segment = process_duration * signal.sample_rate
+        # Calculate the number of samples per segment and per concatenation
+        samples_per_segment = process_duration * signal.sample_rate
 
-    # Process in segments
-    total_samples = signal.audio_data.shape[-1]
-    num_segments = (total_samples + samples_per_segment - 1) // samples_per_segment  # Ceiling division
-    embeddings = []
+        # Process in segments
+        total_samples = signal.audio_data.shape[-1]
+        num_segments = (total_samples + samples_per_segment - 1) // samples_per_segment  # Ceiling division
+        if max_segs:
+            num_segments = min(num_segments, max_segs)
+        embeddings = []
 
-    signal.audio_data = signal.audio_data
-    for i in range(num_segments):
+        signal.audio_data = signal.audio_data
+        for i in range(num_segments):
 
-        start = i * samples_per_segment
-        end = min(start + samples_per_segment, total_samples)
-        segment = signal.audio_data[:, :, start:end].to(dac_model.device)
+            start = i * samples_per_segment
+            end = min(start + samples_per_segment, total_samples)
+            segment = signal.audio_data[:, :, start:end].to(dac_model.device)
 
-        # Process each segment
-        x = dac_model.preprocess(segment, signal.sample_rate)
-        with torch.no_grad():
-            z, codes, latents, commitment_loss, codebook_loss = dac_model.encode(x)
-        embeddings.append(rearrange(z, '1 e t -> t e')) 
+            # Process each segment
+            x = dac_model.preprocess(segment, signal.sample_rate)
+            with torch.no_grad():
+                z, codes, latents, commitment_loss, codebook_loss = dac_model.encode(x)
+            embeddings.append(rearrange(z, '1 e t -> t e')) 
+    except:
+        print(f"audio failed to read for {audio_path}")
+        embeddings = [torch.zeros(1, 870, 1024)]
 
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     end = embeddings.shape[0] - embeddings.shape[0] % segment_duration
@@ -125,12 +134,14 @@ def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_du
 
 
 
-def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=10):
+def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=10, max_segs=None):
     import torchaudio
 
     try:
         audio, sr = torchaudio.load(audio_path)
         num_segments = int(len(audio[0]) / sr // segment_duration)
+        if max_segs:
+            num_segments = min(num_segments, max_segs)
     except:
         print(f"audio failed to read for {audio_path}")
         return torch.zeros(1, 512, 768)
@@ -145,7 +156,7 @@ def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=
         embeddings.append(output["patch_embedding"])
 
     if num_segments == 0:
-        embeddings = [torch.zeros(512, 768)]
+        embeddings = [torch.zeros(1, 512, 768)]
 
     embeddings =  torch.nn.utils.rnn.pad_sequence(embeddings, batch_first=True)
     assert(embeddings.shape[-2:] == torch.Size([512, 768]))
@@ -153,24 +164,24 @@ def compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration=
 
 
 
-def compute_audio_embeddings(audio_path, audio_inits, method, device_, segment_duration=10):
+def compute_audio_embeddings(audio_path, audio_inits, method, device_, segment_duration=10, max_segs=None):
     if method == 'jukebox':
         vqvae = audio_inits['audio_encoder']
-        return compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration)
+        return compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration, max_segs)
     
     elif method == 'mert':
         mert_model = audio_inits['audio_encoder']
         mert_processor = audio_inits['processor']
-        return compute_mert_embeddings(audio_path, mert_model, mert_processor, mert_processor.sampling_rate, segment_duration)
+        return compute_mert_embeddings(audio_path, mert_model, mert_processor, mert_processor.sampling_rate, segment_duration, max_segs)
     
     elif method == 'dac':
         dac_model = audio_inits['audio_encoder']
-        return compute_dac_embeddings(audio_path, dac_model, segment_duration=segment_duration)
+        return compute_dac_embeddings(audio_path, dac_model, segment_duration=segment_duration, max_segs=max_segs)
     
     elif method == 'audiomae':
         amae = audio_inits['audio_encoder']
         fp = audio_inits['fp']
-        return compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration)
+        return compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration, max_segs)
     
     else:
         raise ValueError("Invalid method specified")
@@ -188,67 +199,72 @@ def pad_and_clip_sequences(sequences, max_length):
     assert(padded_sequences.shape[1] == max_length)
     return padded_sequences
 
-def load_or_compute_embedding(audio_paths, method, device, audio_inits, recompute=False):
 
-    embeddings = []
-    for audio_path in audio_paths:
-        save_path = audio_path[:-4] + f"_{method}.npy"
-        save_path = save_path.replace('ATEPP-audio', 'ATEPP-audio-embeddings')
-        os.makedirs("/".join(save_path.split("/")[:-1]), exist_ok=True)
-
-        try:
-            embedding = torch.from_numpy(np.load(save_path))
-        except:
-            recompute = True
-            
-        if os.path.exists(save_path) and (not recompute):
-            embedding = torch.from_numpy(np.load(save_path))
-
-            if len(embedding.shape) >= 4: # the case of [??]
-                embedding = rearrange(embedding, "1 t e -> t e")
-
-            if (embedding.shape[-2:] != encoding_shape(method)):
-                print(f"Embedding shape mismatch for {audio_path} with shape {embedding.shape} for method {method}, recomputing")
-                embedding = compute_audio_embeddings(audio_path, audio_inits, method, device)
-                np.save(save_path, embedding.cpu().detach().numpy())
-
-        else:
-            # Now you can call compute_audio_embeddings with the method of choice:
-            embedding = compute_audio_embeddings(audio_path, audio_inits, method, device)
-            np.save(save_path, embedding.cpu().detach().numpy())
-
-        embeddings.append(embedding)
-
-    embeddings = pad_and_clip_sequences(embeddings, 30) # maximum of 30 the 10s sequences (5mins audio in)
-
-    # embeddings = embeddings.clone().detach()
-
-    return embeddings
-
-
-def load_embedding_from_hdf5(audio_paths, encoder, device):
+def load_embedding_from_hdf5(audio_paths, encoder, device, max_segs=30):
 
     embeddings = []
 
     for audio_path in audio_paths:
         parent_folder = "/".join(audio_path.split("/")[:-1])
         hdf5_path = os.path.join(parent_folder, f"{encoder}_embeddings.hdf5")
+        if "ATEPP" in audio_path:
+            hdf5_path = f"/import/c4dm-datasets-ext/ATEPP-audio-embeddings/{encoder}_embeddings.hdf5"        
 
         with h5py.File(hdf5_path, 'r') as hdf5_file:
             audio_id = os.path.basename(audio_path).split('.')[0]
-
-            if audio_id in hdf5_file:
-                embedding_np = hdf5_file[audio_id][:]
-                embedding = torch.from_numpy(embedding_np).to(device)
-                embeddings.append(embedding)
+            if "ATEPP" in audio_path:
+                audio_id = audio_path.replace("/import/c4dm-datasets/ATEPP-audio/", "")[:-4]
+                # audio_id = 'Frederic_Chopin/24_Préludes,_Op._28/No._15_in_D-Flat_Major_"Raindrop":_Sostenuto/26'
+                dataset = traverse_long_id(hdf5_file, audio_id)
+                if dataset is not None:
+                    embedding = dataset[:]  # Use [:] to read the data if it's a dataset
+                else:
+                    print(f"Embedding for {audio_id} not found.")
+                    embedding = torch.zeros(1, 870, 1024)
             else:
-                print(f"Embedding for {audio_id} not found.")
+                if audio_id in hdf5_file:
+                    embedding_np = hdf5_file[audio_id][:]
+                    embedding = torch.from_numpy(embedding_np).to(device)
+                else:
+                    print(f"Embedding for {audio_id} not found.")
+                    hook()
+        embeddings.append(torch.tensor(embedding))
     
-    embeddings = pad_and_clip_sequences(embeddings, 30)  # Adjust as necessary
+    embeddings = pad_and_clip_sequences(embeddings, max_segs)  # maximum 30 segs (5mins)
     return embeddings
 
 
-def init_encoder(encoder, device):
+def traverse_long_id(hdf5_file, long_id):
+    """
+    Fetches an embedding from an HDF5 file given a long hierarchical ID.
+    
+    Parameters:
+    - hdf5_file: An open HDF5 file object or the root group of the file.
+    - long_id: A string representing the hierarchical path to the dataset.
+    
+    Returns:
+    - The dataset corresponding to the long_id, or None if not found.
+    """
+    # Split the long_id by slashes to get individual group names
+    groups = long_id.split('/')
+    
+    # Navigate through the groups based on the split ID
+    current_group = hdf5_file
+    for group_name in groups:
+        # Check if the current part of the path exists as a group or dataset
+        if group_name in current_group:
+            current_group = current_group[group_name]
+        else:
+            # If any part of the path doesn't exist, return None
+            print(f"Path '{long_id}' not found in the HDF5 file.")
+            return None
+    
+    # Return the final dataset or group reached
+    return current_group
+
+
+
+def init_encoder(encoder, device, use_trained=False):
 
     if encoder == 'jukebox':
         audio_encoder = setup_jbx('5b', device)
@@ -266,7 +282,7 @@ def init_encoder(encoder, device):
 
     if encoder == 'dac':
         import dac
-        model_path = dac.utils.download(model_type="44khz")
+        model_path = dac.utils.download(model_type="44khz", use_trained=use_trained)
         model = dac.DAC.load(model_path)
 
         model.to(device)
@@ -296,30 +312,46 @@ def encoding_shape(encoder):
 
 
 
-def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, device, audio_inits):
+def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, device, audio_inits, use_trained=False):
     hdf5_path = os.path.join(save_path, f"{encoder}_embeddings.hdf5")
+    if use_trained:
+        hdf5_path = os.path.join(save_path, f"{encoder}_trained_embeddings.hdf5")
 
     metadata = pd.read_csv(metadata)
-    if 'duration' in metadata.columns:
-        metadata = metadata[metadata['duration'].astype(int) < 400]
-    else:
-        metadata = metadata[metadata['audio_duration'].astype(int) < 400]
+    if 'ICPC' not in folder_with_wavs: # the competition data are all very long.
+        if 'duration' in metadata.columns:
+            metadata = metadata[metadata['duration'].astype(int) < 400]
+        else:
+            metadata = metadata[metadata['audio_duration'].astype(int) < 300]
 
-    with h5py.File(hdf5_path, 'w') as hdf5_file:
+    # Use 'a' mode for read/write access and creating the file if it doesn't exist
+    with h5py.File(hdf5_path, 'a') as hdf5_file:
         if 'id' in metadata.columns:
             audio_ids = metadata['id'].tolist()
+            audio_paths = [os.path.join(folder_with_wavs, aid + ".wav") for aid in audio_ids]
+        else:
+            audio_paths = metadata['audio_path'].tolist()
+            audio_paths = [os.path.join(folder_with_wavs, aid) for aid in audio_paths]
         
+        for audio_path in tqdm(audio_paths):
+            audio_name = audio_path.replace(folder_with_wavs, '')[:-4]
 
-        for audio_id in tqdm(audio_ids):
-            wav_path = os.path.join(folder_with_wavs, audio_id + ".wav")
-            
+            # Check if the embedding already exists
+            if audio_name in hdf5_file:
+                print(f"Embedding for {audio_name} already exists. Skipping computation.")
+                continue
+
             # Compute the embeddings
-            embedding = compute_audio_embeddings(wav_path, audio_inits, encoder, device)
+            embedding = compute_audio_embeddings(audio_path, audio_inits, encoder, device, max_segs=30)
             embedding_np = embedding.cpu().detach().numpy()
 
             # Save the embedding
-            hdf5_file.create_dataset(audio_id, data=embedding_np, compression="gzip")
-    
+            try:
+                hdf5_file.create_dataset(audio_name, data=embedding_np, compression="gzip")
+                print(f"Saved embedding for {audio_name}.")
+            except RuntimeError as e:
+                print(f"Error saving embedding for {audio_name}: {e}")
+ 
 
 ################# Utility function for Jukebox ###################
 
@@ -417,6 +449,49 @@ def encode(vqvae, x):
 
 
 
+################### General Utilities ###########################
+
+
+def load_latest_checkpoint(checkpoint_dir):
+    """
+    Load the latest checkpoint from the given directory.
+    
+    Parameters:
+    - checkpoint_dir: Path to the directory containing the checkpoint files.
+    
+    Returns:
+    - The loaded checkpoint, or None if the directory is empty or does not exist.
+    """
+    # Check if the checkpoint directory exists
+    if not os.path.isdir(checkpoint_dir):
+        print(f"Checkpoint directory {checkpoint_dir} does not exist.")
+        return None
+    
+    # List all files in the checkpoint directory
+    all_checkpoints = os.listdir(checkpoint_dir)
+
+    # Filter out files that are not checkpoints (do not end with '.ckpt')
+    checkpoint_files = [f for f in all_checkpoints if f.endswith('.ckpt')]
+
+    # Sort the checkpoints by modification time (newest first)
+    checkpoint_files.sort(key=lambda f: os.path.getmtime(os.path.join(checkpoint_dir, f)), reverse=True)
+
+    if checkpoint_files:
+        latest_checkpoint = checkpoint_files[0]
+        latest_checkpoint_path = os.path.join(checkpoint_dir, latest_checkpoint)
+        print(f"Loading latest checkpoint: {latest_checkpoint_path}")
+
+        return latest_checkpoint_path
+    else:
+        print("No checkpoints found.")
+        return None
+
+def checkpointing_paths(cfg):
+
+    experiment_name = f"{cfg.task}_{cfg.encoder}"
+    checkpoint_dir = f"/homes/hz009/Research/PianoJudge/checkpoints/{experiment_name}"
+
+    return experiment_name, checkpoint_dir
 
 
 
@@ -435,14 +510,16 @@ def main(cfg: DictConfig):
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
-    device = torch.device('cuda:6')
+    device = torch.device('cuda:2')
 
     for category in cfg.category:
         for encoder in cfg.encoder:
-            audio_inits = init_encoder(encoder, device)
+            audio_inits = init_encoder(encoder, device, use_trained=cfg.use_trained)
             compute_all_embeddings(encoder, cfg.category[category].folder_path, 
                                             cfg.category[category].metadata, 
-                                            cfg.category[category].save_path, device, audio_inits)
+                                            cfg.category[category].save_path, 
+                                            device, audio_inits,
+                                            use_trained=cfg.use_trained)
             print(f"Embeddings for {encoder} in {category} computed and saved.")
 
 

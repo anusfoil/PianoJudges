@@ -1,32 +1,36 @@
 task: 'rank'
 encoder: 'jukebox'
+use_trained: False
 mode: 'train'
 recompute: False
 epochs: 5
 random_seed: 13
 max_epochs: 500
 learning_rate: 1e-4
+objective: 'classification' # 'regression'
+max_segs: 30  # each audio encoding segment is 10s. 30 segments = 5 minutes
 
 dataset:
   num_classes: 3
   pair_mode: 'once'
   n_segs: 30
   train:
-    batch_size: 2
-    num_workers: 0
+    batch_size: 24
+    num_workers: 12
     shuffle: True
   eval:
-    batch_size: 2
+    batch_size: 24
+    num_workers: 12
     shuffle: False
   test:
-    batch_size: 2
+    batch_size: 24
     shuffle: False
   
 
 defaults:
   - model: AudioCNNTransformer
 
-gpu: [6]
+gpu: [0]
 
 distributed:
   masterport: '12355'

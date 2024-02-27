@@ -186,26 +186,39 @@ def delete_large_embeddings(directory):
             file_path = os.path.join(directory, file)
             # embedding = np.load(file_path)
             # Check the size of the first dimension
-            if '_jukebox.npy' in file_path:
+            if '.npy' in file_path:
             # if embedding.shape[0] > 400:
                 # Delete the file if the first dimension is greater than 400
                 os.remove(file_path)
                 print(f"Deleted {file_path} due to size constraint.")
 
+def remove_duplicates(metadata_path):
+
+    # Load the metadata CSV file
+    df = pd.read_csv(metadata_path)
+
+    # Drop duplicates based on the 'id' column
+    df_no_duplicates = df.drop_duplicates(subset=['id'], keep='first')
+
+    # Save the cleaned DataFrame to a new CSV file
+    df_no_duplicates.to_csv(metadata_path, index=False)
+
+    print(f"Cleaned metadata saved to {metadata_path}")
 
 
 if __name__ == "__main__":
 
     category = 'novice'
 
-    # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
     # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
-    DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
+    # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
     url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR, category)
     # recover_download(DATA_DIR + "metadata.csv", DATA_DIR)
     delete_large_embeddings(DATA_DIR)
+    # remove_duplicates(DATA_DIR + "metadata.csv")
     hook()
     # channel_url = 'https://www.youtube.com/@nixxpiano'
 
