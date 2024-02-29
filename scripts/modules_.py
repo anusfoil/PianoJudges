@@ -233,8 +233,6 @@ class PredictionHead(pl.LightningModule):
 
         labels, predicted_labels = self.outputs_conversion(batch, outputs)
 
-        loss = self.criterion(outputs, labels)
-        # print(loss.item())
 
         # Store labels and predictions for later use in test_epoch_end
         return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
@@ -247,7 +245,7 @@ class PredictionHead(pl.LightningModule):
         all_predicted_outputs = torch.cat([x['predicted_outputs'] for x in outputs], dim=0).cpu().numpy()
 
         # Print classification summary
-        print(classification_report(all_true_labels, all_predicted_labels, labels=[-1, 0, 1]))
+        print(classification_report(all_true_labels, all_predicted_labels, labels=list(range(self.cfg.dataset.num_classes))))
         loss = self.criterion(torch.tensor(all_predicted_outputs), torch.tensor(all_true_labels))
 
 

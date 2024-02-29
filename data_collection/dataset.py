@@ -39,6 +39,7 @@ class ExpertiseDataloader:
         #     dataset = traverse_long_id(hdf5_file, ap[:-4])
 
         self.pair_mode = pair_mode
+        self.num_classes =num_classes
         self.balance_data()
 
         if num_classes == 2: # only comparing intra-groups
@@ -53,6 +54,7 @@ class ExpertiseDataloader:
         elif num_classes == 3:
             self.pairs = self.create_pairs()
 
+        # random.shuffle(self.pairs) # if not shuffle, the train and test would have different pairs (and their inversion)
 
         # Split the data into train and test
         total_pairs = len(self.pairs)
@@ -77,24 +79,29 @@ class ExpertiseDataloader:
     # Function to create all possible pairs
     def create_all_pairs(self, groups):
         pairs = []
-        for group1, group2 in itertools.combinations(groups, 2):
+        for group1, group2 in [(groups[0], groups[1]), (groups[1], groups[2]), (groups[0], groups[2])]:
             for item1 in group1:
                 for item2 in group2:
-                    pairs.append(((item1, item2), 0 if item1[1] > item2[1] else 1))
+                    pairs.append(((item1[0], item2[0]), 0 if item1[1] > item2[1] else 1))
+                    pairs.append(((item2[0], item1[0]), 1 if item1[1] > item2[1] else 0))
         return pairs
 
     # Function to create pairs such that each recording is included at least once
     def create_once_pairs(self, groups):
         pairs = []
-        for group1, group2 in itertools.combinations(groups, 2):
-            # Combine the groups and shuffle
-            combined = list(group1) + list(group2)
-            random.shuffle(combined)   # note: the random seed would be fixed in each run
+        for group1, group2 in [(groups[0], groups[1]), (groups[1], groups[2]), (groups[0], groups[2])]:
+            # Combine the groups into pairs and shuffle
+            combined = zip(group1, group2)
 
-            # Pair up the shuffled items
-            for i in range(0, len(combined), 2):
-                if i + 1 < len(combined):
-                    pairs.append(((combined[i], combined[i+1]), 0 if combined[i][1] > combined[i+1][1] else 1))
+            for (piece1, level1), (piece2, level2) in combined:
+                if self.num_classes == 2:
+                    pairs.append(((piece1, piece2), 0 if level1 > level2 else 1))
+                    pairs.append(((piece2, piece1), 1 if level1 > level2 else 0))
+                elif self.num_classes == 4:
+                    level_diff = level2 - level1  # -2, -1, 1, 2
+                    rank_tag = (level_diff + 2) if level_diff < 0 else (level_diff + 1) # -2, -1, 1, 2 -> 0, 1, 2, 3
+                    pairs.append(((piece1, piece2), rank_tag))
+
         return pairs
 
 
@@ -144,10 +151,11 @@ class ExpertiseDataloader:
 
 
 class ICPCDataloader:
-    def __init__(self, split_ratio=0.8, pair_mode='all'):
+    def __init__(self, split_ratio=0.8, pair_mode='all', num_classes=2):
 
         self.metadata = pd.read_csv(ICPC_PATH)
         self.metadata = self.metadata[self.metadata['ranking_score'] != -1] # remove rows with no ranking score
+        self.num_classes = num_classes
 
         self.pair_mode = pair_mode
         self.pairs = self.create_pairs()
@@ -161,6 +169,7 @@ class ICPCDataloader:
             pairs = list(itertools.combinations(self.metadata.iterrows(), 2))
             reversed_pairs = [(b, a) for a, b in pairs]
             all_pairs = pairs + reversed_pairs
+
         elif self.pair_mode == 'once':
             shuffled_data = random.sample(list(self.metadata.iterrows()), len(self.metadata))
             it = iter(shuffled_data)
@@ -174,11 +183,13 @@ class ICPCDataloader:
 
             # Determine the label based on ranking_score
             if score1 > score2:
-                label = 1
-            elif score1 < score2:
-                label = -1
-            else:
                 label = 0
+            elif score1 < score2:
+                label = 1 if self.num_classes == 2 else 2
+            else:
+                label = 1
+                if self.num_classes == 2:
+                    continue
 
             label_counter[label] += 1
             return_pairs.append(((path1, path2), label))

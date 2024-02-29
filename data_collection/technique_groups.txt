@@ -1,4 +1,4 @@
-Scales
+# Scales
 https://www.youtube.com/watch?v=2nRGtXQi1ys
 https://www.youtube.com/watch?v=ttp2QX0O9ko
 https://www.youtube.com/watch?v=jKjLp38TY5w 
@@ -46,7 +46,7 @@ https://www.youtube.com/watch?v=rqnUhZLlgsU
 https://www.youtube.com/watch?v=t_nxp263oUY
 
 
-Arpeggios
+# Arpeggios
 https://www.youtube.com/watch?v=_DFaFUpKH74 
 https://www.youtube.com/watch?v=BqiSIOFQSFk
 https://www.youtube.com/watch?v=UM-Rx6c1Ny0
@@ -81,7 +81,8 @@ https://www.youtube.com/watch?v=Y5CsDc2Cpzo
 https://www.youtube.com/watch?v=9WgnouU8Cbc
 
 
-Ornaments: Trills, mordents, acciacatura, turns, rolling
+# Ornaments
+# Trills, mordents, acciacatura, turns, rolling
 https://www.youtube.com/watch?v=2yt9NdixgoU
 https://www.youtube.com/watch?v=Nw1BAqrKvjM
 https://www.youtube.com/watch?v=rZXLB7m4kOg
@@ -95,13 +96,12 @@ https://www.youtube.com/watch?v=CX4-RAL0TBo
 https://www.youtube.com/watch?v=ro0QRhprRf4
 https://www.youtube.com/watch?v=2xkXy66JGow
 https://www.youtube.com/watch?v=wjaG3ZVKnR0
-# needs cut
+# needs cut Done
 https://www.youtube.com/watch?v=STy9GPeuNEY
-# needs cut
 https://www.youtube.com/watch?v=6N6W0PDBRHs
 # also repeated note
 https://www.youtube.com/watch?v=uLa3OowW05o
-# need cut the end
+# need cut the end Done
 https://www.youtube.com/watch?v=U7bpgJOVuoE
 # cut into multiple, also contain repeated notes 
 https://www.youtube.com/watch?v=xXi3dl5R92c
@@ -116,7 +116,7 @@ https://www.youtube.com/watch?v=yBDSkjV5_wQ
 https://www.youtube.com/watch?v=lXmjEkx4yjM
 
 
-Repeated notes
+# Repeatednotes
 https://www.youtube.com/watch?v=pJ5UmwxdaEM
 https://www.youtube.com/watch?v=-0gQ_A3tP1c
 # this one need to cut
@@ -141,7 +141,7 @@ https://www.youtube.com/watch?v=nIs3jechQ_E
 https://www.youtube.com/watch?v=_lW2AXcugp4
 
 
-Double notes
+# Doublenotes
 https://www.youtube.com/watch?v=_uDNENyVUbE
 https://www.youtube.com/watch?v=G0arFYjFKb4
 https://www.youtube.com/watch?v=rXcSlDXCfR8
@@ -172,7 +172,7 @@ https://www.youtube.com/watch?v=nsXT6p3AsrM
 https://www.youtube.com/watch?v=VnH4b-eYQDc
 
 
-Octave
+# Octave
 https://www.youtube.com/watch?v=8ANOtyAvdTU
 https://www.youtube.com/watch?v=M1dGRk9lYl4
 https://www.youtube.com/shorts/aarUpTRqAdc
@@ -195,7 +195,7 @@ https://www.youtube.com/watch?v=VZiM-rLNUos
 https://www.youtube.com/watch?v=5fNwRo4NBJ4
 
 
-Staccato
+# Staccato
 https://www.youtube.com/watch?v=YYE3N8sVzyQ
 https://www.youtube.com/watch?v=79VIXjBFK_I
 # also doulbe notes

@@ -70,15 +70,15 @@ def main(cfg: DictConfig):
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
     train_loader = DataLoader(
-        ExpertiseDataloader(mode='train', pair_mode=cfg.dataset.pair_mode), 
+        ExpertiseDataloader(mode='train', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode), 
+        ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(
-        ICPCDataloader(pair_mode=cfg.dataset.pair_mode), 
+        ICPCDataloader(pair_mode='all', num_classes=cfg.dataset.num_classes),  # use all pairs in the testing set
         # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode), 
         **cfg.dataset.test, 
     )

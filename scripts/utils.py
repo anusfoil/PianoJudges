@@ -488,7 +488,8 @@ def load_latest_checkpoint(checkpoint_dir):
 
 def checkpointing_paths(cfg):
 
-    experiment_name = f"{cfg.task}_{cfg.encoder}"
+    # experiment_name = f"{cfg.task}_{cfg.encoder}"
+    experiment_name = f"{cfg.task}_{cfg.encoder}_{cfg.objective[0]}_{cfg.dataset.num_classes}"
     checkpoint_dir = f"/homes/hz009/Research/PianoJudge/checkpoints/{experiment_name}"
 
     return experiment_name, checkpoint_dir

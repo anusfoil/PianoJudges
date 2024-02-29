@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import hook
 
-def should_download(title, duration, filter_keywords, max_duration=300):
+def should_download(title, duration, filter_keywords, max_duration=10000000000):
     """Check if the video should be downloaded based on the title and duration.
     
     Args:
@@ -40,6 +40,7 @@ def download_channel_videos(url, filter_keywords):
     # Get video information without downloading
     result = subprocess.run(command, stdout=subprocess.PIPE, text=True)
     videos_info = result.stdout.splitlines()
+
 
     for video_info in videos_info:
         video_json = json.loads(video_info)
@@ -210,16 +211,19 @@ if __name__ == "__main__":
 
     category = 'novice'
 
-    DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
     # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
     # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
     url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
+    DATA_DIR = "/import/c4dm-datasets/PianoJudge/techniques/"
+    url_file = f"/homes/hz009/Research/PianoJudge/data_collection/technique_groups.txt"
+
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR, category)
     # recover_download(DATA_DIR + "metadata.csv", DATA_DIR)
-    delete_large_embeddings(DATA_DIR)
+    # delete_large_embeddings(DATA_DIR)
     # remove_duplicates(DATA_DIR + "metadata.csv")
-    hook()
+    # hook()
     # channel_url = 'https://www.youtube.com/@nixxpiano'
 
     # Define keywords to filter out, and download
@@ -228,6 +232,12 @@ if __name__ == "__main__":
         urls = f.readlines()
     for url in urls:
         if url[0] != '#': # not commented out
+            id = url.split('v=')[-1].strip()
+            if 'shorts' in id:
+                id = id.split('shorts/')[-1].strip()
+            if os.path.exists(DATA_DIR + id + '.wav'):
+                print(f"Skipping {id}")
+                continue
             download_channel_videos(url, filter_keywords)
 
     write_metadata_to_csv()
