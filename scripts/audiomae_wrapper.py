@@ -102,11 +102,19 @@ class AudioMAE(nn.Module):
         self.model = self.model.to(device)
 
     def from_pretrained(self, ckpt_path: str) -> str:
-        checkpoint = torch.load(ckpt_path, map_location=self.device)
-        logging.info(f"Load pre-trained checkpoint from: {ckpt_path}")
+
+        checkpoint = torch.load('/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth', map_location=self.device)
+        logging.info("Load pre-trained checkpoint from: original fine-tuned model.")
         checkpoint_model = checkpoint["model"]
 
-        msg = self.model.load_state_dict(checkpoint_model, strict=False)
+        msg = self.model.load_state_dict(checkpoint_model, strict=True)
+
+        if ckpt_path != '/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth': # re-trained case
+            checkpoint_ = torch.load(ckpt_path, map_location=self.device)
+            logging.info(f"Load pre-trained checkpoint from: {ckpt_path}")
+            checkpoint_model_ = checkpoint_["model"]
+
+            msg = self.model.load_state_dict(checkpoint_model_, strict=False)            
 
         return msg
 

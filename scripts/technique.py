@@ -14,12 +14,12 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
 from .utils import encoding_shape, load_latest_checkpoint, checkpointing_paths
-from ..data_collection.dataset import ExpertiseDataloader, ICPCDataloader
+from ..data_collection.dataset import TechniqueDataloader
 from .modules_ import PredictionHead
 
 
 
-@hydra.main(config_path="../conf/", config_name="ranking")
+@hydra.main(config_path="../conf/", config_name="technique")
 def main(cfg: DictConfig):
 
     random.seed(cfg.random_seed)
@@ -70,16 +70,15 @@ def main(cfg: DictConfig):
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
     train_loader = DataLoader(
-        ExpertiseDataloader(mode='train', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
+        TechniqueDataloader(mode='train'), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
+        TechniqueDataloader(mode='test'), 
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(
-        ICPCDataloader(pair_mode='all', num_classes=cfg.dataset.num_classes),  # use all pairs in the testing set
-        # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
+        TechniqueDataloader(mode='test'), 
         **cfg.dataset.test, 
     )
 
@@ -90,7 +89,6 @@ def main(cfg: DictConfig):
     elif cfg.mode == 'test':
         model = PredictionHead.load_from_checkpoint(
                                     checkpoint_path=load_latest_checkpoint(checkpoint_dir), 
-                                    # checkpoint_path='/homes/hz009/Research/PianoJudge/checkpoints/rank_jukebox_c_2/epoch=86-step=9831-val_loss=0.35.ckpt',
                                     cfg=cfg,
                                     embedding_dim=encoding_shape(cfg.encoder)[1], 
                                     embedding_len=encoding_shape(cfg.encoder)[0]

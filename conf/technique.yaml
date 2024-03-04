@@ -1,4 +1,4 @@
-task: 'rank'
+task: 'technique'
 encoder: 'jukebox'
 use_trained: False
 mode: 'train'
@@ -7,11 +7,11 @@ epochs: 5
 random_seed: 13
 max_epochs: 500
 learning_rate: 5e-5
-objective: 'classification' # 'regression'
+objective: 'multi-label classification' 
 max_segs: 30  # each audio encoding segment is 10s. 30 segments = 5 minutes
 
 dataset:
-  num_classes: 2
+  num_classes: 7
   pair_mode: 'once'
   n_segs: 30
   train:

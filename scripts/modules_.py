@@ -7,6 +7,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 from einops import reduce, rearrange, repeat
 import matplotlib.pyplot as plt
 import itertools
+from sklearn.metrics import multilabel_confusion_matrix
+import seaborn as sns
 import hook
 
 import pytorch_lightning as pl
@@ -117,7 +119,7 @@ class PredictionHead(pl.LightningModule):
             h=embedding_dim, 
             w=embedding_len,
             n_segs=cfg.dataset.n_segs,
-            out_classes=cfg.dataset.num_classes if cfg.objective == "classification" else 1,
+            out_classes=cfg.dataset.num_classes if "classification" in cfg.objective else 1,
             **cfg.model.args
         )
         self.learning_rate = cfg.learning_rate
@@ -127,9 +129,16 @@ class PredictionHead(pl.LightningModule):
 
         # Set criterion based on the task
         if cfg.objective == "classification":
-            self.projection = nn.Linear(embedding_dim, cfg.dataset.num_classes)
             self.criterion = nn.CrossEntropyLoss()
             self.label_dtype = torch.long
+        elif cfg.objective == "multi-label classification":
+            self.criterion = nn.BCEWithLogitsLoss()
+            self.label_dtype = torch.long
+
+            self.map = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, task='multilabel')
+            self.map_classes = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, average=None, task='multilabel')
+            self.multilabel_accuracy = torchmetrics.Accuracy(num_labels=cfg.dataset.num_classes, task='multilabel')
+
         else:  # default to regression if not classification
             self.criterion = nn.MSELoss()
             self.label_dtype = torch.float32
@@ -145,6 +154,9 @@ class PredictionHead(pl.LightningModule):
         # If classification, add a softmax layer to project the logits to probabilities
         if self.cfg.objective == "classification":
             x = torch.softmax(x, dim=-1)
+        elif  self.cfg.objective == "multi-label classification":
+            x = torch.sigmoid(x)
+
         return x
 
     def training_step(self, batch, batch_idx):
@@ -158,17 +170,27 @@ class PredictionHead(pl.LightningModule):
 
         labels, predicted_labels = self.outputs_conversion(batch, outputs)
 
-        # Update metrics
-        precision = self.precision_metric(predicted_labels, labels)
-        recall = self.recall(predicted_labels, labels)
-        f1_score = self.f1(predicted_labels, labels)
-        accuracy = self.accuracy(predicted_labels, labels)
+        if self.cfg.objective == "multi-label classification":
+            # Update metrics
+            map = self.map(outputs, labels)
+            map_classes = self.map_classes(outputs, labels)
+            multilabel_accuracy = self.multilabel_accuracy(predicted_labels, labels)
 
-        print(predicted_labels, labels)
-        self.log('val_precision', precision, on_epoch=True, prog_bar=True)
-        self.log('val_recall', recall, on_epoch=True, prog_bar=True)
-        self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
-        self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
+            print(map_classes)
+            self.log('val_mAP', map, on_epoch=True, prog_bar=True)
+            self.log('val_multilabel_accuracy', multilabel_accuracy, on_epoch=True, prog_bar=True)
+        else:
+            # Update metrics
+            precision = self.precision_metric(predicted_labels, labels)
+            recall = self.recall(predicted_labels, labels)
+            f1_score = self.f1(predicted_labels, labels)
+            accuracy = self.accuracy(predicted_labels, labels)
+
+            print(predicted_labels, labels)
+            self.log('val_precision', precision, on_epoch=True, prog_bar=True)
+            self.log('val_recall', recall, on_epoch=True, prog_bar=True)
+            self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
+            self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
 
         return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
 
@@ -177,32 +199,49 @@ class PredictionHead(pl.LightningModule):
         all_true_labels = torch.cat([x['true_labels'] for x in outputs], dim=0).cpu().numpy()
         all_predicted_labels = torch.cat([x['predicted_labels'] for x in outputs], dim=0).cpu().numpy()
 
-        # Calculate the confusion matrix
-        cm = confusion_matrix(all_true_labels, all_predicted_labels)
-        class_names = [str(i) for i in range(self.cfg.dataset.num_classes)]
+        if self.cfg.objective != "multi-label classification":
+            # Calculate the confusion matrix
+            cm = confusion_matrix(all_true_labels, all_predicted_labels, labels=list(range(self.cfg.dataset.num_classes)))
+            class_names = [str(i) for i in range(self.cfg.dataset.num_classes)]
 
-        # Plot the confusion matrix
-        fig, ax = plt.subplots(figsize=(10, 10))
-        im = ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-        ax.figure.colorbar(im, ax=ax)
-        ax.set(xticks=np.arange(cm.shape[1]),
-            yticks=np.arange(cm.shape[0]),
-            xticklabels=class_names, yticklabels=class_names,
-            title='Confusion Matrix',
-            ylabel='True label',
-            xlabel='Predicted label')
+            # Plot the confusion matrix
+            fig, ax = plt.subplots(figsize=(10, 10))
+            im = ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+            ax.figure.colorbar(im, ax=ax)
+            ax.set(xticks=np.arange(cm.shape[1]),
+                yticks=np.arange(cm.shape[0]),
+                xticklabels=class_names, yticklabels=class_names,
+                title='Confusion Matrix',
+                ylabel='True label',
+                xlabel='Predicted label')
 
-        # Rotate the tick labels and set their alignment
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+            # Rotate the tick labels and set their alignment
+            plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
-        # Loop over data dimensions and create text annotations
-        fmt = 'd'
-        thresh = cm.max() / 2.
-        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-            ax.text(j, i, format(cm[i, j], fmt),
-                    ha="center", va="center",
-                    color="white" if cm[i, j] > thresh else "black")
-        fig.tight_layout()
+            # Loop over data dimensions and create text annotations
+            fmt = 'd'
+            thresh = cm.max() / 2.
+            for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+                ax.text(j, i, format(cm[i, j], fmt),
+                        ha="center", va="center",
+                        color="white" if cm[i, j] > thresh else "black")
+            fig.tight_layout()
+
+        else:
+            # Calculate the confusion matrix for each class
+            cms = multilabel_confusion_matrix(all_true_labels, all_predicted_labels)
+            class_names = [str(i) for i in range(self.cfg.dataset.num_classes)]
+
+            # Plot confusion matrices for each class
+            for i, cm in enumerate(cms):
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt='d', cmap=plt.cm.Blues, ax=ax)
+                ax.set_xlabel('Predicted labels')
+                ax.set_ylabel('True labels')
+                ax.set_title(f'Confusion Matrix for class {class_names[i]}')
+                ax.xaxis.set_ticklabels(['False', 'True'])
+                ax.yaxis.set_ticklabels(['False', 'True'])
+
 
         # Check if wandb is used and log the plot
         if self.logger and isinstance(self.logger, pl.loggers.WandbLogger):
@@ -217,7 +256,10 @@ class PredictionHead(pl.LightningModule):
         emb = self.batch_to_embedding(batch).to(self.device)
 
         # Convert labels to tensor
-        labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
+        try:
+            labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
+        except:
+            labels = torch.tensor(torch.stack(batch["label"]), dtype=torch.float32, device=self.device).T
 
         # Forward pass
         outputs = self(emb)
@@ -251,10 +293,15 @@ class PredictionHead(pl.LightningModule):
 
     def outputs_conversion(self, batch, outputs):
         # Convert labels to tensor
-        labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
+        try:
+            labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
+        except:
+            labels = torch.tensor(torch.stack(batch["label"]), dtype=self.label_dtype, device=self.device).T
 
         if self.cfg.objective == "classification":
-            predicted_labels = outputs.max(dim=1)[1]    
+            predicted_labels = outputs.max(dim=1)[1]   
+        elif self.cfg.objective == "multi-label classification":
+            predicted_labels = (outputs > 0.5).int() 
         else:
             predicted_labels = self.output_to_label(outputs)        
 

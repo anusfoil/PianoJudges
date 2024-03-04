@@ -15,6 +15,8 @@ NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
 ADVANCED_PATH = '/import/c4dm-datasets/PianoJudge/advanced/metadata.csv'
 VIRTUOSO_PATH = '/import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv'
 DIFFICULTY_PATH = '/import/c4dm-datasets/ATEPP/atepp_metadata_difficulty_henle_.csv'
+TECHNIQUE_PATH = '/import/c4dm-datasets/PianoJudge/techniques/metadata.csv'
+TECHNIQUE_DIR = '/import/c4dm-datasets/PianoJudge/techniques/'
 ATEPP_DIR = '/import/c4dm-datasets/ATEPP-audio/'
 
 ICPC_PATH = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv'
@@ -33,7 +35,7 @@ class ExpertiseDataloader:
         self.virtuoso_data = self.virtuoso_data[self.virtuoso_data['audio_duration'].astype(int) < 300]
 
         # check how many of the atepp are computed
-        # hdf5_path = f"/import/c4dm-datasets-ext/ATEPP-audio-embeddings/dac_embeddings.hdf5" 
+        # hdf5_path = f"/import/c4dm-scratch-02/ATEPP-audio-embeddings/dac_embeddings.hdf5" 
         # hdf5_file = h5py.File(hdf5_path, 'r')
         # for ap in self.virtuoso_data['audio_path']:
         #     dataset = traverse_long_id(hdf5_file, ap[:-4])
@@ -42,7 +44,7 @@ class ExpertiseDataloader:
         self.num_classes =num_classes
         self.balance_data()
 
-        if num_classes == 2: # only comparing intra-groups
+        if num_classes == 2 or num_classes == 4: # only comparing intra-groups
             novice_data = [('/import/c4dm-datasets/PianoJudge/novice/' + row['id'] + ".wav", 0) for _, row in self.novice_data.iterrows()]
             advanced_data = [('/import/c4dm-datasets/PianoJudge/advanced/' + row['id'] + ".wav", 1) for _, row in self.advanced_data.iterrows()]
             virtuoso_data = [(ATEPP_DIR + row['audio_path'], 2) for _, row in self.virtuoso_data.iterrows()]
@@ -54,7 +56,7 @@ class ExpertiseDataloader:
         elif num_classes == 3:
             self.pairs = self.create_pairs()
 
-        # random.shuffle(self.pairs) # if not shuffle, the train and test would have different pairs (and their inversion)
+        random.shuffle(self.pairs) # if not shuffle, the train and test would have different pairs (and their inversion) - actually find there is no effect..
 
         # Split the data into train and test
         total_pairs = len(self.pairs)
@@ -101,6 +103,7 @@ class ExpertiseDataloader:
                     level_diff = level2 - level1  # -2, -1, 1, 2
                     rank_tag = (level_diff + 2) if level_diff < 0 else (level_diff + 1) # -2, -1, 1, 2 -> 0, 1, 2, 3
                     pairs.append(((piece1, piece2), rank_tag))
+                    pairs.append(((piece2, piece1), 3 - rank_tag))
 
         return pairs
 
@@ -249,6 +252,37 @@ class DifficultyDataloader:
             "label": label
         }
 
+
+class TechniqueDataloader:
+    def __init__(self, mode='train', split_ratio=0.8, rs=42):
+        # Read the metadata CSV file
+        metadata = pd.read_csv(TECHNIQUE_PATH)
+
+        self.label_columns = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
+
+        split_index = int(len(metadata) * split_ratio)
+
+        if mode == 'train':
+            train_pieces = metadata[:split_index]
+            self.metadata = train_pieces
+        elif mode == 'test':
+            test_pieces = metadata[split_index:]
+            self.metadata =  test_pieces
+        
+
+
+    def __len__(self):
+        return len(self.metadata)
+
+
+    def __getitem__(self, idx):
+        
+        p = TECHNIQUE_DIR + self.metadata.iloc[idx]['id'] + '.wav'
+        labels = list(self.metadata.iloc[idx][self.label_columns])
+        return {
+            "audio_path": p,
+            "label": labels
+        }
 
 
 if __name__ == "__main__":

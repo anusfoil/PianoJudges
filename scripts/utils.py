@@ -66,7 +66,8 @@ def compute_jukebox_embeddings(audio_path, vqvae, device_, segment_duration=10, 
 
     try: # in case there is problem with audio loading.
         audio = load_audio_for_jbx(audio_path)
-    except:
+    except Exception as e:
+        print(e)
         print(f"audio failed to read for {audio_path}")
         return torch.zeros(1, 3445, 64)
 
@@ -106,7 +107,8 @@ def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_du
         total_samples = signal.audio_data.shape[-1]
         num_segments = (total_samples + samples_per_segment - 1) // samples_per_segment  # Ceiling division
         if max_segs:
-            num_segments = min(num_segments, max_segs)
+            # since dac process in 1s and have to concatenate 10s
+            num_segments = min(num_segments, max_segs  * int(segment_duration / process_duration))
         embeddings = []
 
         signal.audio_data = signal.audio_data
@@ -121,7 +123,8 @@ def compute_dac_embeddings(audio_path, dac_model, process_duration=1, segment_du
             with torch.no_grad():
                 z, codes, latents, commitment_loss, codebook_loss = dac_model.encode(x)
             embeddings.append(rearrange(z, '1 e t -> t e')) 
-    except:
+    except Exception as e:
+        print(e)
         print(f"audio failed to read for {audio_path}")
         embeddings = [torch.zeros(1, 870, 1024)]
 
@@ -200,18 +203,21 @@ def pad_and_clip_sequences(sequences, max_length):
     return padded_sequences
 
 
-def load_embedding_from_hdf5(audio_paths, encoder, device, max_segs=30):
+def load_embedding_from_hdf5(audio_paths, encoder, device, max_segs=30, use_trained=False):
 
     embeddings = []
 
     for audio_path in audio_paths:
         parent_folder = "/".join(audio_path.split("/")[:-1])
-        hdf5_path = os.path.join(parent_folder, f"{encoder}_embeddings.hdf5")
+
+        trained = "_trained" if use_trained else ""
+        hdf5_path = os.path.join(parent_folder, f"{encoder}{trained}_embeddings.hdf5")
         if "ATEPP" in audio_path:
-            hdf5_path = f"/import/c4dm-datasets-ext/ATEPP-audio-embeddings/{encoder}_embeddings.hdf5"        
+            hdf5_path = f"/import/c4dm-scratch-02/ATEPP-audio-embeddings/{encoder}{trained}_embeddings.hdf5"        
 
         with h5py.File(hdf5_path, 'r') as hdf5_file:
             audio_id = os.path.basename(audio_path).split('.')[0]
+            # hook()
             if "ATEPP" in audio_path:
                 audio_id = audio_path.replace("/import/c4dm-datasets/ATEPP-audio/", "")[:-4]
                 # audio_id = 'Frederic_Chopin/24_Préludes,_Op._28/No._15_in_D-Flat_Major_"Raindrop":_Sostenuto/26'
@@ -282,7 +288,11 @@ def init_encoder(encoder, device, use_trained=False):
 
     if encoder == 'dac':
         import dac
-        model_path = dac.utils.download(model_type="44khz", use_trained=use_trained)
+        if use_trained:
+            model_path = '/homes/hz009/Research/descript-audio-codec/runs/baseline/best/dac/weights_best.pth'
+        else:
+            model_path = dac.utils.download(model_type="44khz")
+
         model = dac.DAC.load(model_path)
 
         model.to(device)
@@ -293,7 +303,11 @@ def init_encoder(encoder, device, use_trained=False):
         from .audio_processor import _fbankProcessor
         from .audiomae_wrapper import AudioMAE
 
-        amae = AudioMAE.create_audiomae(ckpt_path='/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth', device=device)
+        if use_trained:
+            ckpt_path = '/homes/hz009/audiomae_checkpoint/experiments/checkpoint-40.pth'
+        else:
+            ckpt_path = '/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth'
+        amae = AudioMAE.create_audiomae(ckpt_path=ckpt_path, device=device)
 
         return {'audio_encoder': amae,
                 'fp': _fbankProcessor.build_processor()}
@@ -415,7 +429,8 @@ def load_audio_for_jbx(path, offset=0.0, dur=None, trunc_sec=None, device='cpu')
 
     # Load audio file. 'sf.read' returns both audio data and the sample rate
     audio, sr = sf.read(path, dtype='float32')
-    audio = reduce(audio, 't c -> t', 'mean')
+    if len(audio.shape) > 1:
+        audio = reduce(audio, 't c -> t', 'mean')
 
     # Handle offset and duration
     if offset or dur:
@@ -487,9 +502,11 @@ def load_latest_checkpoint(checkpoint_dir):
         return None
 
 def checkpointing_paths(cfg):
+    
+    trained = 't' if cfg.use_trained else 'nt'
 
     # experiment_name = f"{cfg.task}_{cfg.encoder}"
-    experiment_name = f"{cfg.task}_{cfg.encoder}_{cfg.objective[0]}_{cfg.dataset.num_classes}"
+    experiment_name = f"{cfg.task}_{cfg.encoder}_{cfg.objective[0]}_{cfg.dataset.num_classes}_{trained}"
     checkpoint_dir = f"/homes/hz009/Research/PianoJudge/checkpoints/{experiment_name}"
 
     return experiment_name, checkpoint_dir
@@ -511,7 +528,7 @@ def main(cfg: DictConfig):
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
-    device = torch.device('cuda:2')
+    device = torch.device('cuda:6')
 
     for category in cfg.category:
         for encoder in cfg.encoder:
