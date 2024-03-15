@@ -1,6 +1,8 @@
 
 port: 17574
 use_trained: False
+max_segs: 30
+gpu: 3
 
 category:
   # novice:
@@ -19,18 +21,21 @@ category:
   #   folder_path: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/
   #   metadata: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv
   #   save_path: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/
-  technique:
-    folder_path: /import/c4dm-datasets/PianoJudge/techniques/
-    metadata: /import/c4dm-datasets/PianoJudge/techniques/metadata.csv
-    save_path: /import/c4dm-datasets/PianoJudge/techniques/
-
+  # technique:
+  #   folder_path: /import/c4dm-datasets/PianoJudge/techniques/
+  #   metadata: /import/c4dm-datasets/PianoJudge/techniques/metadata.csv
+  #   save_path: /import/c4dm-datasets/PianoJudge/techniques/
+  difficulty_cp:
+    folder_path: /import/c4dm-datasets/PianoJudge/difficulty_cipi/
+    metadata: /import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv
+    save_path: /import/c4dm-datasets/PianoJudge/difficulty_cipi/  
 
 
 encoder:
-  # - jukebox
-  # - dac
-  - mert
-  - audiomae
+  - jukebox
+  - dac
+  # - mert
+  # - audiomae
   
 
 hydra:  

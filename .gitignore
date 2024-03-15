@@ -7,3 +7,4 @@ checkpoints/
 **/__pycache__/
 try_*
 AudioMAE/
+data_collection/fetch.py

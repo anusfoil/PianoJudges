@@ -78,23 +78,42 @@ def main(cfg: DictConfig):
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(
-        ICPCDataloader(pair_mode='all', num_classes=cfg.dataset.num_classes),  # use all pairs in the testing set
+        ICPCDataloader(pair_mode='all', num_classes=2, mode="test"),  # use all pairs in the testing set
         # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.test, 
     )
+    hook()
 
     # Train the model
 
     if cfg.mode == 'train':
         trainer.fit(model, train_loader, valid_loader)
-    elif cfg.mode == 'test':
+    else: # testing
         model = PredictionHead.load_from_checkpoint(
-                                    checkpoint_path=load_latest_checkpoint(checkpoint_dir), 
-                                    # checkpoint_path='/homes/hz009/Research/PianoJudge/checkpoints/rank_jukebox_c_2/epoch=86-step=9831-val_loss=0.35.ckpt',
-                                    cfg=cfg,
-                                    embedding_dim=encoding_shape(cfg.encoder)[1], 
-                                    embedding_len=encoding_shape(cfg.encoder)[0]
-                                    )
+                            checkpoint_path=load_latest_checkpoint(checkpoint_dir), 
+                            # checkpoint_path='/homes/hz009/Research/PianoJudge/checkpoints/rank_jukebox_c_2/epoch=86-step=9831-val_loss=0.35.ckpt',
+                            cfg=cfg,
+                            embedding_dim=encoding_shape(cfg.encoder)[1], 
+                            embedding_len=encoding_shape(cfg.encoder)[0],
+                            strict=False
+                            )
+        if cfg.mode == 'fit_test':
+            trainer = pl.Trainer(
+                logger=wandb_logger,
+                callbacks=[checkpoint_callback],
+                accelerator="gpu",
+                devices=cfg.gpu,
+                max_epochs=30,
+                limit_val_batches=0,
+                num_sanity_val_steps=0
+            )
+            fit_test_loader = DataLoader(
+                ICPCDataloader(pair_mode='all', num_classes=2, mode="train"),  # use all pairs in the testing set
+                # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
+                **cfg.dataset.test, 
+            )
+            trainer.fit(model, fit_test_loader, test_loader)
+
         trainer.test(model, dataloaders=test_loader)
 
     

@@ -15,7 +15,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
 from .utils import encoding_shape, load_latest_checkpoint, checkpointing_paths
-from ..data_collection.dataset import DifficultyDataloader
+from ..data_collection.dataset import DifficultyATDataloader, DifficultyMKDataloader
 from .modules_ import PredictionHead
 
 

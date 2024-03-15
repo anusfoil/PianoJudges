@@ -74,7 +74,15 @@ def onehot_techniques():
     # print count for each technique
     for technique in techniques:
         print(f"{technique}: {metadata[technique].sum()}")
-
+    '''
+    Scales: 45
+    Arpeggios: 42
+    Ornaments: 26
+    Repeatednotes: 19
+    Doublenotes: 34
+    Octave: 35
+    Staccato: 14
+    '''
     return
 
 # add_self_recorded()

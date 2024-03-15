@@ -1,0 +1,5826 @@
+{
+    "c-1": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata01-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata01-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata01-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata01-4.musicxml"
+        },
+        "work_name": "Piano Sonata f minor op. 2,1"
+    },
+    "c-10": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata10-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata10-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata10-3.musicxml"
+        },
+        "work_name": "Piano Sonata G major op. 14,2"
+    },
+    "c-11": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata11-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata11-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata11-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata11-4.musicxml"
+        },
+        "work_name": "Piano Sonata B flat major op. 22"
+    },
+    "c-12": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata12-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata12-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata12-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata12-4.musicxml"
+        },
+        "work_name": "Piano Sonata (Funeral March) A flat major op. 26"
+    },
+    "c-13": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata13-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata13-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata13-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata13-4.musicxml"
+        },
+        "work_name": "Piano Sonata E flat major op. 27,1"
+    },
+    "c-14": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata14-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata14-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata14-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Moonlight Sonata) c sharp minor op. 27,2"
+    },
+    "c-15": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata15-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata15-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata15-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata15-4.musicxml"
+        },
+        "work_name": "Piano Sonata (Pastorale) D major op. 28"
+    },
+    "c-16": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata16-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata16-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata16-3.musicxml"
+        },
+        "work_name": "Piano Sonata G major op. 31,1"
+    },
+    "c-17": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata17-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata17-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata17-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Tempest) d minor op. 31,2"
+    },
+    "c-18": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata18-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata18-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata18-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata18-4.musicxml"
+        },
+        "work_name": "Piano Sonata (Hunting) E flat major op. 31,3"
+    },
+    "c-180": {
+        "URI": "https://www.henle.de/en/detail/?Title=Complete+Piano+Sonatas+Volume+I_1336",
+        "book": "Complete Piano Sonatas Volume I",
+        "composer": "JOSEPH HAYDN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/haydn-piano-sonatas-master/kern/sonata12-1.musicxml",
+            "2": "craig_files/haydn-piano-sonatas-master/kern/sonata12-2.musicxml",
+            "3": "craig_files/haydn-piano-sonatas-master/kern/sonata12-3.musicxml"
+        },
+        "work_name": "Piano Sonata A major Hob. XVI:12"
+    },
+    "c-181": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K179/Krn/K179.musicxml"
+        },
+        "work_name": "12 Piano Variations on a Minuet KV 179 (189a)"
+    },
+    "c-182": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K353/Krn/K353.musicxml"
+        },
+        "work_name": "12 Piano Variations on \"La belle Fran\u00e7oise\" KV 353 (300f)"
+    },
+    "c-183": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K354/Krn/K354.musicxml"
+        },
+        "work_name": "12 Piano Variations on the Romance \"Je suis Lindor\" KV 354 (299a)"
+    },
+    "c-184": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K398/Krn/K398.musicxml"
+        },
+        "work_name": "6 Piano Variations on \"Salve, tu Domine\" KV 398 (416e)"
+    },
+    "c-185": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K613/Krn/K613.musicxml"
+        },
+        "work_name": "8 Piano Variations on \"Ein Weib ist das herrlichste Ding\" KV 613"
+    },
+    "c-186": {
+        "URI": "https://www.henle.de/en/detail/?Title=%22Wunderkind%22+Sonatas+Volume+I+K.+6-9_1094",
+        "book": "\"Wunderkind\" Sonatas Volume I K. 6-9",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K455/Krn/K455.musicxml"
+        },
+        "work_name": "Piano Sonata (Wunderkind) G major KV 9"
+    },
+    "c-187": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+II_451",
+        "book": "Selected Piano Sonatas, Volume II",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L503K513.musicxml"
+        },
+        "work_name": "Piano Sonata C major K. 513"
+    },
+    "c-188": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+III_476",
+        "book": "Selected Piano Sonatas, Volume III",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L481K025.musicxml"
+        },
+        "work_name": "Piano Sonata f sharp minor K. 25"
+    },
+    "c-189": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+III_476",
+        "book": "Selected Piano Sonatas, Volume III",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L334K122.musicxml"
+        },
+        "work_name": "Piano Sonata D major K. 122"
+    },
+    "c-19": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata19-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata19-2.musicxml"
+        },
+        "work_name": "Piano Sonata g minor op. 49,1"
+    },
+    "c-190": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+III_476",
+        "book": "Selected Piano Sonatas, Volume III",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L303K170.musicxml"
+        },
+        "work_name": "Piano Sonata C major K. 170"
+    },
+    "c-191": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+III_476",
+        "book": "Selected Piano Sonatas, Volume III",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L319K442.musicxml"
+        },
+        "work_name": "Piano Sonata B flat major K. 442"
+    },
+    "c-192": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L366K001.musicxml"
+        },
+        "work_name": "Piano Sonata d minor K. 1"
+    },
+    "c-193": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L345K113.musicxml"
+        },
+        "work_name": "Piano Sonata A major K. 113"
+    },
+    "c-194": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L338K450.musicxml"
+        },
+        "work_name": "Piano Sonata g minor K. 450"
+    },
+    "c-195": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L164K491.musicxml"
+        },
+        "work_name": "Piano Sonata D major K. 491"
+    },
+    "c-196": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L014K492.musicxml"
+        },
+        "work_name": "Piano Sonata D major K. 492"
+    },
+    "c-197": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L003K502.musicxml"
+        },
+        "work_name": "Piano Sonata C major K. 502"
+    },
+    "c-198": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/scarlatti-keyboard-sonatas-master/kern/L001K514.musicxml"
+        },
+        "work_name": "Piano Sonata C major K. 514"
+    },
+    "c-199": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/007-1-W-001.musicxml"
+        },
+        "work_name": "Mazurka B flat major op. 7,1"
+    },
+    "c-2": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata02-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata02-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata02-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata02-4.musicxml"
+        },
+        "work_name": "Piano Sonata A major op. 2,2"
+    },
+    "c-20": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata20-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata20-2.musicxml"
+        },
+        "work_name": "Piano Sonata G major op. 49,2"
+    },
+    "c-200": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/024-1-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka g minor op. 24,1"
+    },
+    "c-201": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-015.musicxml"
+        },
+        "work_name": "Prelude (Raindrop) D flat major op. 28,15"
+    },
+    "c-202": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/067-1-Sam-002.musicxml"
+        },
+        "work_name": "Mazurka g minor op. 67,2"
+    },
+    "c-203": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/035-1a-TR-003.musicxml"
+        },
+        "work_name": "Funeral March (Marche fun\u00e8bre) from Piano Sonata op. 35"
+    },
+    "c-204": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/064_2-1-BR-002.musicxml"
+        },
+        "work_name": "Waltz c sharp minor op. 64,2"
+    },
+    "c-205": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/009_1et2-1a-W-002.musicxml"
+        },
+        "work_name": "Nocturne E flat major op. 9,2"
+    },
+    "c-206": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/026-1a-Sm-001.musicxml"
+        },
+        "work_name": "Polonaise (Dramatique) c sharp minor op. 26,1"
+    },
+    "c-207": {
+        "URI": "https://www.henle.de/en/detail/?Title=Ballade+A+flat+major+op.+47_937",
+        "book": "Ballade A flat major op. 47",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/047-1-BH.musicxml"
+        },
+        "work_name": "Ballade A flat major op. 47"
+    },
+    "c-208": {
+        "URI": "https://www.henle.de/en/detail/?Title=Ballade+F+major+op.+38_936",
+        "book": "Ballade F major op. 38",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/038-1-BH.musicxml"
+        },
+        "work_name": "Ballade F major op. 38"
+    },
+    "c-209": {
+        "URI": "https://www.henle.de/en/detail/?Title=Ballade+f+minor+op.+52_938",
+        "book": "Ballade f minor op. 52",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/052-1-Sm.musicxml"
+        },
+        "work_name": "Ballade f minor op. 52"
+    },
+    "c-21": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata21-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata21-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata21-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata21-4.musicxml"
+        },
+        "work_name": "Piano Sonata (Waldstein Sonata) C major op. 53"
+    },
+    "c-210": {
+        "URI": "https://www.henle.de/en/detail/?Title=Ballade+g+minor+op.+23_867",
+        "book": "Ballade g minor op. 23",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/023-1a-Sm.musicxml"
+        },
+        "work_name": "Ballade g minor op. 23"
+    },
+    "c-211": {
+        "URI": "https://www.henle.de/en/detail/?Title=Barcarolle+F+sharp+major+op.+60_993",
+        "book": "Barcarolle F sharp major op. 60",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/060-1-BR-001.musicxml"
+        },
+        "work_name": "Barcarolle F sharp major op. 60"
+    },
+    "c-212": {
+        "URI": "https://www.henle.de/en/detail/?Title=Berceuse+D+flat+major+op.+57_1258",
+        "book": "Berceuse D flat major op. 57",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/057-2-BH.musicxml"
+        },
+        "work_name": "Berceuse D flat major op. 57"
+    },
+    "c-213": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etude+c+minor+op.+10+no.+12+%28Revolution%29_658",
+        "book": "Etude c minor op. 10 no. 12 (Revolution)",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_7-12-1-KI-012.musicxml"
+        },
+        "work_name": "Et\u00fcde (Revolution) c minor op. 10,12"
+    },
+    "c-214": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etude+E+major+op.+10+no.+3_656",
+        "book": "Etude E major op. 10 no. 3",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010-1b-Sm-003.musicxml"
+        },
+        "work_name": "Etude E major op. 10,3"
+    },
+    "c-215": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etude+G+flat+major+op.+10+no.+5_1323",
+        "book": "Etude G flat major op. 10 no. 5",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_1-6-1b-KI-005.musicxml"
+        },
+        "work_name": "Etude G flat major op. 10,5"
+    },
+    "c-216": {
+        "URI": "https://www.henle.de/en/detail/?Title=Fantaisie-Impromptu+c+sharp+minor+op.+post.+66_1320",
+        "book": "Fantaisie-Impromptu c sharp minor op. post. 66",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/066-1axx-COM.musicxml"
+        },
+        "work_name": "Fantaisie-Impromptu c sharp minor op. 66"
+    },
+    "c-217": {
+        "URI": "https://www.henle.de/en/detail/?Title=Fantasy+f+minor+op.+49_321",
+        "book": "Fantasy f minor op. 49",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/049-1a-Sm.musicxml"
+        },
+        "work_name": "Fantasy f minor op. 49"
+    },
+    "c-218": {
+        "URI": "https://www.henle.de/en/detail/?Title=Grande+Valse+A+flat+major+op.+42_1322",
+        "book": "Grande Valse A flat major op. 42",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/042-1-P.musicxml"
+        },
+        "work_name": "Waltz A flat major op. 42"
+    },
+    "c-219": {
+        "URI": "https://www.henle.de/en/detail/?Title=Grande+Valse+brillante+E+flat+major+op.+18_1321",
+        "book": "Grande Valse brillante E flat major op. 18",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/018-1-BH.musicxml"
+        },
+        "work_name": "Waltz (Grande Valse brillante) E flat major op. 18"
+    },
+    "c-22": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata22-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata22-2.musicxml"
+        },
+        "work_name": "Piano Sonata F major op. 54"
+    },
+    "c-220": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturne+e+minor+op.+post.+72+no.+1_1315",
+        "book": "Nocturne e minor op. post. 72 no. 1",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/072-1-MEIf-003-ecossaise.musicxml"
+        },
+        "work_name": "Nocturne e minor op. post. 72,1"
+    },
+    "c-221": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Works_348",
+        "book": "Selected Piano Works",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/034_2-1-Sm-002.musicxml"
+        },
+        "work_name": "Waltz a minor op. 34,2"
+    },
+    "c-222": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Works_348",
+        "book": "Selected Piano Works",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/064-1a-BH-001.musicxml"
+        },
+        "work_name": "Waltz (Minute) D flat major op. 64,1"
+    },
+    "c-223": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Works_348",
+        "book": "Selected Piano Works",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/069-1a-Sam-001.musicxml"
+        },
+        "work_name": "Waltz A flat major op. post. 69,1"
+    },
+    "c-224": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaise+A+flat+major+op.+53_960",
+        "book": "Polonaise A flat major op. 53",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/053-1-Sm.musicxml"
+        },
+        "work_name": "Polonaise A flat major op. 53"
+    },
+    "c-225": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaise+A+major+op.+40+no.+1+%28Militaire%29_661",
+        "book": "Polonaise A major op. 40 no. 1 (Militaire)",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/040-1-TR-001.musicxml"
+        },
+        "work_name": "Polonaise (Militaire) A major op. 40,1"
+    },
+    "c-226": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaise+f+sharp+minor+op.+44_1154",
+        "book": "Polonaise f sharp minor op. 44",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/044-1a-Sm.musicxml"
+        },
+        "work_name": "Polonaise f sharp minor op. 44"
+    },
+    "c-227": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scherzi_886",
+        "book": "Scherzi",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/020-1-BH.musicxml"
+        },
+        "work_name": "Scherzo b minor op. 20"
+    },
+    "c-228": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scherzi_886",
+        "book": "Scherzi",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/031-1-BH.musicxml"
+        },
+        "work_name": "Scherzo b flat minor op. 31"
+    },
+    "c-229": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scherzi_886",
+        "book": "Scherzi",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/039-1-BH.musicxml"
+        },
+        "work_name": "Scherzo c sharp minor op. 39"
+    },
+    "c-23": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata23-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata23-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata23-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Appassionata) f minor op. 57"
+    },
+    "c-230": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scherzi_886",
+        "book": "Scherzi",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/054-1-Sm.musicxml"
+        },
+        "work_name": "Scherzo E major op. 54"
+    },
+    "c-231": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+15+bekannte+Originalst%C3%BCcke_1800",
+        "book": "Am Klavier - 15 bekannte Originalst\u00fccke",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata15-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata15-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata15-3.musicxml"
+        },
+        "work_name": "1st movement (Allegro) from Piano Sonata (Facile) C major KV 545"
+    },
+    "c-232": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+15+bekannte+Originalst%C3%BCcke_1800",
+        "book": "Am Klavier - 15 bekannte Originalst\u00fccke",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K265/Krn/K265.musicxml"
+        },
+        "work_name": "12 Piano Variations on \"Ah, vous dirai-je Maman\" KV 265 (300e)"
+    },
+    "c-233": {
+        "URI": "https://www.henle.de/en/detail/?Title=Fantasy+and+Sonata+c+minor+K.+475/457_345",
+        "book": "Fantasy and Sonata c minor K. 475/457",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata14-2.musicxml"
+        },
+        "work_name": "Fantasy and Sonata c minor KV 475/457"
+    },
+    "c-234": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+a+minor+K.+310+%28300d%29_396",
+        "book": "Piano Sonata a minor K. 310 (300d)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata08-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata08-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata08-3.musicxml"
+        },
+        "work_name": "Piano Sonata a minor KV 310 (300d)"
+    },
+    "c-235": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+B+flat+major+K.+281+%28189f%29_1053",
+        "book": "Piano Sonata B flat major K. 281 (189f)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata03-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata03-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata03-3.musicxml"
+        },
+        "work_name": "Piano Sonata B flat major KV 281 (189f)"
+    },
+    "c-236": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+C+major+K.+279+%28189d%29_600",
+        "book": "Piano Sonata C major K. 279 (189d)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata01-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata01-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata01-3.musicxml"
+        },
+        "work_name": "Piano Sonata C major KV 279 (189d)"
+    },
+    "c-237": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+C+major+K.+309+%28284b%29_1065",
+        "book": "Piano Sonata C major K. 309 (284b)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata07-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata07-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata07-3.musicxml"
+        },
+        "work_name": "Piano Sonata C major KV 309 (284b)"
+    },
+    "c-238": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+C+major+K.+330+%28300h%29_602",
+        "book": "Piano Sonata C major K. 330 (300h)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata10-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata10-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata10-3.musicxml"
+        },
+        "work_name": "Piano Sonata C major KV 330 (300h)"
+    },
+    "c-239": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+D+major+K.+576_603",
+        "book": "Piano Sonata D major K. 576",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata17-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata17-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata17-3.musicxml"
+        },
+        "work_name": "Piano Sonata D major KV 576"
+    },
+    "c-24": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata24-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata24-2.musicxml"
+        },
+        "work_name": "Piano Sonata (A Th\u00e9r\u00e8se) F sharp major op. 78"
+    },
+    "c-240": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+E+flat+major+K.+282+%28189g%29_60",
+        "book": "Piano Sonata E flat major K. 282 (189g)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata04-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata04-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata04-3.musicxml"
+        },
+        "work_name": "Piano Sonata E flat major KV 282 (189g)"
+    },
+    "c-241": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+F+major+K.+280+%28189e%29_1040",
+        "book": "Piano Sonata F major K. 280 (189e)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata02-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata02-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata02-3.musicxml"
+        },
+        "work_name": "Piano Sonata F major KV 280 (189e)"
+    },
+    "c-242": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+F+major+K.+332+%28300k%29_178",
+        "book": "Piano Sonata F major K. 332 (300k)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata12-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata12-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata12-3.musicxml"
+        },
+        "work_name": "Piano Sonata F major KV 332 (300k)"
+    },
+    "c-243": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+G+major+K.+283+%28189h%29_601",
+        "book": "Piano Sonata G major K. 283 (189h)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata05-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata05-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata05-3.musicxml"
+        },
+        "work_name": "Piano Sonata G major KV 283 (189h)"
+    },
+    "c-244": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+B+flat+major+K.+333+%28315c%29_397",
+        "book": "Piano Sonata B flat major K. 333 (315c)",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/mozart-piano-sonatas-master/kern/sonata13-1.musicxml",
+            "2": "craig_files/mozart-piano-sonatas-master/kern/sonata13-2.musicxml",
+            "3": "craig_files/mozart-piano-sonatas-master/kern/sonata13-3.musicxml"
+        },
+        "work_name": "Piano Sonata B flat major KV 333 (315c)"
+    },
+    "c-245": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations_116",
+        "book": "Piano Variations",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Mozart/K573/Krn/K573.musicxml"
+        },
+        "work_name": "9 Piano Variations on a Minuet by Duport KV 573"
+    },
+    "c-246": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+I+BWV+846-869_14",
+        "book": "The Well-Tempered Clavier Part I BWV 846-869",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/wtc/wtc1p15.musicxml"
+        },
+        "work_name": "Prelude G major BWV 860"
+    },
+    "c-247": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+II+BWV+870-893_16",
+        "book": "The Well-Tempered Clavier Part II BWV 870-893",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/wtc/wtc2p10.musicxml"
+        },
+        "work_name": "Prelude e minor BWV 879"
+    },
+    "c-248": {
+        "URI": "https://www.henle.de/en/detail/?Title=At+the+Piano+-+9+well-known+original+pieces_1820",
+        "book": "At the Piano - 9 well-known original pieces",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B069/Krn/Wo069.musicxml"
+        },
+        "work_name": "9 Piano Variations on \"Quant' \u00e8 pi\u00f9 bello\" from La Molinara by Paisiello A major WoO 69"
+    },
+    "c-249": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+I_1267",
+        "book": "Piano Variations, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B063/Krn/Wo063.musicxml"
+        },
+        "work_name": "9 Piano Variations on a March by Dressler (first version) WoO 63"
+    },
+    "c-25": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata25-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata25-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata25-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Sonatina) G major op. 79"
+    },
+    "c-250": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+I_1267",
+        "book": "Piano Variations, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B064/Krn/Wo064.musicxml"
+        },
+        "work_name": "6 Piano Variations on the Swiss Song \"Es h\u00e4tt e' Buur e' T\u00f6chterli\" WoO 64"
+    },
+    "c-251": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+I_1267",
+        "book": "Piano Variations, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B070/Krn/Wo070.musicxml"
+        },
+        "work_name": "6 Piano Variations on \"Nel cor pi\u00f9 non mi sento\" by Paisiello WoO 70"
+    },
+    "c-252": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+I_1267",
+        "book": "Piano Variations, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B073/Krn/Wo073.musicxml"
+        },
+        "work_name": "10 Piano Variations on \"La stessa, la stessissima\" by Salieri WoO 73"
+    },
+    "c-253": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+I_1267",
+        "book": "Piano Variations, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B075/Krn/Wo075.musicxml"
+        },
+        "work_name": "7 Piano Variations on \"Kind, willst du ruhig schlafen\" by Winter WoO 75"
+    },
+    "c-254": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+II_1269",
+        "book": "Piano Variations, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B077/Krn/Wo077.musicxml"
+        },
+        "work_name": "6 Easy Piano variations G major WoO 77"
+    },
+    "c-255": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+II_1269",
+        "book": "Piano Variations, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/Opus34/Krn/Opus34.musicxml"
+        },
+        "work_name": "6 Piano Variations F major op. 34"
+    },
+    "c-256": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+II_1269",
+        "book": "Piano Variations, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/B078/Krn/Wo078.musicxml"
+        },
+        "work_name": "7 Piano Variations on \"God save the King\" WoO 78"
+    },
+    "c-257": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Variations%2C+Volume+II_1269",
+        "book": "Piano Variations, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/TAVERN-master/Beethoven/Opus76/Krn/Opus76.musicxml"
+        },
+        "work_name": "6 Piano Variations D major op. 76"
+    },
+    "c-258": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/069-1a-Sam-002.musicxml"
+        },
+        "work_name": "Waltz b minor op. post. 69,2"
+    },
+    "c-259": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-020.musicxml"
+        },
+        "work_name": "Prelude c minor op. 28,20"
+    },
+    "c-26": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata26-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata26-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata26-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Les Adieux) E flat major op. 81a"
+    },
+    "c-260": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028_1-12-1a-C-006.musicxml"
+        },
+        "work_name": "Prelude b minor op. 28,6"
+    },
+    "c-261": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028_1-12-1a-C-004.musicxml"
+        },
+        "work_name": "Prelude e minor op. 28,4"
+    },
+    "c-262": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+17+bekannte+Originalst%C3%BCcke_1810",
+        "book": "Am Klavier - 17 bekannte Originalst\u00fccke",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/015-1a-BH-001.musicxml"
+        },
+        "work_name": "Nocturne g minor op. 15,3"
+    },
+    "c-263": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010-1b-Sm-001.musicxml"
+        },
+        "work_name": "Etude C major op. 10,1"
+    },
+    "c-264": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010-1b-Sm-002.musicxml"
+        },
+        "work_name": "Etude a minor op. 10,2"
+    },
+    "c-265": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_1-6-1b-KI-004.musicxml"
+        },
+        "work_name": "Etude c sharp minor op. 10,4"
+    },
+    "c-266": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_7-12-1-KI-007.musicxml"
+        },
+        "work_name": "Etude C major op. 10,7"
+    },
+    "c-268": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010-1b-Sm-009.musicxml"
+        },
+        "work_name": "Etude f minor op. 10,9"
+    },
+    "c-269": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_7-12-1-KI-010.musicxml"
+        },
+        "work_name": "Etude A flat major op. 10,10"
+    },
+    "c-27": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata27-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata27-2.musicxml"
+        },
+        "work_name": "Piano Sonata e minor op. 90"
+    },
+    "c-270": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/011-1a-Sm-001.musicxml"
+        },
+        "work_name": "Etude E flat major op. 10,11"
+    },
+    "c-271": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025-1b-LE-008.musicxml"
+        },
+        "work_name": "Etude f minor op. 25,2"
+    },
+    "c-272": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025_1-6-1d-BH-005.musicxml"
+        },
+        "work_name": "Etude e minor op. 25,5"
+    },
+    "c-273": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025-1b-LE-006.musicxml"
+        },
+        "work_name": "Etude g sharp minor op. 25,6"
+    },
+    "c-274": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025_1-6-1d-BH-003.musicxml"
+        },
+        "work_name": "Etude c sharp minor op. 25,7"
+    },
+    "c-275": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025-1b-LE-012.musicxml"
+        },
+        "work_name": "Etude c minor op. 25,12"
+    },
+    "c-276": {
+        "URI": "https://www.henle.de/en/detail/?Title=Impromptus_235",
+        "book": "Impromptus",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/029-1a-Sm.musicxml"
+        },
+        "work_name": "Impromptu A flat major op. 29"
+    },
+    "c-277": {
+        "URI": "https://www.henle.de/en/detail/?Title=Impromptus_235",
+        "book": "Impromptus",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/036-1-BH-001.musicxml"
+        },
+        "work_name": "Impromptu F sharp major op. 36"
+    },
+    "c-278": {
+        "URI": "https://www.henle.de/en/detail/?Title=Impromptus_235",
+        "book": "Impromptus",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/051-1-HO.musicxml"
+        },
+        "work_name": "Impromptu G flat major op. 51"
+    },
+    "c-279": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/006-1-KI-001.musicxml"
+        },
+        "work_name": "Mazurka f sharp minor op. 6,1"
+    },
+    "c-28": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata28-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata28-2.musicxml"
+        },
+        "work_name": "Piano Sonata A major op. 101"
+    },
+    "c-280": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/006-1-KI-002.musicxml"
+        },
+        "work_name": "Mazurka c sharp minor op. 6,2"
+    },
+    "c-281": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/006-1-KI-003.musicxml"
+        },
+        "work_name": "Mazurka E major op. 6,3"
+    },
+    "c-282": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/006-1-KI-004.musicxml"
+        },
+        "work_name": "Mazurka e flat minor op. 6,4"
+    },
+    "c-283": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/007-1-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka a minor op. 7,2"
+    },
+    "c-284": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/007-1-Sm-003.musicxml"
+        },
+        "work_name": "Mazurka f minor op. 7,3"
+    },
+    "c-285": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/007-1-Sm-004.musicxml"
+        },
+        "work_name": "Mazurka A flat major op. 7,4"
+    },
+    "c-286": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/017-1a-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka B flat major op. 17,1"
+    },
+    "c-287": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/017-1a-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka e minor op. 17,2"
+    },
+    "c-288": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/017-1a-Sm-003.musicxml"
+        },
+        "work_name": "Mazurka A flat major op. 17,3"
+    },
+    "c-289": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/017-1-BH-004.musicxml"
+        },
+        "work_name": "Mazurka op. 17,4"
+    },
+    "c-29": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata29-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata29-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata29-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata29-4.musicxml"
+        },
+        "work_name": "Piano Sonata (Hammerklavier) B flat major op. 106"
+    },
+    "c-290": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/024-1-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka C major op. 24,2"
+    },
+    "c-291": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/024-1-Sm-003.musicxml"
+        },
+        "work_name": "Mazurka A flat major op. 24,3"
+    },
+    "c-292": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/030-1-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka c minor op. 30,1"
+    },
+    "c-293": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/030-1-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka op. 30,2"
+    },
+    "c-294": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/030-1-BH-003.musicxml"
+        },
+        "work_name": "Mazurka D flat major op. 30,3"
+    },
+    "c-295": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/030-1-Sm-004.musicxml"
+        },
+        "work_name": "Mazurka c sharp minor op. 30,4"
+    },
+    "c-296": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/033-1a-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka g sharp minor op. 33,1"
+    },
+    "c-297": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/033-1-BH-002.musicxml"
+        },
+        "work_name": "Mazurka op. 33,2"
+    },
+    "c-298": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/033-1a-Sm-003.musicxml"
+        },
+        "work_name": "Mazurka C major op. 33,3"
+    },
+    "c-299": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/033-1a-Sm-004.musicxml"
+        },
+        "work_name": "Mazurka b minor op. 33,4"
+    },
+    "c-3": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata03-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata03-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata03-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata03-4.musicxml"
+        },
+        "work_name": "Piano Sonata C major op. 2,3"
+    },
+    "c-30": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata30-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata30-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata30-3.musicxml"
+        },
+        "work_name": "Piano Sonata E major op. 109"
+    },
+    "c-300": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/041-1a-TR-002.musicxml"
+        },
+        "work_name": "Mazurka e minor op. 41,1"
+    },
+    "c-301": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/050-1a-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka G major op. 50,1"
+    },
+    "c-302": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/050-1a-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka A flat major op. 50,2"
+    },
+    "c-303": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/050-1a-Sm-003.musicxml"
+        },
+        "work_name": "Mazurka c sharp minor op. 50,3"
+    },
+    "c-304": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/056-1a-Sm-001.musicxml"
+        },
+        "work_name": "Mazurka B major op. 56,1"
+    },
+    "c-305": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/056-1a-Sm-002.musicxml"
+        },
+        "work_name": "Mazurka C major op. 56,2"
+    },
+    "c-306": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/035-1a-TR-002.musicxml"
+        },
+        "work_name": "Mazurka c minor op. 56,3"
+    },
+    "c-307": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/059-1a-ST-001.musicxml"
+        },
+        "work_name": "Mazurka a minor op. 59,1"
+    },
+    "c-308": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/059-1a-ST-002.musicxml"
+        },
+        "work_name": "Mazurka A flat major op. 59,2"
+    },
+    "c-309": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/059-1a-ST-003.musicxml"
+        },
+        "work_name": "Mazurka f sharp minor op. 59,3"
+    },
+    "c-31": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata31-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata31-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata31-3.musicxml"
+        },
+        "work_name": "Piano Sonata A flat major op. 110"
+    },
+    "c-310": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/063-1-BR-001.musicxml"
+        },
+        "work_name": "Mazurka B major op. 63,1"
+    },
+    "c-311": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/063-1-BH-002.musicxml"
+        },
+        "work_name": "Mazurka f minor op. 63,2"
+    },
+    "c-312": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/063-1-BH-003.musicxml"
+        },
+        "work_name": "Mazurka c sharp minor op. 63,3"
+    },
+    "c-313": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/067-1b-GE-001.musicxml"
+        },
+        "work_name": "Mazurka G major op. 67,1"
+    },
+    "c-314": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/067-1b-GE-004.musicxml"
+        },
+        "work_name": "Mazurka a minor op. 67,4"
+    },
+    "c-315": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/068-1-Sam-004.musicxml"
+        },
+        "work_name": "Mazurka F major op. 68,3"
+    },
+    "c-316": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/009-1-KI-003.musicxml"
+        },
+        "work_name": "Nocturne B major op. 9,3"
+    },
+    "c-317": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/015-1b-Sm-001.musicxml"
+        },
+        "work_name": "Nocturne F major op. 15,1"
+    },
+    "c-318": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/015-1b-Sm-002.musicxml"
+        },
+        "work_name": "Nocturne F sharp major op. 15,2"
+    },
+    "c-319": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/027-1e-W-002.musicxml"
+        },
+        "work_name": "Nocturne c sharp minor op. 27,1"
+    },
+    "c-32": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+II_34",
+        "book": "Piano Sonatas, Volume II",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata32-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata32-2.musicxml"
+        },
+        "work_name": "Piano Sonata c minor op. 111"
+    },
+    "c-320": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/032-1-W-001.musicxml"
+        },
+        "work_name": "Nocturne B major op. 32,1"
+    },
+    "c-321": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/032-1-W-002.musicxml"
+        },
+        "work_name": "Nocturne A flat major op. 32,2"
+    },
+    "c-322": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/037-1-BH-002.musicxml"
+        },
+        "work_name": "Nocturne g minor op. 37,1"
+    },
+    "c-323": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/048_2-1a-Sm-002.musicxml"
+        },
+        "work_name": "Nocturne f sharp minor op. 48,2"
+    },
+    "c-324": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/055-1-BH-001.musicxml"
+        },
+        "work_name": "Nocturne f minor op. 55,1"
+    },
+    "c-325": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/055-1-BH-002.musicxml"
+        },
+        "work_name": "Nocturne E flat major op. 55,2"
+    },
+    "c-326": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/062-1-BH-002.musicxml"
+        },
+        "work_name": "Nocturne E major op. 62,2"
+    },
+    "c-327": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_318",
+        "book": "Piano Pieces",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/012-1-Sm-001.musicxml"
+        },
+        "work_name": "Variations brillantes B flat major op. 12"
+    },
+    "c-328": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_318",
+        "book": "Piano Pieces",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/019-1-PE.musicxml"
+        },
+        "work_name": "Bolero a minor op. 19"
+    },
+    "c-329": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_318",
+        "book": "Piano Pieces",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/043-1a-TR.musicxml"
+        },
+        "work_name": "Tarantella A flat major op. 43"
+    },
+    "c-330": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_318",
+        "book": "Piano Pieces",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/046-1-BH.musicxml"
+        },
+        "work_name": "Allegro de Concert A major op. 46"
+    },
+    "c-331": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_318",
+        "book": "Piano Pieces",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/072-1-MEIf-004-ecossaise.musicxml"
+        },
+        "work_name": "3 Ecossaises D major, G major, D flat major op. 72,3"
+    },
+    "c-332": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+b+minor+op.+58_290",
+        "book": "Piano Sonata b minor op. 58",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/058-1-BH-004.musicxml"
+        },
+        "work_name": "Piano Sonata b minor op. 58"
+    },
+    "c-333": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonata+c+minor+op.+4_942",
+        "book": "Piano Sonata c minor op. 4",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/004-1a-COC-003.musicxml"
+        },
+        "work_name": "Piano Sonata c minor op. 4"
+    },
+    "c-334": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaises_217",
+        "book": "Polonaises",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/026-1a-Sm-002.musicxml"
+        },
+        "work_name": "Polonaise e flat minor op. 26,2"
+    },
+    "c-335": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaises_217",
+        "book": "Polonaises",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/040-1-TR-002.musicxml"
+        },
+        "work_name": "Polonaise c minor op. 40,2"
+    },
+    "c-336": {
+        "URI": "https://www.henle.de/en/detail/?Title=Polonaises_217",
+        "book": "Polonaises",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/PolGsharpm-1-K.musicxml"
+        },
+        "work_name": "Polonaise g minor KK IIa,1"
+    },
+    "c-337": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-002.musicxml"
+        },
+        "work_name": "Prelude a minor op. 28,2"
+    },
+    "c-338": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-003.musicxml"
+        },
+        "work_name": "Prelude G major op. 28,3"
+    },
+    "c-339": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-005.musicxml"
+        },
+        "work_name": "Prelude D major op. 28,5"
+    },
+    "c-340": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-001.musicxml"
+        },
+        "work_name": "Prelude A major op. 28,7"
+    },
+    "c-341": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-008.musicxml"
+        },
+        "work_name": "Prelude f sharp minor op. 28,8"
+    },
+    "c-342": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028_1-12-1a-C-010.musicxml"
+        },
+        "work_name": "Prelude c sharp minor op. 28,10"
+    },
+    "c-343": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-011.musicxml"
+        },
+        "work_name": "Prelude B major op. 28,11"
+    },
+    "c-344": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-012.musicxml"
+        },
+        "work_name": "Prelude g sharp minor op. 28,12"
+    },
+    "c-345": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-003.musicxml"
+        },
+        "work_name": "Prelude F sharp major op. 28,13"
+    },
+    "c-346": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-014.musicxml"
+        },
+        "work_name": "Prelude e flat minor op. 28,14"
+    },
+    "c-347": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-016.musicxml"
+        },
+        "work_name": "Prelude b flat minor op. 28,16"
+    },
+    "c-348": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-017.musicxml"
+        },
+        "work_name": "Prelude A flat major op. 28,17"
+    },
+    "c-350": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028-1-BH-019.musicxml"
+        },
+        "work_name": "Prelude E flat major op. 28,19"
+    },
+    "c-351": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/021-1a-Sm-003.musicxml"
+        },
+        "work_name": "Prelude B flat major op. 28,21"
+    },
+    "c-352": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/028_13-24-1a-C-023.musicxml"
+        },
+        "work_name": "Prelude F major op. 28,23"
+    },
+    "c-353": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/024-1a-BH-001.musicxml"
+        },
+        "work_name": "Prelude d minor op. 28,24"
+    },
+    "c-354": {
+        "URI": "https://www.henle.de/en/detail/?Title=Preludes_882",
+        "book": "Preludes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/045-1a-ME-001.musicxml"
+        },
+        "work_name": "Prelude c sharp minor op. 45"
+    },
+    "c-355": {
+        "URI": "https://www.henle.de/en/detail/?Title=Rondos_884",
+        "book": "Rondos",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/001-1-BRZ.musicxml"
+        },
+        "work_name": "Rondo c minor op. 1"
+    },
+    "c-356": {
+        "URI": "https://www.henle.de/en/detail/?Title=Rondos_884",
+        "book": "Rondos",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/005-1-SC.musicxml"
+        },
+        "work_name": "Rondo F major op. 5"
+    },
+    "c-357": {
+        "URI": "https://www.henle.de/en/detail/?Title=Rondos_884",
+        "book": "Rondos",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/016-1-PL.musicxml"
+        },
+        "work_name": "Rondo E flat major op. 16"
+    },
+    "c-358": {
+        "URI": "https://www.henle.de/en/detail/?Title=Waltzes_131",
+        "book": "Waltzes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/034_1-1a-Sm.musicxml"
+        },
+        "work_name": "Waltz A flat major op. 34,1"
+    },
+    "c-359": {
+        "URI": "https://www.henle.de/en/detail/?Title=Waltzes_131",
+        "book": "Waltzes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/034_3-1a-Sm-003.musicxml"
+        },
+        "work_name": "Waltz F major op. 34,3"
+    },
+    "c-360": {
+        "URI": "https://www.henle.de/en/detail/?Title=Waltzes_131",
+        "book": "Waltzes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/008-1b-W-004-piano.musicxml"
+        },
+        "work_name": "Waltz A flat major op. 64,3"
+    },
+    "c-361": {
+        "URI": "https://www.henle.de/en/detail/?Title=Waltzes_131",
+        "book": "Waltzes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/070-1-Sam-002.musicxml"
+        },
+        "work_name": "Waltz f minor op. post. 70,2"
+    },
+    "c-362": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+16+bekannte+Originalst%C3%BCcke_1804",
+        "book": "Am Klavier - 16 bekannte Originalst\u00fccke",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "craig_files/bach-inventions/inven06.musicxml"
+        },
+        "work_name": "Invention 6 E major BWV 777"
+    },
+    "c-363": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+16+bekannte+Originalst%C3%BCcke_1804",
+        "book": "Am Klavier - 16 bekannte Originalst\u00fccke",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven03.musicxml"
+        },
+        "work_name": "Invention 3 D major BWV 774"
+    },
+    "c-364": {
+        "URI": "https://www.henle.de/en/detail/?Title=Inventions+and+Sinfonias_589",
+        "book": "Inventions and Sinfonias",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "craig_files/bach-inventions/inven01.musicxml"
+        },
+        "work_name": "Invention 1 C major BWV 772"
+    },
+    "c-365": {
+        "URI": "https://www.henle.de/en/detail/?Title=Inventions+and+Sinfonias_589",
+        "book": "Inventions and Sinfonias",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "craig_files/bach-inventions/inven04.musicxml"
+        },
+        "work_name": "Invention 4 d minor BWV 775"
+    },
+    "c-366": {
+        "URI": "https://www.henle.de/en/detail/?Title=Inventions+and+Sinfonias_589",
+        "book": "Inventions and Sinfonias",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven05.musicxml"
+        },
+        "work_name": "Invention 5 E flat major BWV 776"
+    },
+    "c-367": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven02.musicxml"
+        },
+        "work_name": "Invention 2 c minor BWV 773"
+    },
+    "c-368": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven07.musicxml"
+        },
+        "work_name": "Invention 7 e minor BWV 778"
+    },
+    "c-369": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven08.musicxml"
+        },
+        "work_name": "Invention 8 F major BWV 779"
+    },
+    "c-370": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven09.musicxml"
+        },
+        "work_name": "Invention 9 f minor BWV 780"
+    },
+    "c-371": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven11.musicxml"
+        },
+        "work_name": "Invention 11 g minor BWV 782"
+    },
+    "c-372": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven12.musicxml"
+        },
+        "work_name": "Invention 12 A major BWV 783"
+    },
+    "c-373": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven13.musicxml"
+        },
+        "work_name": "Invention 13 a minor BWV 784"
+    },
+    "c-374": {
+        "URI": "https://www.henle.de/en/detail/?Title=Two+Part+Inventions_591",
+        "book": "Two Part Inventions",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "craig_files/bach-inventions/inven14.musicxml"
+        },
+        "work_name": "Invention 14 B flat major BWV 785"
+    },
+    "c-375": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/010_1-6-1b-KI-006.musicxml"
+        },
+        "work_name": "Etude e flat minor op. 10,6"
+    },
+    "c-376": {
+        "URI": "https://www.henle.de/en/detail/?Title=Etudes_124",
+        "book": "Etudes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/025-1b-LE-001.musicxml"
+        },
+        "work_name": "Etude A flat major op. 25,1"
+    },
+    "c-377": {
+        "URI": "https://www.henle.de/en/detail/?Title=Mazurkas_264",
+        "book": "Mazurkas",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/024-1d-W-004.musicxml"
+        },
+        "work_name": "Mazurka op. 24,4"
+    },
+    "c-378": {
+        "URI": "https://www.henle.de/en/detail/?Title=Nocturnes_185",
+        "book": "Nocturnes",
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/humdrum-chopin-first-editions-main/kern/009_1et2-1a-W-001.musicxml"
+        },
+        "work_name": "Nocturne b flat minor op. 9,1"
+    },
+    "c-4": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 8,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata04-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata04-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata04-3.musicxml",
+            "4": "craig_files/beethoven-piano-sonatas-master/kern/sonata04-4.musicxml"
+        },
+        "work_name": "Piano Sonata E flat major op. 7"
+    },
+    "c-5": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata05-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata05-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata05-3.musicxml"
+        },
+        "work_name": "Piano Sonata c minor op. 10,1"
+    },
+    "c-6": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata06-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata06-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata06-3.musicxml"
+        },
+        "work_name": "Piano Sonata F major op. 10,2"
+    },
+    "c-8": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata08-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata08-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata08-3.musicxml"
+        },
+        "work_name": "Piano Sonata (Grande Sonata Path\u00e9tique) c minor op. 13"
+    },
+    "c-9": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Sonatas%2C+Volume+I_32",
+        "book": "Piano Sonatas, Volume I",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "craig_files/beethoven-piano-sonatas-master/kern/sonata09-1.musicxml",
+            "2": "craig_files/beethoven-piano-sonatas-master/kern/sonata09-2.musicxml",
+            "3": "craig_files/beethoven-piano-sonatas-master/kern/sonata09-3.musicxml"
+        },
+        "work_name": "Piano Sonata E major op. 14,1"
+    },
+    "m-1": {
+        "URI": "https://www.henle.de/en/detail/?Title=Am+Klavier+-+16+bekannte+Originalst%C3%BCcke_1804",
+        "book": "Am Klavier - 16 bekannte Originalst\u00fccke",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "mutopia_files/105.musicxml"
+        },
+        "work_name": "Prelude and Fugue c minor BWV 871"
+    },
+    "m-10": {
+        "URI": "https://www.henle.de/en/detail/?Title=Inventions+and+Sinfonias_589",
+        "book": "Inventions and Sinfonias",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/46.musicxml"
+        },
+        "work_name": "Sinfonia 5 E flat major BWV 791"
+    },
+    "m-103": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scenes+from+Childhood+op.+15+and+Album+for+the+Young+op.+68_46",
+        "book": "Scenes from Childhood op. 15 and Album for the Young op. 68",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/631.musicxml"
+        },
+        "work_name": "Wichtige Begebenheit op. 15,6"
+    },
+    "m-11": {
+        "URI": "https://www.henle.de/en/detail/?Title=Little+Preludes+and+Fughettas_106",
+        "book": "Little Preludes and Fughettas",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/113.musicxml"
+        },
+        "work_name": "Little Prelude from the \"Pianobook\" for W. F. Bach BWV 928"
+    },
+    "m-115": {
+        "URI": "https://www.henle.de/en/detail/?Title=Scenes+from+Childhood+op.+15_44",
+        "book": "Scenes from Childhood op. 15",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/631.musicxml"
+        },
+        "work_name": "Wichtige Begebenheit op. 15,6"
+    },
+    "m-12": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/16.musicxml"
+        },
+        "work_name": "Polonaise BWV Anhang 117a"
+    },
+    "m-14": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "mutopia_files/141.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 118"
+    },
+    "m-15": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "mutopia_files/22.musicxml"
+        },
+        "work_name": "Choral: Gib dich zufrieden und sei stille BWV 510"
+    },
+    "m-16": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/23.musicxml"
+        },
+        "work_name": "Choral: Gib dich zufrieden und sei stille BWV 511"
+    },
+    "m-17": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/24.musicxml"
+        },
+        "work_name": "Choral: Gib dich zufrieden und sei stille BWV 512"
+    },
+    "m-18": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "mutopia_files/144.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 121"
+    },
+    "m-19": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 1,
+        "path": {
+            "1": "mutopia_files/25.musicxml"
+        },
+        "work_name": "Aria: So oft ich meine Tobackspfeife BWV 515"
+    },
+    "m-20": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "mutopia_files/147.musicxml"
+        },
+        "work_name": "Polonaise BWV Anhang 128"
+    },
+    "m-22": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "mutopia_files/72.musicxml"
+        },
+        "work_name": "Pr\u00e4ludium BWV 846"
+    },
+    "m-23": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/26.musicxml"
+        },
+        "work_name": "Aria: Warum betr\u00fcbst du dich BWV 516"
+    },
+    "m-24": {
+        "URI": "https://www.henle.de/en/detail/?Title=Notebook+for+Anna+Magdalena+Bach_349",
+        "book": "Notebook for Anna Magdalena Bach",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/150.musicxml"
+        },
+        "work_name": "Choral: O Ewigkeit, du Donnerwort BWV 513"
+    },
+    "m-26": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+I+BWV+846-869_14",
+        "book": "The Well-Tempered Clavier Part I BWV 846-869",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/87.musicxml"
+        },
+        "work_name": "Fugue e minor BWV 855"
+    },
+    "m-27": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+I+BWV+846-869_14",
+        "book": "The Well-Tempered Clavier Part I BWV 846-869",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/89.musicxml"
+        },
+        "work_name": "Prelude F major BWV 856"
+    },
+    "m-28": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+I+BWV+846-869_14",
+        "book": "The Well-Tempered Clavier Part I BWV 846-869",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/95.musicxml"
+        },
+        "work_name": "Prelude g minor BWV 861"
+    },
+    "m-29": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+I+BWV+846-869_14",
+        "book": "The Well-Tempered Clavier Part I BWV 846-869",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/100.musicxml"
+        },
+        "work_name": "Prelude b minor BWV 869"
+    },
+    "m-30": {
+        "URI": "https://www.henle.de/en/detail/?Title=The+Well-Tempered+Clavier+Part+II+BWV+870-893_16",
+        "book": "The Well-Tempered Clavier Part II BWV 870-893",
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/103.musicxml"
+        },
+        "work_name": "Prelude C major BWV 870"
+    },
+    "m-32": {
+        "URI": "https://www.henle.de/en/detail/?Title=Dances+for+Piano_449",
+        "book": "Dances for Piano",
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/194.musicxml"
+        },
+        "work_name": "Minuet E flat major WoO 82"
+    },
+    "m-41": {
+        "URI": "https://www.henle.de/en/detail/?Title=Complete+Lyric+Pieces_1136",
+        "book": "Complete Lyric Pieces",
+        "composer": "EDVARD GRIEG",
+        "henle": 6,
+        "path": {
+            "1": "mutopia_files/388.musicxml"
+        },
+        "work_name": "March of the Dwarfs op. 54,3"
+    },
+    "m-54": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+works%2C+Volume+III+-+Songs+without+Words_327",
+        "book": "Piano works, Volume III - Songs without Words",
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 7,
+        "path": {
+            "1": "mutopia_files/477.musicxml"
+        },
+        "work_name": "Song without Words C major op. 102,3"
+    },
+    "m-58": {
+        "URI": "https://www.henle.de/en/detail/?Title=Piano+Pieces_22",
+        "book": "Piano Pieces",
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 3,
+        "path": {
+            "1": "mutopia_files/504.musicxml"
+        },
+        "work_name": "Marche fun\u00e8bre del Signor Maestro Contrapunto c minor KV 453a"
+    },
+    "m-65": {
+        "URI": "https://www.henle.de/en/detail/?Title=Selected+Piano+Sonatas%2C+Volume+IV_581",
+        "book": "Selected Piano Sonatas, Volume IV",
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/573.musicxml"
+        },
+        "work_name": "Piano Sonata c minor K. 11"
+    },
+    "m-66": {
+        "URI": "https://www.henle.de/en/detail/?Title=Album+for+the+Young+op.+68_45",
+        "book": "Album for the Young op. 68",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "mutopia_files/649.musicxml"
+        },
+        "work_name": "Mai, lieber Mai, - Bald bist du wieder da! op. 68,13"
+    },
+    "m-67": {
+        "URI": "https://www.henle.de/en/detail/?Title=Album+for+the+Young+op.+68_45",
+        "book": "Album for the Young op. 68",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/654.musicxml"
+        },
+        "work_name": "*** op. 68,26"
+    },
+    "m-69": {
+        "URI": "https://www.henle.de/en/detail/?Title=Album+for+the+Young+op.+68_45",
+        "book": "Album for the Young op. 68",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/655.musicxml"
+        },
+        "work_name": "Sheherazade op. 68,32"
+    },
+    "m-95": {
+        "URI": "https://www.henle.de/en/detail/?Title=Complete+Piano+Works%2C+Volume+V_928",
+        "book": "Complete Piano Works, Volume V",
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "mutopia_files/655.musicxml"
+        },
+        "work_name": "Sheherazade op. 68,32"
+    },
+    "x-1": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/1040681.musicxml"
+        },
+        "work_name": "Fugue c sharp minor BWV 873"
+    },
+    "x-10": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/1303106.musicxml"
+        },
+        "work_name": "Fugue F major BWV 880"
+    },
+    "x-100": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5043860.musicxml"
+        },
+        "work_name": "Paganini Variations op. 35"
+    },
+    "x-101": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5046488.musicxml"
+        },
+        "work_name": "Rhapsodie espagnole"
+    },
+    "x-102": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5047507.musicxml"
+        },
+        "work_name": "Capriccio sopra la lontananza del fratello dilettissimo B flat major BWV 992"
+    },
+    "x-103": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5047542.musicxml"
+        },
+        "work_name": "Exercise 16a WoO 6,16a"
+    },
+    "x-104": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5047635.musicxml"
+        },
+        "work_name": "Asturias (Leyenda)"
+    },
+    "x-105": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5053472.musicxml"
+        },
+        "work_name": "Sinfonia 5 (ornamented) E flat major BWV 791a"
+    },
+    "x-107": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5069197.musicxml"
+        },
+        "work_name": "Soldatenmarsch op. 68,2"
+    },
+    "x-108": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5074210.musicxml"
+        },
+        "work_name": "Fun\u00e9railles"
+    },
+    "x-109": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5099149.musicxml"
+        },
+        "work_name": "Grillen op. 12 Heft 1"
+    },
+    "x-11": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1314506.musicxml"
+        },
+        "work_name": "Appendix: Waltz E flat major KK IVa,14"
+    },
+    "x-110": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5112058.musicxml"
+        },
+        "work_name": "C\u00e1diz (Saeta)"
+    },
+    "x-111": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5123119.musicxml"
+        },
+        "work_name": "Piano Sonata e minor K. 98"
+    },
+    "x-112": {
+        "composer": "ANTON\u00cdN DVOR\u00c1K",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5134160.musicxml"
+        },
+        "work_name": "Humoresque G flat major op. 101,7"
+    },
+    "x-113": {
+        "composer": "FRANZ LISZT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5137056.musicxml"
+        },
+        "work_name": "Sposalizio"
+    },
+    "x-114": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5159742.musicxml"
+        },
+        "work_name": "Six Unison Melodies, no. 1"
+    },
+    "x-115": {
+        "composer": "GEORGE GERSHWIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5170034.musicxml"
+        },
+        "work_name": "Preludes for Piano no. 1"
+    },
+    "x-116": {
+        "composer": "MAURICE RAVEL",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5171003.musicxml"
+        },
+        "work_name": "Une barque sur l'oc\u00e9an"
+    },
+    "x-117": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5177752.musicxml"
+        },
+        "work_name": "Gymnop\u00e9die no. 2"
+    },
+    "x-118": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5187218.musicxml"
+        },
+        "work_name": "B\u00e9n\u00e9diction de Dieu dans la solitude"
+    },
+    "x-119": {
+        "composer": "EDVARD GRIEG",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5219569.musicxml"
+        },
+        "work_name": "Fairy Dance op. 12,4"
+    },
+    "x-12": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1350596.musicxml"
+        },
+        "work_name": "Fugue f minor BWV 881"
+    },
+    "x-120": {
+        "composer": "EDVARD GRIEG",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5233397.musicxml"
+        },
+        "work_name": "Puck op. 71,3"
+    },
+    "x-121": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5253996.musicxml"
+        },
+        "work_name": "Fantasy op. 77"
+    },
+    "x-122": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5271125.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 120"
+    },
+    "x-123": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5271127.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 132"
+    },
+    "x-124": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5329649.musicxml"
+        },
+        "work_name": "Choral: Wie wohl ist mir, o Freund der Seelen BWV 517"
+    },
+    "x-125": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5334404.musicxml"
+        },
+        "work_name": "R\u00eaverie"
+    },
+    "x-126": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5338146.musicxml"
+        },
+        "work_name": "Waltz (easy version by the composer) e minor op. 39,4"
+    },
+    "x-127": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5349417.musicxml"
+        },
+        "work_name": "El Polo"
+    },
+    "x-128": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5375318.musicxml"
+        },
+        "work_name": "12 Grazer Waltzes op. 91 D 924"
+    },
+    "x-129": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5376800.musicxml"
+        },
+        "work_name": "Scherzo a Capriccio"
+    },
+    "x-13": {
+        "composer": "EDVARD GRIEG",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/1354051.musicxml"
+        },
+        "work_name": "In the Hall of the Mountain King op. 46,4"
+    },
+    "x-130": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5387758.musicxml"
+        },
+        "work_name": "Prelude E major BWV 854"
+    },
+    "x-131": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5400019.musicxml"
+        },
+        "work_name": "El Puerto"
+    },
+    "x-132": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5404422.musicxml"
+        },
+        "work_name": "No. 18 Soldiers' Song"
+    },
+    "x-133": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5410842.musicxml"
+        },
+        "work_name": "Piano Sonata b minor"
+    },
+    "x-134": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5411089.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 935"
+    },
+    "x-135": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5444607.musicxml"
+        },
+        "work_name": "Pr\u00e9lude g sharp minor op. 32,12"
+    },
+    "x-136": {
+        "composer": "ANTON\u00cdN DVOR\u00c1K",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5446596.musicxml"
+        },
+        "work_name": "At an old castle"
+    },
+    "x-137": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5452009.musicxml"
+        },
+        "work_name": "Apr\u00e8s une Lecture du Dante - Fantasia quasi Sonata"
+    },
+    "x-138": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5457748.musicxml"
+        },
+        "work_name": "Satz F major BWV Anhang 131"
+    },
+    "x-139": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5459598.musicxml"
+        },
+        "work_name": "La Cath\u00e9drale engloutie"
+    },
+    "x-14": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/1451611.musicxml"
+        },
+        "work_name": "Piano Sonatina G major Anh. 5,1"
+    },
+    "x-140": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5459604.musicxml"
+        },
+        "work_name": "La Fille aux cheveux de lin"
+    },
+    "x-141": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5461563.musicxml"
+        },
+        "work_name": "Pause op. 9,20"
+    },
+    "x-142": {
+        "composer": "ANTON\u00cdN DVOR\u00c1K",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5467575.musicxml"
+        },
+        "work_name": "R\u00eaverie"
+    },
+    "x-143": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5469198.musicxml"
+        },
+        "work_name": "Piano Sonata B flat major op. post. D 960"
+    },
+    "x-144": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5474855.musicxml"
+        },
+        "work_name": "St\u00fcckchen op. 68,5"
+    },
+    "x-145": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5477551.musicxml"
+        },
+        "work_name": "Waltz (Version according to Fontana) b minor op. post. 69,2"
+    },
+    "x-146": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5483930.musicxml"
+        },
+        "work_name": "Piano Sonata f minor K. 239"
+    },
+    "x-147": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5497309.musicxml"
+        },
+        "work_name": "Etude a minor op. 25,11"
+    },
+    "x-148": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5521530.musicxml"
+        },
+        "work_name": "Piano Sonata a minor K. 149"
+    },
+    "x-149": {
+        "composer": "FRANZ LISZT",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5541896.musicxml"
+        },
+        "work_name": "Tarantella"
+    },
+    "x-15": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/1451616.musicxml"
+        },
+        "work_name": "Piano Sonatina F major Anh. 5,2"
+    },
+    "x-150": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5543145.musicxml"
+        },
+        "work_name": "Impromptu A flat major op. 90,4 D 899"
+    },
+    "x-151": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5555406.musicxml"
+        },
+        "work_name": "Rhapsody b minor op. 79,1"
+    },
+    "x-152": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5556151.musicxml"
+        },
+        "work_name": "Impromptu c minor op. 90,1 D 899"
+    },
+    "x-153": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5556928.musicxml"
+        },
+        "work_name": "Pagodes"
+    },
+    "x-154": {
+        "composer": "JOSEPH HAYDN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5573182.musicxml"
+        },
+        "work_name": "3rd movement: Finale. Tempo di Minuet from Sonata Hob. XVI:49"
+    },
+    "x-155": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5585260.musicxml"
+        },
+        "work_name": "Gnossienne no. 3"
+    },
+    "x-156": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/559.musicxml"
+        },
+        "work_name": "Wilder Reiter op. 68,8"
+    },
+    "x-157": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5612298.musicxml"
+        },
+        "work_name": "Alla Ingharese quasi un Capriccio (The Rage over the Lost Penny) G major op. 129"
+    },
+    "x-158": {
+        "composer": "ALEXANDER SCRIABIN",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5625005.musicxml"
+        },
+        "work_name": "Piano Sonata no. 5 op. 53"
+    },
+    "x-159": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5639517.musicxml"
+        },
+        "work_name": "Waltz (easy version by the composer) g sharp minor op. 39,3"
+    },
+    "x-16": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/1520766.musicxml"
+        },
+        "work_name": "Fugue d minor BWV 948"
+    },
+    "x-160": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5641947.musicxml"
+        },
+        "work_name": "Impromptu A flat major op. post. 142,2 D 935"
+    },
+    "x-161": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5643956.musicxml"
+        },
+        "work_name": "Fast zu ernst op. 15,10"
+    },
+    "x-162": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5652755.musicxml"
+        },
+        "work_name": "Kind im Einschlummern op. 15,12"
+    },
+    "x-163": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5660552.musicxml"
+        },
+        "work_name": "Song without Words E major op. 67,6"
+    },
+    "x-164": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5663668.musicxml"
+        },
+        "work_name": "Piano Concerto no. 1 in C major op. 15: first cadenza, 1st movement"
+    },
+    "x-165": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5663924.musicxml"
+        },
+        "work_name": "La plus que lente"
+    },
+    "x-166": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5667580.musicxml"
+        },
+        "work_name": "Sonata after the Violin Sonata A minor d minor BWV 964"
+    },
+    "x-168": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5670526.musicxml"
+        },
+        "work_name": "Invention 10 G major BWV 781"
+    },
+    "x-169": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5672602.musicxml"
+        },
+        "work_name": "\u00c9tude-Tableau f sharp minor op. 39,3"
+    },
+    "x-17": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1540576.musicxml"
+        },
+        "work_name": "Piano Sonata E major K. 531"
+    },
+    "x-170": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5684198.musicxml"
+        },
+        "work_name": "Adagio after the Violin Sonata C major (Sonata movement) G major BWV 968"
+    },
+    "x-171": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5687006.musicxml"
+        },
+        "work_name": "Intermezzo E flat major op. 117,1"
+    },
+    "x-172": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5687073.musicxml"
+        },
+        "work_name": "Sinfonia 4 d minor BWV 790"
+    },
+    "x-173": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5687387.musicxml"
+        },
+        "work_name": "Impromptu E flat major op. 90,2 D 899"
+    },
+    "x-174": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5696215.musicxml"
+        },
+        "work_name": "Valse romantique"
+    },
+    "x-175": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5706838.musicxml"
+        },
+        "work_name": "El Albaic\u00edn"
+    },
+    "x-176": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/5713806.musicxml"
+        },
+        "work_name": "Fantasy (Wanderer Fantasy) C major op. 15 D 760"
+    },
+    "x-177": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5715607.musicxml"
+        },
+        "work_name": "Hommage \u00e0 Rameau"
+    },
+    "x-178": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5729214.musicxml"
+        },
+        "work_name": "Passepied"
+    },
+    "x-179": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5737550.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 936"
+    },
+    "x-18": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1573516.musicxml"
+        },
+        "work_name": "Fugue d minor BWV 875"
+    },
+    "x-180": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5737552.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 937"
+    },
+    "x-181": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5741128.musicxml"
+        },
+        "work_name": "Rondo a minor KV 511"
+    },
+    "x-182": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5747199.musicxml"
+        },
+        "work_name": "Duet II from Clavier exercise part 3 F major BWV 803"
+    },
+    "x-183": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5804541.musicxml"
+        },
+        "work_name": "App. A: Piano version of the variation movement from the String sextet op. 18"
+    },
+    "x-184": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5812884.musicxml"
+        },
+        "work_name": "Tango op. 165,2"
+    },
+    "x-185": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5835723.musicxml"
+        },
+        "work_name": "Images (1894) no. 3"
+    },
+    "x-186": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/583656.musicxml"
+        },
+        "work_name": "Capriccio f sharp minor op. 76,1"
+    },
+    "x-187": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/5839568.musicxml"
+        },
+        "work_name": "Pour les agr\u00e9ments"
+    },
+    "x-188": {
+        "composer": "ENRIQUE GRANADOS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5848924.musicxml"
+        },
+        "work_name": "V. Andaluza"
+    },
+    "x-189": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5853692.musicxml"
+        },
+        "work_name": "Piano Sonata d minor K. 9"
+    },
+    "x-19": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/161100.musicxml"
+        },
+        "work_name": "Invention 1 (Triplets) C major BWV 772a"
+    },
+    "x-190": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/58553.musicxml"
+        },
+        "work_name": "Clair de lune D flat major"
+    },
+    "x-191": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5860467.musicxml"
+        },
+        "work_name": "Fugue C major BWV 953"
+    },
+    "x-192": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5863122.musicxml"
+        },
+        "work_name": "Piano Sonata E major K. 380"
+    },
+    "x-193": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5875014.musicxml"
+        },
+        "work_name": "No. 4 Pillow Dance"
+    },
+    "x-194": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5892888.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 938"
+    },
+    "x-195": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5894834.musicxml"
+        },
+        "work_name": "Piano Sonata A major K. 208"
+    },
+    "x-196": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5902592.musicxml"
+        },
+        "work_name": "Pr\u00e9lude G flat major op. 23,10"
+    },
+    "x-197": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5904425.musicxml"
+        },
+        "work_name": "Song without Words (Venetian Gondola Song) f sharp minor op. 30,6"
+    },
+    "x-198": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5905061.musicxml"
+        },
+        "work_name": "No. 1 Children at Play"
+    },
+    "x-199": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5908054.musicxml"
+        },
+        "work_name": "Piano Sonata C major K. 159"
+    },
+    "x-2": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1072381.musicxml"
+        },
+        "work_name": "Piano Sonata d minor K. 64"
+    },
+    "x-20": {
+        "composer": "MODEST MUSSORGSKY",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/1616266.musicxml"
+        },
+        "work_name": "No. 8 Catacombae"
+    },
+    "x-200": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5909942.musicxml"
+        },
+        "work_name": "Pr\u00e9lude C major op. 32,1"
+    },
+    "x-201": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5911122.musicxml"
+        },
+        "work_name": "J\u00e4gerliedchen op. 68,7"
+    },
+    "x-202": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5911439.musicxml"
+        },
+        "work_name": "Hungarian Melody b minor D 817"
+    },
+    "x-203": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5915662.musicxml"
+        },
+        "work_name": "Piano Sonata A major K. 322"
+    },
+    "x-204": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5916792.musicxml"
+        },
+        "work_name": "Suite g minor HWV 432"
+    },
+    "x-205": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5930179.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 1f"
+    },
+    "x-206": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/5931641.musicxml"
+        },
+        "work_name": "Tr\u00e4llerliedchen op. 68,3"
+    },
+    "x-207": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5940384.musicxml"
+        },
+        "work_name": "Capriccio b minor op. 76,2"
+    },
+    "x-208": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5946748.musicxml"
+        },
+        "work_name": "Fugue a minor HWV 609"
+    },
+    "x-209": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5951989.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 115"
+    },
+    "x-21": {
+        "composer": "GEORGE GERSHWIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/172307.musicxml"
+        },
+        "work_name": "Preludes for Piano no. 2"
+    },
+    "x-210": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5952008.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 114"
+    },
+    "x-211": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5955400.musicxml"
+        },
+        "work_name": "Toccata e minor BWV 914"
+    },
+    "x-212": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5960257.musicxml"
+        },
+        "work_name": "Appendix: Initial Pr\u00e9lude HWV 566"
+    },
+    "x-213": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/5961848.musicxml"
+        },
+        "work_name": "Waltz a minor KK IVb,11"
+    },
+    "x-214": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5962353.musicxml"
+        },
+        "work_name": "Fantasy d minor KV 397 (385g)"
+    },
+    "x-215": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/5965335.musicxml"
+        },
+        "work_name": "No. 3"
+    },
+    "x-216": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5970645.musicxml"
+        },
+        "work_name": "Fugue c minor BWV 871"
+    },
+    "x-217": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5971660.musicxml"
+        },
+        "work_name": "Arabesque C major op. 18"
+    },
+    "x-218": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5992542.musicxml"
+        },
+        "work_name": "Mazurka B flat major KK IVb,1"
+    },
+    "x-219": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/59952.musicxml"
+        },
+        "work_name": "Exercise 1a WoO 6,1a"
+    },
+    "x-22": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/1753606.musicxml"
+        },
+        "work_name": "Gymnop\u00e9die no. 3"
+    },
+    "x-220": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/59991.musicxml"
+        },
+        "work_name": "Exercise 2a WoO 6,2a"
+    },
+    "x-221": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/59993.musicxml"
+        },
+        "work_name": "Exercise 2b WoO 6,2b"
+    },
+    "x-222": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5999467.musicxml"
+        },
+        "work_name": "Mazurka A flat major KK IVb,4"
+    },
+    "x-223": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/59996.musicxml"
+        },
+        "work_name": "Exercise 1b WoO 6,1b"
+    },
+    "x-224": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6001557.musicxml"
+        },
+        "work_name": "Waltz (Version according to Fontana) A flat major op. post. 69,1"
+    },
+    "x-225": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6002821.musicxml"
+        },
+        "work_name": "Auf der Gondel op. 68 Anhang I"
+    },
+    "x-226": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6004203.musicxml"
+        },
+        "work_name": "1st movement (Allegro) from Piano Sonata G major KV 283"
+    },
+    "x-227": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6007802.musicxml"
+        },
+        "work_name": "No. 5 Play"
+    },
+    "x-228": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6008128.musicxml"
+        },
+        "work_name": "No. 6 Study for the Left Hand"
+    },
+    "x-229": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6008822.musicxml"
+        },
+        "work_name": "No. 7 Play Song"
+    },
+    "x-23": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/176379.musicxml"
+        },
+        "work_name": "Prelude C sharp major BWV 848"
+    },
+    "x-230": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6009380.musicxml"
+        },
+        "work_name": "No. 8 Children's Game"
+    },
+    "x-231": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6011192.musicxml"
+        },
+        "work_name": "Choral: Schaff's mit mir, Gott BWV 514"
+    },
+    "x-232": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6012879.musicxml"
+        },
+        "work_name": "No. 10 Children's Dance"
+    },
+    "x-233": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6015746.musicxml"
+        },
+        "work_name": "No. 13 Ballad"
+    },
+    "x-234": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6020082.musicxml"
+        },
+        "work_name": "Waltz D major WoO 85"
+    },
+    "x-235": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6032370.musicxml"
+        },
+        "work_name": "Nocturne (version 2) c sharp minor KK IVa,16"
+    },
+    "x-236": {
+        "composer": "ENRIQUE GRANADOS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6035262.musicxml"
+        },
+        "work_name": "II. Oriental"
+    },
+    "x-237": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6036636.musicxml"
+        },
+        "work_name": "No. 16 Old Hungarian Tune"
+    },
+    "x-238": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6038661.musicxml"
+        },
+        "work_name": "Allegro barbaro"
+    },
+    "x-239": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6039042.musicxml"
+        },
+        "work_name": "No. 17 Round Dance"
+    },
+    "x-24": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/1806281.musicxml"
+        },
+        "work_name": "Nocturne D flat major op. 27,2"
+    },
+    "x-240": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6039484.musicxml"
+        },
+        "work_name": "Appendix: Minuet HWV 434"
+    },
+    "x-241": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6045340.musicxml"
+        },
+        "work_name": "No. 20 Drinking Song"
+    },
+    "x-242": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6047150.musicxml"
+        },
+        "work_name": "Allegro (Nannerl Music Book) KV 1b"
+    },
+    "x-243": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6056168.musicxml"
+        },
+        "work_name": "Fugue C major BWV 946"
+    },
+    "x-244": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6056213.musicxml"
+        },
+        "work_name": "Piano Sonata g minor K. 347"
+    },
+    "x-245": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6065124.musicxml"
+        },
+        "work_name": "No. 29 Pentatonic Tune"
+    },
+    "x-246": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6067369.musicxml"
+        },
+        "work_name": "Intermezzo A major op. 118,2"
+    },
+    "x-247": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6067658.musicxml"
+        },
+        "work_name": "Ecossaise E flat major WoO 86"
+    },
+    "x-248": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6069079.musicxml"
+        },
+        "work_name": "Allemande A major WoO 81"
+    },
+    "x-249": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6069646.musicxml"
+        },
+        "work_name": "Fugue B flat major BWV 866"
+    },
+    "x-25": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/180705.musicxml"
+        },
+        "work_name": "Waltz E flat major WoO 84"
+    },
+    "x-250": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6071170.musicxml"
+        },
+        "work_name": "Etude F major op. 25,3"
+    },
+    "x-251": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6075140.musicxml"
+        },
+        "work_name": "Prelude f sharp minor BWV 859"
+    },
+    "x-252": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/6079443.musicxml"
+        },
+        "work_name": "Etude b minor op. 25,10"
+    },
+    "x-253": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6083756.musicxml"
+        },
+        "work_name": "Fantasy a minor BWV 922"
+    },
+    "x-255": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/6095381.musicxml"
+        },
+        "work_name": "Hungarian Rhapsody no. 6"
+    },
+    "x-256": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6099766.musicxml"
+        },
+        "work_name": "Etude G flat major op. 25,9"
+    },
+    "x-257": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6106875.musicxml"
+        },
+        "work_name": "No. 36 Drunkard's Song"
+    },
+    "x-258": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6106915.musicxml"
+        },
+        "work_name": "Waltz e minor KK IVa,15"
+    },
+    "x-259": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6109344.musicxml"
+        },
+        "work_name": "Song without Words (Duetto) A flat major op. 38,6"
+    },
+    "x-26": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1965746.musicxml"
+        },
+        "work_name": "Fugue c minor BWV 847"
+    },
+    "x-260": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6109563.musicxml"
+        },
+        "work_name": "Rhapsody g minor op. 79,2"
+    },
+    "x-261": {
+        "composer": "JOSEPH HAYDN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6112463.musicxml"
+        },
+        "work_name": "1st movement: Presto from Sonata e minor Hob. XVI:34"
+    },
+    "x-262": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6112716.musicxml"
+        },
+        "work_name": "No. 38 Winter Solstice Song"
+    },
+    "x-263": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6113190.musicxml"
+        },
+        "work_name": "Jerez"
+    },
+    "x-264": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/6114842.musicxml"
+        },
+        "work_name": "Erita\u00f1a"
+    },
+    "x-265": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6117279.musicxml"
+        },
+        "work_name": "Fugue g minor HWV 605"
+    },
+    "x-266": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6117467.musicxml"
+        },
+        "work_name": "Fugue G major BWV 884"
+    },
+    "x-267": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6119720.musicxml"
+        },
+        "work_name": "Piano Sonata c minor K. 58"
+    },
+    "x-268": {
+        "composer": "CARL MARIA VON WEBER",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6119896.musicxml"
+        },
+        "work_name": "Invitation to the Dance D flat major op. 65"
+    },
+    "x-269": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6120073.musicxml"
+        },
+        "work_name": "Fugue g minor BWV 861"
+    },
+    "x-27": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/2048426.musicxml"
+        },
+        "work_name": "Piano Sonata D major KV 311 (284c)"
+    },
+    "x-270": {
+        "composer": "ALEXANDER SCRIABIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6122851.musicxml"
+        },
+        "work_name": "Pr\u00e9lude C major op. 11,1"
+    },
+    "x-271": {
+        "composer": "ALEXANDER SCRIABIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6124857.musicxml"
+        },
+        "work_name": "Pr\u00e9lude a minor op. 11,2"
+    },
+    "x-272": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6127183.musicxml"
+        },
+        "work_name": "1st movement (Adagio) from Piano Sonata E flat major KV 282"
+    },
+    "x-273": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6128307.musicxml"
+        },
+        "work_name": "Song without Words E major op. 19,1"
+    },
+    "x-274": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6128714.musicxml"
+        },
+        "work_name": "Prelude e flat minor BWV 853"
+    },
+    "x-275": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6136812.musicxml"
+        },
+        "work_name": "Little Prelude BWV 939"
+    },
+    "x-276": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6139731.musicxml"
+        },
+        "work_name": "Prelude C major BWV 846"
+    },
+    "x-277": {
+        "composer": "MAURICE RAVEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6139802.musicxml"
+        },
+        "work_name": "Pavane pour une infante d\u00e9funte"
+    },
+    "x-278": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6144738.musicxml"
+        },
+        "work_name": "Minuet G major WoO 10,2"
+    },
+    "x-279": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6147335.musicxml"
+        },
+        "work_name": "Fugue f sharp minor BWV 859"
+    },
+    "x-28": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/2052096.musicxml"
+        },
+        "work_name": "Piano Sonatina G major op. 36,2"
+    },
+    "x-280": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6150261.musicxml"
+        },
+        "work_name": "Prelude"
+    },
+    "x-281": {
+        "composer": "MAURICE RAVEL",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6156396.musicxml"
+        },
+        "work_name": "Le Gibet"
+    },
+    "x-282": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6156814.musicxml"
+        },
+        "work_name": "Allegro (Nannerl Music Book) KV 1c"
+    },
+    "x-283": {
+        "composer": "JOSEPH HAYDN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6159283.musicxml"
+        },
+        "work_name": "Piano Sonata D major Hob. XVI:37"
+    },
+    "x-284": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6160918.musicxml"
+        },
+        "work_name": "No. 23 Dance Song"
+    },
+    "x-285": {
+        "composer": "EDVARD GRIEG",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6162248.musicxml"
+        },
+        "work_name": "Pr\u00e4ludium op. 40,1"
+    },
+    "x-286": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6163954.musicxml"
+        },
+        "work_name": "Piano Sonata A major op. 2,4"
+    },
+    "x-287": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6168143.musicxml"
+        },
+        "work_name": "Sarabande"
+    },
+    "x-288": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6169348.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 1e"
+    },
+    "x-289": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6170327.musicxml"
+        },
+        "work_name": "Le Vent dans la plaine"
+    },
+    "x-29": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/2052136.musicxml"
+        },
+        "work_name": "Piano Sonatina C major op. 36,3"
+    },
+    "x-290": {
+        "composer": "EDVARD GRIEG",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6173877.musicxml"
+        },
+        "work_name": "Butterfly op. 43,1"
+    },
+    "x-291": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6175077.musicxml"
+        },
+        "work_name": "Gnossienne no. 5"
+    },
+    "x-292": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6175684.musicxml"
+        },
+        "work_name": "Etude a minor op. 25,4"
+    },
+    "x-295": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6183825.musicxml"
+        },
+        "work_name": "Rondo C major op. 51,1"
+    },
+    "x-296": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6188093.musicxml"
+        },
+        "work_name": "Gnossienne no. 6"
+    },
+    "x-298": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6190695.musicxml"
+        },
+        "work_name": "Gigue G major KV 574"
+    },
+    "x-299": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6191144.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 2"
+    },
+    "x-3": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/1073231.musicxml"
+        },
+        "work_name": "Fugue D major BWV 874"
+    },
+    "x-30": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/2118646.musicxml"
+        },
+        "work_name": "Kleine Studie op. 68,14"
+    },
+    "x-300": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6191229.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 4"
+    },
+    "x-301": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6192550.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 5"
+    },
+    "x-302": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6193874.musicxml"
+        },
+        "work_name": "Allegro (Nannerl Music Book) KV 9a (5a)"
+    },
+    "x-303": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6194473.musicxml"
+        },
+        "work_name": "La puerta del Vino"
+    },
+    "x-305": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6195308.musicxml"
+        },
+        "work_name": "No. 18 Teasing Song"
+    },
+    "x-306": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6197179.musicxml"
+        },
+        "work_name": "Brouillards"
+    },
+    "x-307": {
+        "composer": "EDVARD GRIEG",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6202902.musicxml"
+        },
+        "work_name": "Morning Mood op. 46,1"
+    },
+    "x-308": {
+        "composer": "FERRUCCIO BUSONI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6203220.musicxml"
+        },
+        "work_name": "Awake, the voice commands"
+    },
+    "x-31": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/21443.musicxml"
+        },
+        "work_name": "Bagatelle A major op. 119,10"
+    },
+    "x-310": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6224476.musicxml"
+        },
+        "work_name": "Nocturne c minor op. 48,1"
+    },
+    "x-311": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6227965.musicxml"
+        },
+        "work_name": "Easy Piano Sonata C major WoO 51"
+    },
+    "x-312": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6238350.musicxml"
+        },
+        "work_name": "Piece from the \"London Music Book\" F major KV 15hh"
+    },
+    "x-313": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6238953.musicxml"
+        },
+        "work_name": "Song without Words E major op. 30,3"
+    },
+    "x-314": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6241398.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 934"
+    },
+    "x-315": {
+        "composer": "CLARA WIECK-SCHUMANN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6247622.musicxml"
+        },
+        "work_name": "Mazurka op. 6,5"
+    },
+    "x-316": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6252683.musicxml"
+        },
+        "work_name": "Polonaise C major op. 89"
+    },
+    "x-317": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6253552.musicxml"
+        },
+        "work_name": "20 Minuets D 41"
+    },
+    "x-318": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6254659.musicxml"
+        },
+        "work_name": "German Dance E flat major WoO 8,5"
+    },
+    "x-319": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6257402.musicxml"
+        },
+        "work_name": "Rondo D major KV 485"
+    },
+    "x-32": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/2147516.musicxml"
+        },
+        "work_name": "Appendix: Mazurka op. 7,2a"
+    },
+    "x-320": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6259785.musicxml"
+        },
+        "work_name": "Fugue e minor BWV 900"
+    },
+    "x-321": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6260502.musicxml"
+        },
+        "work_name": "Choral: Wer nur den lieben Gott l\u00e4\u00dft walten BWV 691"
+    },
+    "x-322": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6262678.musicxml"
+        },
+        "work_name": "Invention 15 b minor BWV 786"
+    },
+    "x-323": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6263139.musicxml"
+        },
+        "work_name": "Andante (Nannerl Music Book) KV 1a"
+    },
+    "x-324": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6264719.musicxml"
+        },
+        "work_name": "Appendix: Allemande; Earlier version HWV 429"
+    },
+    "x-325": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6265735.musicxml"
+        },
+        "work_name": "Allegretto c minor WoO 53"
+    },
+    "x-326": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6267246.musicxml"
+        },
+        "work_name": "Appendix: Initial finale HWV 427"
+    },
+    "x-327": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6268585.musicxml"
+        },
+        "work_name": "Gnossienne no. 4"
+    },
+    "x-328": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6273010.musicxml"
+        },
+        "work_name": "No. 30 Jeering Song"
+    },
+    "x-329": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6273524.musicxml"
+        },
+        "work_name": "Second Minuet from French Suite c minor BWV 813a"
+    },
+    "x-33": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/2180221.musicxml"
+        },
+        "work_name": "Piano Sonata b minor K. 27"
+    },
+    "x-330": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 1,
+        "path": {
+            "1": "xmander_files/6277973.musicxml"
+        },
+        "work_name": "Musette BWV Anhang 126"
+    },
+    "x-331": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6279104.musicxml"
+        },
+        "work_name": "Pr\u00e9lude D major op. 23,4"
+    },
+    "x-332": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6279335.musicxml"
+        },
+        "work_name": "Minuet D 334"
+    },
+    "x-333": {
+        "composer": "ALEXANDER SCRIABIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6290512.musicxml"
+        },
+        "work_name": "Pr\u00e9lude G major op. 11,3"
+    },
+    "x-334": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6303314.musicxml"
+        },
+        "work_name": "Prelude and Fugue b minor BWV 893"
+    },
+    "x-335": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6308081.musicxml"
+        },
+        "work_name": "Piano Sonata movement g minor KV 312 (590d)"
+    },
+    "x-336": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6308406.musicxml"
+        },
+        "work_name": "Arabesque no. 1"
+    },
+    "x-337": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6311957.musicxml"
+        },
+        "work_name": "Partita 5 G major BWV 829"
+    },
+    "x-338": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6319314.musicxml"
+        },
+        "work_name": "Danse (Tarentelle styrienne)"
+    },
+    "x-339": {
+        "composer": "MAURICE RAVEL",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6323707.musicxml"
+        },
+        "work_name": "Jeux d'eau"
+    },
+    "x-34": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/2191351.musicxml"
+        },
+        "work_name": "Toccata C major op. 7"
+    },
+    "x-340": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6326469.musicxml"
+        },
+        "work_name": "Intermezzo e flat minor op. 118,6"
+    },
+    "x-341": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6331689.musicxml"
+        },
+        "work_name": "Piano Sonatina F major op. 36,4"
+    },
+    "x-342": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6332015.musicxml"
+        },
+        "work_name": "Prelude C major op. 28,1"
+    },
+    "x-343": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6332296.musicxml"
+        },
+        "work_name": "Piano Sonatina G major op. 36,5"
+    },
+    "x-344": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6333722.musicxml"
+        },
+        "work_name": "Piano Sonatina D major op. 36,6"
+    },
+    "x-345": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6334832.musicxml"
+        },
+        "work_name": "Scherzo B flat major D 593"
+    },
+    "x-346": {
+        "composer": "EDVARD GRIEG",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6341523.musicxml"
+        },
+        "work_name": "Rigaudon op. 40,5"
+    },
+    "x-347": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6347309.musicxml"
+        },
+        "work_name": "Ballad B major op. 10,4"
+    },
+    "x-348": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6348501.musicxml"
+        },
+        "work_name": "Ballad (Edward Ballad) d minor op. 10,1"
+    },
+    "x-349": {
+        "composer": "MAURICE RAVEL",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/6349990.musicxml"
+        },
+        "work_name": "Scarbo"
+    },
+    "x-35": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/2302146.musicxml"
+        },
+        "work_name": "Little Prelude from the \"Pianobook\" for W. F. Bach BWV 926"
+    },
+    "x-350": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6351390.musicxml"
+        },
+        "work_name": "Ballad (Intermezzo) b minor op. 10,3"
+    },
+    "x-351": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6351537.musicxml"
+        },
+        "work_name": "Impromptu G flat major op. 90,3 D 899"
+    },
+    "x-352": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6353206.musicxml"
+        },
+        "work_name": "Minuet D major KV 94 (73h)"
+    },
+    "x-353": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6356670.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 113"
+    },
+    "x-354": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6358062.musicxml"
+        },
+        "work_name": "Moment musical A flat major op. 94,2 D 780"
+    },
+    "x-355": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6366642.musicxml"
+        },
+        "work_name": "Moment musical c sharp minor op. 94,4 D 780"
+    },
+    "x-356": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6367315.musicxml"
+        },
+        "work_name": "Prelude g minor op. 28,22"
+    },
+    "x-358": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6367778.musicxml"
+        },
+        "work_name": "Intermezzo a minor op. 116,2"
+    },
+    "x-359": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6368003.musicxml"
+        },
+        "work_name": "Moment musical f minor op. 94,5 D 780"
+    },
+    "x-36": {
+        "composer": "NIELS WILHELM GADE",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/2364046.musicxml"
+        },
+        "work_name": "Spring Flowers op. 2B,1"
+    },
+    "x-360": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6368764.musicxml"
+        },
+        "work_name": "Melodie op. 68,1"
+    },
+    "x-361": {
+        "composer": "CLARA WIECK-SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6371264.musicxml"
+        },
+        "work_name": "Ballade op. 6,4"
+    },
+    "x-362": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6371395.musicxml"
+        },
+        "work_name": "Des Abends op. 12 Heft 1"
+    },
+    "x-363": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6372263.musicxml"
+        },
+        "work_name": "Intermezzo b flat minor op. 117,2"
+    },
+    "x-364": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6372763.musicxml"
+        },
+        "work_name": "Tr\u00e4umerei op. 15,7"
+    },
+    "x-365": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6376135.musicxml"
+        },
+        "work_name": "Prelude E major op. 28,9"
+    },
+    "x-366": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6377941.musicxml"
+        },
+        "work_name": "Impromptu B flat major op. post. 142,3 D 935"
+    },
+    "x-367": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/6378786.musicxml"
+        },
+        "work_name": "Pr\u00e9lude g minor op. 23,5"
+    },
+    "x-368": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6384131.musicxml"
+        },
+        "work_name": "Impromptu f minor op. post.142,4 D 935"
+    },
+    "x-369": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6385649.musicxml"
+        },
+        "work_name": "No. 37 Swine-Herd's Song"
+    },
+    "x-37": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/2425281.musicxml"
+        },
+        "work_name": "Pr\u00e9lude b minor op. 32,10"
+    },
+    "x-370": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6391901.musicxml"
+        },
+        "work_name": "Minuet I from the Notebook for W. F. Bach G major BWV 841"
+    },
+    "x-371": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6392940.musicxml"
+        },
+        "work_name": "Minuet II from the\"Notebook for W. F. Bach g minor BWV 842"
+    },
+    "x-372": {
+        "composer": "ERIK SATIE",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/6392967.musicxml"
+        },
+        "work_name": "Gymnop\u00e9die no. 1"
+    },
+    "x-373": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/6394386.musicxml"
+        },
+        "work_name": "Prelude D major BWV 850"
+    },
+    "x-374": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6394624.musicxml"
+        },
+        "work_name": "Minuet III from the Notebook for W. F. Bach G major BWV 843"
+    },
+    "x-375": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/6397501.musicxml"
+        },
+        "work_name": "Etude D flat major op. 25,8"
+    },
+    "x-376": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6407530.musicxml"
+        },
+        "work_name": "6. Andante"
+    },
+    "x-377": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6408017.musicxml"
+        },
+        "work_name": "Sinfonia 7 e minor BWV 793"
+    },
+    "x-378": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6408110.musicxml"
+        },
+        "work_name": "Sinfonia 10 G major BWV 796"
+    },
+    "x-379": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6408241.musicxml"
+        },
+        "work_name": "Sinfonia 15 b minor BWV 801"
+    },
+    "x-38": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/2582886.musicxml"
+        },
+        "work_name": "Exercise 8a WoO 6,8a"
+    },
+    "x-380": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/641661.musicxml"
+        },
+        "work_name": "Waltz (Version according to Fontana) f minor op. post. 70,2"
+    },
+    "x-381": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6416929.musicxml"
+        },
+        "work_name": "7 Piano Variations on \"Willem van Nassau\" D major KV 25"
+    },
+    "x-382": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6423000.musicxml"
+        },
+        "work_name": "3rd movement (Allegretto) from Piano Sonata B flat major KV 570"
+    },
+    "x-383": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6424377.musicxml"
+        },
+        "work_name": "Mazurka"
+    },
+    "x-384": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6426201.musicxml"
+        },
+        "work_name": "Piano Sonata d minor K. 32"
+    },
+    "x-385": {
+        "composer": "MUZIO CLEMENTI",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6427188.musicxml"
+        },
+        "work_name": "Piano Sonatina - revised version C major op. 36,(1)"
+    },
+    "x-386": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/6427900.musicxml"
+        },
+        "work_name": "Bagatelle (F\u00fcr Elise) a minor WoO 59"
+    },
+    "x-387": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6434534.musicxml"
+        },
+        "work_name": "9. Allegretto"
+    },
+    "x-388": {
+        "composer": "B\u00c9LA BART\u00d3K",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6438371.musicxml"
+        },
+        "work_name": "Melody"
+    },
+    "x-389": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6464366.musicxml"
+        },
+        "work_name": "Mazurka C major op. 68,1"
+    },
+    "x-39": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/2603306.musicxml"
+        },
+        "work_name": "Feux Follets"
+    },
+    "x-390": {
+        "composer": "FRANZ LISZT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6465053.musicxml"
+        },
+        "work_name": "Consolation no. 2 E major"
+    },
+    "x-391": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6472991.musicxml"
+        },
+        "work_name": "Minuet D 600"
+    },
+    "x-392": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/6473874.musicxml"
+        },
+        "work_name": "Trio to be regarded as lost son of a Minuet D 610"
+    },
+    "x-393": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/6474700.musicxml"
+        },
+        "work_name": "3rd movement (Rondo) from Piano Sonata (Facile) C major KV 545"
+    },
+    "x-394": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/675591.musicxml"
+        },
+        "work_name": "Waltz (easy version by the composer) A major op. 39,15"
+    },
+    "x-395": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/690386.musicxml"
+        },
+        "work_name": "Prelude C major op. 39,1"
+    },
+    "x-396": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/724906.musicxml"
+        },
+        "work_name": "Prelude C major op. 39,2"
+    },
+    "x-397": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/74469.musicxml"
+        },
+        "work_name": "Piano Sonata f minor K. 466"
+    },
+    "x-398": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/771176.musicxml"
+        },
+        "work_name": "Appendix: Waltz E flat major KK IVb,10"
+    },
+    "x-399": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/869596.musicxml"
+        },
+        "work_name": "Fugue b minor BWV 869"
+    },
+    "x-4": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1089486.musicxml"
+        },
+        "work_name": "Duet I from Clavier exercise part 3 e minor BWV 802"
+    },
+    "x-40": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/2603331.musicxml"
+        },
+        "work_name": "Wilde Jagd"
+    },
+    "x-400": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/905966.musicxml"
+        },
+        "work_name": "Fugue C major BWV 870"
+    },
+    "x-401": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/923056.musicxml"
+        },
+        "work_name": "Fr\u00f6hlicher Landmann, von der Arbeit zur\u00fcckkehrend op. 68,10"
+    },
+    "x-402": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/93510.musicxml"
+        },
+        "work_name": "Bagatelle a minor op. 119,9"
+    },
+    "x-403": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/971581.musicxml"
+        },
+        "work_name": "Fugue C sharp major BWV 872"
+    },
+    "x-41": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/2635386.musicxml"
+        },
+        "work_name": "Il lamento"
+    },
+    "x-42": {
+        "composer": "FRANZ LISZT",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/2635396.musicxml"
+        },
+        "work_name": "La leggierezza"
+    },
+    "x-43": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/274576.musicxml"
+        },
+        "work_name": "Prelude and Fugue D major BWV 850"
+    },
+    "x-44": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/2770016.musicxml"
+        },
+        "work_name": "Little Prelude from the \"Pianobook\" for W. F. Bach BWV 924"
+    },
+    "x-45": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/2911396.musicxml"
+        },
+        "work_name": "Pr\u00e9lude e minor op. 32,4"
+    },
+    "x-46": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/29514.musicxml"
+        },
+        "work_name": "Doctor Gradus ad Parnassum"
+    },
+    "x-47": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/2971521.musicxml"
+        },
+        "work_name": "Dance of the Gnomes"
+    },
+    "x-48": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/2980256.musicxml"
+        },
+        "work_name": "Von fremden L\u00e4ndern und Menschen op. 15,1"
+    },
+    "x-49": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/3073536.musicxml"
+        },
+        "work_name": "Fughetta c minor BWV 961"
+    },
+    "x-5": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/1116201.musicxml"
+        },
+        "work_name": "Chopin op. 9,12"
+    },
+    "x-50": {
+        "composer": "FELIX MENDELSSOHN BARTHOLDY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/3084111.musicxml"
+        },
+        "work_name": "Song without Words f sharp minor op. 67,2"
+    },
+    "x-51": {
+        "composer": "EDVARD GRIEG",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/3117261.musicxml"
+        },
+        "work_name": "Allegretto tranquillo e grazioso A major op. 35,2"
+    },
+    "x-52": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/3170936.musicxml"
+        },
+        "work_name": "Fugue c sharp minor BWV 849"
+    },
+    "x-53": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/3238956.musicxml"
+        },
+        "work_name": "Pr\u00e9lude e flat minor op. 23,9"
+    },
+    "x-54": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/3289376.musicxml"
+        },
+        "work_name": "Menuet BWV Anhang 116"
+    },
+    "x-55": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/334241.musicxml"
+        },
+        "work_name": "Eintritt op. 82"
+    },
+    "x-56": {
+        "composer": "FRANZ LISZT",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/3467186.musicxml"
+        },
+        "work_name": "Hungarian Rhapsody no. 2"
+    },
+    "x-57": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/3602181.musicxml"
+        },
+        "work_name": "Minuet (Nannerl Music Book) KV 1d"
+    },
+    "x-58": {
+        "composer": "WOLFGANG AMADEUS MOZART",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/3605111.musicxml"
+        },
+        "work_name": "6 Piano Variations on an Allegretto KV 54 (547b)"
+    },
+    "x-59": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/3625646.musicxml"
+        },
+        "work_name": "Rigoletto - Concert Paraphrase"
+    },
+    "x-6": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1141201.musicxml"
+        },
+        "work_name": "Fugue E flat major BWV 876"
+    },
+    "x-60": {
+        "composer": "EDVARD GRIEG",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/3659676.musicxml"
+        },
+        "work_name": "In my Native Country op. 43,3"
+    },
+    "x-61": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/366621.musicxml"
+        },
+        "work_name": "The Snow is dancing"
+    },
+    "x-62": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/3779901.musicxml"
+        },
+        "work_name": "Piano Sonata a minor K. 532"
+    },
+    "x-63": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/3793001.musicxml"
+        },
+        "work_name": "Allegretto c minor D 915"
+    },
+    "x-64": {
+        "composer": "GEORG FRIEDRICH H\u00c4NDEL",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/3802126.musicxml"
+        },
+        "work_name": "Fugue B flat major HVW 607"
+    },
+    "x-65": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/3983611.musicxml"
+        },
+        "work_name": "Valse oubli\u00e9e"
+    },
+    "x-66": {
+        "composer": "SERGEI RACHMANINOV",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/4005246.musicxml"
+        },
+        "work_name": "Pr\u00e9lude E flat major op. 23,6"
+    },
+    "x-67": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4032531.musicxml"
+        },
+        "work_name": "Piano Piece \"Lustig und traurig\" WoO 54"
+    },
+    "x-68": {
+        "composer": "EDVARD GRIEG",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/4075676.musicxml"
+        },
+        "work_name": "Melody op. 47,3"
+    },
+    "x-69": {
+        "composer": "FRANZ LISZT",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/4078266.musicxml"
+        },
+        "work_name": "Vall\u00e9e d'Obermann"
+    },
+    "x-7": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/117422.musicxml"
+        },
+        "work_name": "Fugue C major BWV 846"
+    },
+    "x-70": {
+        "composer": "FRANZ LISZT",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/4078941.musicxml"
+        },
+        "work_name": "Au bord d'une source"
+    },
+    "x-71": {
+        "composer": "FRANZ LISZT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/4083526.musicxml"
+        },
+        "work_name": "Eglogue"
+    },
+    "x-72": {
+        "composer": "FRANZ LISZT",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/4094931.musicxml"
+        },
+        "work_name": "Pastorale"
+    },
+    "x-73": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4170321.musicxml"
+        },
+        "work_name": "Malague\u00f1a op. 165,3"
+    },
+    "x-74": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 2,
+        "path": {
+            "1": "xmander_files/4180411.musicxml"
+        },
+        "work_name": "Polonaise BWV Anhang 119"
+    },
+    "x-75": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/4190771.musicxml"
+        },
+        "work_name": "Reflets dans l'eau"
+    },
+    "x-76": {
+        "composer": "LUDWIG VAN BEETHOVEN",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/4282246.musicxml"
+        },
+        "work_name": "5 Piano Variations on \"Rule Britannia\" WoO 79"
+    },
+    "x-77": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/4608724.musicxml"
+        },
+        "work_name": "Little Prelude BWV 942"
+    },
+    "x-78": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/4761516.musicxml"
+        },
+        "work_name": "Partita 6 e minor BWV 830"
+    },
+    "x-79": {
+        "composer": "CLAUDE DEBUSSY",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/4788704.musicxml"
+        },
+        "work_name": "Deux Arabesques"
+    },
+    "x-8": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/1215101.musicxml"
+        },
+        "work_name": "Fugue E major BWV 878"
+    },
+    "x-80": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4794827.musicxml"
+        },
+        "work_name": "Little Prelude for Beginners on Piano BWV 933"
+    },
+    "x-81": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/480961.musicxml"
+        },
+        "work_name": "Prelude and Fugue F sharp major BWV 858"
+    },
+    "x-82": {
+        "composer": "FRANZ SCHUBERT",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/4828384.musicxml"
+        },
+        "work_name": "36 First Waltzes op. 9 D 365"
+    },
+    "x-83": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/4833475.musicxml"
+        },
+        "work_name": "Piano Sonata E major K. 162"
+    },
+    "x-84": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4839423.musicxml"
+        },
+        "work_name": "Little Prelude BWV 999"
+    },
+    "x-85": {
+        "composer": "JOSEPH HAYDN",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/4867475.musicxml"
+        },
+        "work_name": "Piano Sonata C major Hob. XVI:7"
+    },
+    "x-86": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/4870292.musicxml"
+        },
+        "work_name": "Valse noble op. 9,4"
+    },
+    "x-87": {
+        "composer": "ROBERT SCHUMANN",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4871470.musicxml"
+        },
+        "work_name": "Aveu op. 9,18"
+    },
+    "x-88": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/4883282.musicxml"
+        },
+        "work_name": "Mazurka f minor op. 68,4"
+    },
+    "x-89": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 8,
+        "path": {
+            "1": "xmander_files/4884758.musicxml"
+        },
+        "work_name": "Hungarian Dance no. 5 f sharp minor"
+    },
+    "x-9": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/1251606.musicxml"
+        },
+        "work_name": "Fugue e minor BWV 879"
+    },
+    "x-90": {
+        "composer": "ENRIQUE GRANADOS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/4885820.musicxml"
+        },
+        "work_name": "4. Quejas o la maja y el ruise\u00f1or"
+    },
+    "x-91": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/4891183.musicxml"
+        },
+        "work_name": "Piano Sonata b minor K. 87"
+    },
+    "x-92": {
+        "composer": "FRANZ LISZT",
+        "henle": 9,
+        "path": {
+            "1": "xmander_files/4898585.musicxml"
+        },
+        "work_name": "Hungarian Rhapsody no. 12"
+    },
+    "x-93": {
+        "composer": "JOHANN SEBASTIAN BACH",
+        "henle": 3,
+        "path": {
+            "1": "xmander_files/4943170.musicxml"
+        },
+        "work_name": "Marche BWV Anhang 127"
+    },
+    "x-94": {
+        "composer": "JOHANNES BRAHMS",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/4984611.musicxml"
+        },
+        "work_name": "Intermezzo a minor op. 118,1"
+    },
+    "x-95": {
+        "composer": "DOMENICO SCARLATTI",
+        "henle": 7,
+        "path": {
+            "1": "xmander_files/5003370.musicxml"
+        },
+        "work_name": "Piano Sonata d minor K. 141"
+    },
+    "x-96": {
+        "composer": "FR\u00c9D\u00c9RIC CHOPIN",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5019206.musicxml"
+        },
+        "work_name": "Waltz D flat major op. post. 70,3"
+    },
+    "x-97": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 4,
+        "path": {
+            "1": "xmander_files/5026044.musicxml"
+        },
+        "work_name": "Granada (Serenata)"
+    },
+    "x-98": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 5,
+        "path": {
+            "1": "xmander_files/5026820.musicxml"
+        },
+        "work_name": "Catalu\u00f1a (Curranda)"
+    },
+    "x-99": {
+        "composer": "ISAAC ALB\u00c9NIZ",
+        "henle": 6,
+        "path": {
+            "1": "xmander_files/5028687.musicxml"
+        },
+        "work_name": "Sevilla (Sevillana)"
+    }
+}

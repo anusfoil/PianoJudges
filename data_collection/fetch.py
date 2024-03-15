@@ -5,6 +5,7 @@ import csv
 import glob
 import pandas as pd
 import numpy as np
+from youtube_search import YoutubeSearch
 import hook
 
 def should_download(title, duration, filter_keywords, max_duration=10000000000):
@@ -207,17 +208,90 @@ def remove_duplicates(metadata_path):
     print(f"Cleaned metadata saved to {metadata_path}")
 
 
+
+
+# This function constructs search queries based on your specifications
+def construct_queries(metadata):
+    queries = []
+    for item_id, item_details in metadata.items():
+        composer = item_details["composer"]
+        work_name = item_details["work_name"]
+        num_paths = len(item_details["path"])
+        if num_paths > 1:
+            for movement in range(1, num_paths + 1):
+                query = f'{composer} {work_name} mvt. {movement}'
+                queries.append((composer, work_name, f'mvt. {movement}', query))
+        else:
+            query = f'{composer} {work_name}'
+            queries.append((composer, work_name, '', query))
+    return queries
+
+def fetch_youtube_links(query):
+    print(query)
+    # search_response = youtube.search().list(
+    #     q=query,
+    #     part='id,snippet',
+    #     maxResults=3,
+    #     type='video',
+    #     videoDuration='short'
+    # ).execute()
+
+    results = YoutubeSearch(query, max_results=20).to_dict()
+
+    links = []
+    for search_result in results:
+        if len(links) > 3:
+            break
+        if int(search_result['duration'].split(':')[0]) < 5:
+            suffix = search_result['url_suffix'].split('&')[0]
+            video_link = f'https://www.youtube.com{suffix}'
+            links.append(video_link)
+
+    return links
+
+
+def cipi_json_to_csv():
+
+    # Assuming `metadata` is your JSON data
+    metadata = json.load(open('/homes/hz009/Research/PianoJudge/data_collection/index.json'))
+
+    queries = construct_queries(metadata)
+
+    # Writing results to a CSV file
+    with open('CIPI_youtube_links.csv', 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Composer', 'Work Title', 'Movement', 'YouTube Link 1', 'YouTube Link 2', 'YouTube Link 3'])
+
+        for composer, work_name, movement, query in queries:
+            youtube_links = fetch_youtube_links(query)
+            writer.writerow([composer, work_name, movement] + youtube_links)
+
+def match_henle():
+    metadata = json.load(open('/homes/hz009/Research/PianoJudge/data_collection/index.json'))
+    cipi = pd.read_csv("/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv")
+
+    cipi['henle'] = 0
+    for mt, data in metadata.items():
+        cipi.loc[(cipi['Composer'] == data['composer']) & (cipi['Work Title'] == data['work_name']), 'henle'] = data['henle']
+
+    cipi.to_csv("/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv", index=False)
+    return 
+
+
 if __name__ == "__main__":
 
-    category = 'novice'
+    category = 'difficulty_cipi'
 
     # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
     # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
     # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
-    url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
+    # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
-    DATA_DIR = "/import/c4dm-datasets/PianoJudge/techniques/"
-    url_file = f"/homes/hz009/Research/PianoJudge/data_collection/technique_groups.txt"
+    # DATA_DIR = "/import/c4dm-datasets/PianoJudge/techniques/"
+    # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/technique_groups.txt"
+
+    DATA_DIR = "/import/c4dm-datasets/PianoJudge/difficulty_cipi/"
+    # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/mikrokosmos.txt"
 
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR, category)
     # recover_download(DATA_DIR + "metadata.csv", DATA_DIR)
@@ -228,8 +302,9 @@ if __name__ == "__main__":
 
     # Define keywords to filter out, and download
     filter_keywords = ['concerto', 'duets']
-    with open(url_file) as f:
-        urls = f.readlines()
+    # with open(url_file) as f:
+    #     urls = f.readlines()
+    urls = pd.read_csv('/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv')['YouTube Link 1']
     for url in urls:
         if url[0] != '#': # not commented out
             id = url.split('v=')[-1].strip()
@@ -240,7 +315,7 @@ if __name__ == "__main__":
                 continue
             download_channel_videos(url, filter_keywords)
 
-    write_metadata_to_csv()
+    # write_metadata_to_csv()
     cleanup_artifacts()
 
     

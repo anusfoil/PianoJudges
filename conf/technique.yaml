@@ -6,7 +6,7 @@ recompute: False
 epochs: 5
 random_seed: 13
 max_epochs: 500
-learning_rate: 5e-5
+learning_rate: 1e-5
 objective: 'multi-label classification' 
 max_segs: 30  # each audio encoding segment is 10s. 30 segments = 5 minutes
 

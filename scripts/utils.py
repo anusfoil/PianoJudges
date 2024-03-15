@@ -220,7 +220,6 @@ def load_embedding_from_hdf5(audio_paths, encoder, device, max_segs=30, use_trai
             # hook()
             if "ATEPP" in audio_path:
                 audio_id = audio_path.replace("/import/c4dm-datasets/ATEPP-audio/", "")[:-4]
-                # audio_id = 'Frederic_Chopin/24_Préludes,_Op._28/No._15_in_D-Flat_Major_"Raindrop":_Sostenuto/26'
                 dataset = traverse_long_id(hdf5_file, audio_id)
                 if dataset is not None:
                     embedding = dataset[:]  # Use [:] to read the data if it's a dataset
@@ -326,13 +325,15 @@ def encoding_shape(encoder):
 
 
 
-def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, device, audio_inits, use_trained=False):
+def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, device, audio_inits, use_trained=False, max_segs=30):
     hdf5_path = os.path.join(save_path, f"{encoder}_embeddings.hdf5")
     if use_trained:
         hdf5_path = os.path.join(save_path, f"{encoder}_trained_embeddings.hdf5")
 
     metadata = pd.read_csv(metadata)
-    if 'ICPC' not in folder_with_wavs: # the competition data are all very long.
+    if (('ICPC' not in folder_with_wavs) 
+        and ('technique' not in folder_with_wavs)
+        and ('cipi' not in folder_with_wavs)): 
         if 'duration' in metadata.columns:
             metadata = metadata[metadata['duration'].astype(int) < 400]
         else:
@@ -356,7 +357,7 @@ def compute_all_embeddings(encoder, folder_with_wavs, metadata, save_path, devic
                 continue
 
             # Compute the embeddings
-            embedding = compute_audio_embeddings(audio_path, audio_inits, encoder, device, max_segs=30)
+            embedding = compute_audio_embeddings(audio_path, audio_inits, encoder, device, max_segs=max_segs)
             embedding_np = embedding.cpu().detach().numpy()
 
             # Save the embedding
@@ -528,7 +529,7 @@ def main(cfg: DictConfig):
 
     dist.init_process_group(backend="nccl", init_method="env://")
 
-    device = torch.device('cuda:6')
+    device = torch.device(f'cuda:{cfg.gpu}')
 
     for category in cfg.category:
         for encoder in cfg.encoder:
@@ -537,7 +538,8 @@ def main(cfg: DictConfig):
                                             cfg.category[category].metadata, 
                                             cfg.category[category].save_path, 
                                             device, audio_inits,
-                                            use_trained=cfg.use_trained)
+                                            use_trained=cfg.use_trained,
+                                            max_segs=cfg.max_segs)
             print(f"Embeddings for {encoder} in {category} computed and saved.")
 
 

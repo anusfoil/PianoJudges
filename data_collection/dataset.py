@@ -14,7 +14,10 @@ from ..scripts.utils import *
 NOVICE_PATH = '/import/c4dm-datasets/PianoJudge/novice/metadata.csv'
 ADVANCED_PATH = '/import/c4dm-datasets/PianoJudge/advanced/metadata.csv'
 VIRTUOSO_PATH = '/import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv'
-DIFFICULTY_PATH = '/import/c4dm-datasets/ATEPP/atepp_metadata_difficulty_henle_.csv'
+DIFFICULTYAT_PATH = '/import/c4dm-datasets/ATEPP/atepp_metadata_difficulty_henle_.csv'
+DIFFICULTYMK_PATH = '/import/c4dm-datasets/PianoJudge/difficulty_mk/metadata.csv'
+DIFFICULTYCP_PATH = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv'
+DIFFICULTYCP_DIR = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/'
 TECHNIQUE_PATH = '/import/c4dm-datasets/PianoJudge/techniques/metadata.csv'
 TECHNIQUE_DIR = '/import/c4dm-datasets/PianoJudge/techniques/'
 ATEPP_DIR = '/import/c4dm-datasets/ATEPP-audio/'
@@ -34,15 +37,23 @@ class ExpertiseDataloader:
         self.advanced_data = self.advanced_data[self.advanced_data['duration'].astype(int) < 400]
         self.virtuoso_data = self.virtuoso_data[self.virtuoso_data['audio_duration'].astype(int) < 300]
 
-        # check how many of the atepp are computed
-        # hdf5_path = f"/import/c4dm-scratch-02/ATEPP-audio-embeddings/dac_embeddings.hdf5" 
-        # hdf5_file = h5py.File(hdf5_path, 'r')
-        # for ap in self.virtuoso_data['audio_path']:
-        #     dataset = traverse_long_id(hdf5_file, ap[:-4])
-
         self.pair_mode = pair_mode
         self.num_classes =num_classes
         self.balance_data()
+
+        # Split the data into train and test (on audio not on pairs)
+        min_len = min(len(self.novice_data), len(self.advanced_data), len(self.virtuoso_data))
+        split_index = int(min_len * split_ratio)
+
+        if mode == 'train':
+            self.novice_data = self.novice_data[:split_index]
+            self.advanced_data = self.advanced_data[:split_index]
+            self.virtuoso_data = self.virtuoso_data[:split_index]
+        elif mode == 'test':
+            self.novice_data = self.novice_data[split_index:]
+            self.advanced_data = self.advanced_data[split_index:]
+            self.virtuoso_data = self.virtuoso_data[split_index:]
+
 
         if num_classes == 2 or num_classes == 4: # only comparing intra-groups
             novice_data = [('/import/c4dm-datasets/PianoJudge/novice/' + row['id'] + ".wav", 0) for _, row in self.novice_data.iterrows()]
@@ -58,14 +69,6 @@ class ExpertiseDataloader:
 
         random.shuffle(self.pairs) # if not shuffle, the train and test would have different pairs (and their inversion) - actually find there is no effect..
 
-        # Split the data into train and test
-        total_pairs = len(self.pairs)
-        split_index = int(total_pairs * split_ratio)
-
-        if mode == 'train':
-            self.pairs = self.pairs[:split_index]
-        elif mode == 'test':
-            self.pairs = self.pairs[split_index:]
 
 
     def balance_data(self):
@@ -121,8 +124,9 @@ class ExpertiseDataloader:
         # Create all possible pairs
         if self.pair_mode == 'all':
             pairs = list(itertools.combinations(combined_data, 2))
-            reversed_pairs = [(b, a) for a, b in pairs]
-            all_pairs = pairs + reversed_pairs
+            # reversed_pairs = [(b, a) for a, b in pairs]
+            # all_pairs = pairs + reversed_pairs
+            all_pairs = pairs
         elif self.pair_mode == 'once':
             shuffled_data = random.sample(combined_data, len(combined_data))   # note: the random seed would be fixed in each run
             it = iter(shuffled_data)
@@ -154,11 +158,17 @@ class ExpertiseDataloader:
 
 
 class ICPCDataloader:
-    def __init__(self, split_ratio=0.8, pair_mode='all', num_classes=2):
+    def __init__(self, split_ratio=0.5, pair_mode='all', num_classes=2, mode='train'):
 
         self.metadata = pd.read_csv(ICPC_PATH)
         self.metadata = self.metadata[self.metadata['ranking_score'] != -1] # remove rows with no ranking score
         self.num_classes = num_classes
+
+        split_index = int(len(self.metadata) * split_ratio)
+        if mode == 'train':
+            self.metadata = self.metadata[:split_index]
+        elif mode == 'test':
+            self.metadata = self.metadata[split_index:]
 
         self.pair_mode = pair_mode
         self.pairs = self.create_pairs()
@@ -170,13 +180,12 @@ class ICPCDataloader:
 
         if self.pair_mode == 'all':
             pairs = list(itertools.combinations(self.metadata.iterrows(), 2))
-            reversed_pairs = [(b, a) for a, b in pairs]
-            all_pairs = pairs + reversed_pairs
+            all_pairs = random.sample(pairs, len(pairs)) # 1596
 
         elif self.pair_mode == 'once':
             shuffled_data = random.sample(list(self.metadata.iterrows()), len(self.metadata))
             it = iter(shuffled_data)
-            all_pairs = list(zip(it, it))
+            all_pairs = list(zip(it, it)) # 28
 
         for (idx1, row1), (idx2, row2) in all_pairs:
             path1 = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row1['id'] + ".wav"
@@ -215,10 +224,10 @@ class ICPCDataloader:
         }
 
 
-class DifficultyDataloader:
+class DifficultyATDataloader:
     def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
         # Read the metadata CSV file
-        metadata = pd.read_csv(DIFFICULTY_PATH)
+        metadata = pd.read_csv(DIFFICULTYAT_PATH)
         metadata = metadata[~metadata['difficulty_label'].isna()]  # Remove rows with no difficulty label
         metadata = metadata[metadata['audio_duration'] < 400]
 
@@ -251,6 +260,74 @@ class DifficultyDataloader:
             "audio_path": p,
             "label": label
         }
+
+
+class DifficultyMKDataloader:
+    def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
+        # Read the metadata CSV file
+        metadata = pd.read_csv(DIFFICULTYMK_PATH)
+
+        # Sample for class balance regarding difficulty_label
+        class_counts = metadata['difficulty_label'].value_counts()
+        sampled_metadata = metadata.groupby('difficulty_label').apply(lambda x: x.sample(class_size, replace=True, random_state=rs))
+
+        # Split based on the piece/movement to avoid leaking
+        piece_paths = sampled_metadata['piece_path'].unique()
+        random.Random(rs).shuffle(piece_paths)
+        total_pieces = len(piece_paths)
+        split_index = int(total_pieces * split_ratio)
+
+        if mode == 'train':
+            train_pieces = piece_paths[:split_index]
+            self.metadata = sampled_metadata[sampled_metadata['piece_path'].isin(train_pieces)]
+        elif mode == 'test':
+            test_pieces = piece_paths[split_index:]
+            self.metadata = sampled_metadata[sampled_metadata['piece_path'].isin(test_pieces)]
+
+
+    def __len__(self):
+        return len(self.metadata)
+
+    def __getitem__(self, idx):
+        
+        p = ATEPP_DIR + self.metadata.iloc[idx]['audio_path']
+        label = int(self.metadata.iloc[idx]['difficulty_label'])
+        return {
+            "audio_path": p,
+            "label": label
+        }
+
+
+class DifficultyCPDataloader:
+    def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
+        # Read the metadata CSV file
+        metadata = pd.read_csv(DIFFICULTYCP_PATH)
+
+        # Sample for class balance regarding difficulty_label
+        class_counts = metadata['henle'].value_counts()
+        # sampled_metadata = metadata.groupby('henle').apply(lambda x: x.sample(class_size, replace=True, random_state=rs))
+
+        total_pieces = len(metadata)
+        split_index = int(total_pieces * split_ratio)
+
+        if mode == 'train':
+            self.metadata = metadata[split_index:]
+        elif mode == 'test':
+            self.metadata = metadata[:split_index]
+
+
+    def __len__(self):
+        return len(self.metadata)
+
+    def __getitem__(self, idx):
+        
+        p = DIFFICULTYCP_DIR + self.metadata.iloc[idx]['audio_id'] + '.wav'
+        label = int(self.metadata.iloc[idx]['henle'])
+        return {
+            "audio_path": p,
+            "label": label
+        }
+
 
 
 class TechniqueDataloader:
@@ -288,7 +365,8 @@ class TechniqueDataloader:
 if __name__ == "__main__":
 
     # Create dataloader
-    # dataloader = DifficultyDataloader()
+    # dataloader = DifficultyATDataloader()
+    dataloader = DifficultyCPDataloader()
     # dataloader = ICPCDatalocader()
     dataloader = ExpertiseDataloader()
 

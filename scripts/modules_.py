@@ -263,6 +263,7 @@ class PredictionHead(pl.LightningModule):
 
         # Forward pass
         outputs = self(emb)
+        # assert(outputs.shape == labels.shape)
         loss = self.criterion(outputs, labels)
 
         return outputs, loss
@@ -271,9 +272,10 @@ class PredictionHead(pl.LightningModule):
     def test_step(self, batch, batch_idx):
 
         combined_emb = self.batch_to_embedding(batch)
-        outputs = self(combined_emb)  # Regression output
+        outputs = self(combined_emb)  
 
-        labels, predicted_labels = self.outputs_conversion(batch, outputs)
+        # if it's in 4-way prediction, then need to convert to 2-way prediction for icpc
+        labels, predicted_labels = self.outputs_conversion(batch, outputs, icpc_4_to_2=(self.cfg.dataset.num_classes == 4))
 
 
         # Store labels and predictions for later use in test_epoch_end
@@ -287,11 +289,11 @@ class PredictionHead(pl.LightningModule):
         all_predicted_outputs = torch.cat([x['predicted_outputs'] for x in outputs], dim=0).cpu().numpy()
 
         # Print classification summary
-        print(classification_report(all_true_labels, all_predicted_labels, labels=list(range(self.cfg.dataset.num_classes))))
+        print(classification_report(all_true_labels, all_predicted_labels, labels=list(range(2))))
         loss = self.criterion(torch.tensor(all_predicted_outputs), torch.tensor(all_true_labels))
 
 
-    def outputs_conversion(self, batch, outputs):
+    def outputs_conversion(self, batch, outputs, icpc_4_to_2=False):
         # Convert labels to tensor
         try:
             labels = torch.tensor(batch["label"], dtype=self.label_dtype, device=self.device)
@@ -302,8 +304,12 @@ class PredictionHead(pl.LightningModule):
             predicted_labels = outputs.max(dim=1)[1]   
         elif self.cfg.objective == "multi-label classification":
             predicted_labels = (outputs > 0.5).int() 
-        else:
+        else: # regression
             predicted_labels = self.output_to_label(outputs)        
+        
+        if icpc_4_to_2:
+            # Convert 4 class labels to 2 class labels for ICPC prediction:  0, 1, 2, 3 -> 0, 0, 1, 1
+            predicted_labels = (predicted_labels >= 2).int()
 
         if self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
             labels = labels - 1
@@ -314,11 +320,14 @@ class PredictionHead(pl.LightningModule):
     def batch_to_embedding(self, batch):
 
         if 'audio_path_1' in batch:
-            emb1 = load_embedding_from_hdf5(batch["audio_path_1"], self.encoder, self.device, self.cfg.max_segs).to(self.device)
-            emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, self.device, self.cfg.max_segs).to(self.device)
+            emb1 = load_embedding_from_hdf5(batch["audio_path_1"], self.encoder, 
+                                            self.device, self.cfg.max_segs, use_trained=self.cfg.use_trained).to(self.device)
+            emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, 
+                                            self.device, self.cfg.max_segs, use_trained=self.cfg.use_trained).to(self.device)
             emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
         else:
-            emb = load_embedding_from_hdf5(batch["audio_path"], self.encoder, self.device).to(self.device)
+            emb = load_embedding_from_hdf5(batch["audio_path"], self.encoder, 
+                                           self.device, self.cfg.max_segs, use_trained=self.cfg.use_trained).to(self.device)
 
         return emb
 
