@@ -60,8 +60,19 @@ def add_self_recorded():
     
 
 def onehot_techniques():
-    metadata = pd.read_csv('/import/c4dm-datasets/PianoJudge/techniques/metadata.csv')
+    metadata = pd.read_csv('/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv')
+    # metadata = pd.read_csv('/import/c4dm-datasets/PianoJudge/techniques/metadata.csv')
 
+    import audioread
+    from tqdm import tqdm
+    tol_duration = 0
+    # load all of the audios
+    for _, row in tqdm(metadata.iterrows()):
+        path = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/' + row['audio_path'] 
+        with audioread.audio_open(path) as f:
+            tol_duration += f.duration
+        
+    hook()
     # one-hot encode the techniques
 
     # Techniques to one-hot encode
@@ -75,14 +86,20 @@ def onehot_techniques():
     for technique in techniques:
         print(f"{technique}: {metadata[technique].sum()}")
     '''
-    Scales: 45
-    Arpeggios: 42
-    Ornaments: 26
-    Repeatednotes: 19
-    Doublenotes: 34
+    Scales: 48
+    Arpeggios: 40
+    Ornaments: 31
+    Repeatednotes: 35
+    Doublenotes: 36
     Octave: 35
-    Staccato: 14
+    Staccato: 41
     '''
+
+    # print the count of of techniques that have more than one one-hot encoding
+    print(metadata[techniques].sum(axis=1).value_counts())
+    
+
+    hook()
     return
 
 # add_self_recorded()

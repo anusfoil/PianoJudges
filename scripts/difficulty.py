@@ -1,6 +1,6 @@
 import hydra
 from omegaconf import DictConfig
-from .. import hook
+import hook
 import os, sys, random
 # sys.path.extend(['..', '../data_collection'])
 import numpy as np
@@ -15,7 +15,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 
 from .utils import encoding_shape, load_latest_checkpoint, checkpointing_paths
-from ..data_collection.dataset import DifficultyATDataloader, DifficultyMKDataloader
+from ..data_collection.dataset import DifficultyCPDataloader
 from .modules_ import PredictionHead
 
 
@@ -63,17 +63,19 @@ def main(cfg: DictConfig):
     )
 
     print("init model...")
+    if 'model' in cfg.model: # some hydra config version diff...
+        cfg.model = cfg.model.model
 
     # Initialize your Lightning module
     model = PredictionHead(cfg, 
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
     train_loader = DataLoader(
-        DifficultyDataloader(mode='train'), 
+        DifficultyCPDataloader(mode='train'), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        DifficultyDataloader(mode='test'), 
+        DifficultyCPDataloader(mode='test'), 
         **cfg.dataset.eval, 
     )
 

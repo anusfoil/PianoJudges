@@ -82,7 +82,6 @@ def main(cfg: DictConfig):
         # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.test, 
     )
-    hook()
 
     # Train the model
 
@@ -100,7 +99,6 @@ def main(cfg: DictConfig):
         if cfg.mode == 'fit_test':
             trainer = pl.Trainer(
                 logger=wandb_logger,
-                callbacks=[checkpoint_callback],
                 accelerator="gpu",
                 devices=cfg.gpu,
                 max_epochs=30,

@@ -269,10 +269,22 @@ def cipi_json_to_csv():
 def match_henle():
     metadata = json.load(open('/homes/hz009/Research/PianoJudge/data_collection/index.json'))
     cipi = pd.read_csv("/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv")
+    split = json.load(open('/homes/hz009/Research/PianoJudge/data_collection/splits.json'))
+    split0 = split['0']
 
-    cipi['henle'] = 0
+    # cipi['henle'] = 0
+    cipi['id'] = ''
+    cipi['split'] = ''
     for mt, data in metadata.items():
-        cipi.loc[(cipi['Composer'] == data['composer']) & (cipi['Work Title'] == data['work_name']), 'henle'] = data['henle']
+        cipi.loc[(cipi['Composer'] == data['composer']) & (cipi['Work Title'] == data['work_name']), 'id'] = mt
+        if mt in split0['train']:
+            sp = 'train'
+        elif mt in split0['val']:
+            sp = 'val'
+        elif mt in split0['test']:
+            sp = 'test'        
+        cipi.loc[(cipi['Composer'] == data['composer']) & (cipi['Work Title'] == data['work_name']), 'split'] = sp
+        # cipi.loc[(cipi['Composer'] == data['composer']) & (cipi['Work Title'] == data['work_name']), 'henle'] = data['henle']
 
     cipi.to_csv("/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv", index=False)
     return 

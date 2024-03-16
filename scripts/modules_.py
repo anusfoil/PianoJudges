@@ -263,6 +263,7 @@ class PredictionHead(pl.LightningModule):
 
         # Forward pass
         outputs = self(emb)
+
         # assert(outputs.shape == labels.shape)
         loss = self.criterion(outputs, labels)
 
@@ -311,9 +312,9 @@ class PredictionHead(pl.LightningModule):
             # Convert 4 class labels to 2 class labels for ICPC prediction:  0, 1, 2, 3 -> 0, 0, 1, 1
             predicted_labels = (predicted_labels >= 2).int()
 
-        if self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
-            labels = labels - 1
-            predicted_labels = predicted_labels - 1
+        # if self.cfg.task == 'diff': # diff: 1 - 9 -> 0 - 8
+        #     labels = labels - 1
+        #     predicted_labels = predicted_labels - 1
 
         return labels, predicted_labels
 

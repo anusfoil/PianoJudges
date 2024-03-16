@@ -302,18 +302,16 @@ class DifficultyCPDataloader:
     def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
         # Read the metadata CSV file
         metadata = pd.read_csv(DIFFICULTYCP_PATH)
+        # metadata = metadata.sample(frac=1, random_state=rs)
 
         # Sample for class balance regarding difficulty_label
         class_counts = metadata['henle'].value_counts()
-        # sampled_metadata = metadata.groupby('henle').apply(lambda x: x.sample(class_size, replace=True, random_state=rs))
+        balanced_metadata = metadata.groupby('henle').apply(lambda x: x.sample(class_counts.max(), replace=True, random_state=rs))
 
-        total_pieces = len(metadata)
-        split_index = int(total_pieces * split_ratio)
-
-        if mode == 'train':
-            self.metadata = metadata[split_index:]
+        if mode == 'train': # we don't do cross-validation
+            self.metadata = balanced_metadata[(balanced_metadata['split'] == 'train')]
         elif mode == 'test':
-            self.metadata = metadata[:split_index]
+            self.metadata = balanced_metadata[balanced_metadata['split'] == 'test']
 
 
     def __len__(self):
@@ -321,8 +319,8 @@ class DifficultyCPDataloader:
 
     def __getitem__(self, idx):
         
-        p = DIFFICULTYCP_DIR + self.metadata.iloc[idx]['audio_id'] + '.wav'
-        label = int(self.metadata.iloc[idx]['henle'])
+        p = DIFFICULTYCP_DIR + self.metadata.iloc[idx]['audio_path']
+        label = int(self.metadata.iloc[idx]['henle']) - 1
         return {
             "audio_path": p,
             "label": label
