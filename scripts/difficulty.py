@@ -11,8 +11,9 @@ import torch.distributed as dist
 from tqdm import tqdm
 
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import ModelCheckpoint
+from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
+
 
 from .utils import encoding_shape, load_latest_checkpoint, checkpointing_paths
 from ..data_collection.dataset import DifficultyCPDataloader
@@ -49,6 +50,13 @@ def main(cfg: DictConfig):
         save_top_k=1,
         save_last=True
     )
+    early_stop_callback = EarlyStopping(
+        monitor='val_accuracy',    # The metric to monitor
+        min_delta=0.001,        # The minimum change in the monitored metric to qualify as an improvement
+        patience=200,            # Number of epochs with no improvement after which training will be stopped
+        verbose=False,         # Whether to log more info
+        mode='max',            # In 'min' mode, training will stop when the quantity monitored has stopped decreasing
+    )
 
     # Wandb logger
     wandb_logger = WandbLogger(name=experiment_name, project="piano_judge", entity="huanz")
@@ -56,7 +64,7 @@ def main(cfg: DictConfig):
     # Initialize the trainer
     trainer = pl.Trainer(
         logger=wandb_logger,
-        callbacks=[checkpoint_callback],
+        callbacks=[checkpoint_callback, early_stop_callback],
         max_epochs=cfg.max_epochs,
         accelerator="gpu",
         devices=cfg.gpu,
@@ -71,11 +79,11 @@ def main(cfg: DictConfig):
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
     train_loader = DataLoader(
-        DifficultyCPDataloader(mode='train'), 
+        DifficultyCPDataloader(mode='train', num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        DifficultyCPDataloader(mode='test'), 
+        DifficultyCPDataloader(mode='test', num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.eval, 
     )
 

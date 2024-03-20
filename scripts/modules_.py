@@ -12,7 +12,8 @@ import seaborn as sns
 import hook
 
 import pytorch_lightning as pl
-from .utils import init_encoder, load_embedding_from_hdf5, encoding_shape
+from torch.optim.lr_scheduler import StepLR
+from .utils import init_encoder, load_embedding_from_hdf5, encoding_shape, PlusMinusOneAccuracy
 
 
 class ConvBlock(nn.Module):
@@ -136,8 +137,10 @@ class PredictionHead(pl.LightningModule):
             self.label_dtype = torch.long
 
             self.map = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, task='multilabel')
-            self.map_classes = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, average=None, task='multilabel')
+            # no average, print ap for each class
+            self.ap_classes = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, average=None, task='multilabel')
             self.multilabel_accuracy = torchmetrics.Accuracy(num_labels=cfg.dataset.num_classes, task='multilabel')
+            self.auc = torchmetrics.AUROC(num_labels=cfg.dataset.num_classes, task='multilabel')
 
         else:  # default to regression if not classification
             self.criterion = nn.MSELoss()
@@ -146,7 +149,8 @@ class PredictionHead(pl.LightningModule):
         self.precision_metric = torchmetrics.Precision(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
         self.recall = torchmetrics.Recall(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
         self.f1 = torchmetrics.F1Score(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
-        self.accuracy = torchmetrics.Accuracy(num_classes=cfg.dataset.num_classes, task='multiclass')
+        self.accuracy = torchmetrics.Accuracy(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
+        self.accuracy_pmone = PlusMinusOneAccuracy(num_classes=cfg.dataset.num_classes, average='macro')
 
 
     def forward(self, x):
@@ -173,12 +177,17 @@ class PredictionHead(pl.LightningModule):
         if self.cfg.objective == "multi-label classification":
             # Update metrics
             map = self.map(outputs, labels)
-            map_classes = self.map_classes(outputs, labels)
+            ap_classes = self.ap_classes(outputs, labels)
             multilabel_accuracy = self.multilabel_accuracy(predicted_labels, labels)
+            auc = self.auc(outputs, labels)
 
-            print(map_classes)
+            class_labels = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
+            for label in class_labels:
+                self.log(f'valAP/{label}', ap_classes[class_labels.index(label)], on_epoch=True, prog_bar=True)
+
             self.log('val_mAP', map, on_epoch=True, prog_bar=True)
             self.log('val_multilabel_accuracy', multilabel_accuracy, on_epoch=True, prog_bar=True)
+            self.log('val_auc', auc, on_epoch=True, prog_bar=True)
         else:
             # Update metrics
             precision = self.precision_metric(predicted_labels, labels)
@@ -191,6 +200,10 @@ class PredictionHead(pl.LightningModule):
             self.log('val_recall', recall, on_epoch=True, prog_bar=True)
             self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
             self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
+
+            if (self.cfg.task == 'diff') and (self.cfg.dataset.num_classes == 9): # log +- 1 acc for diff task
+                accuracy_pmone = self.accuracy_pmone(predicted_labels, labels)
+                self.log('val_accuracy_pmone', accuracy_pmone, on_epoch=True, prog_bar=True)
 
         return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
 
@@ -273,11 +286,19 @@ class PredictionHead(pl.LightningModule):
     def test_step(self, batch, batch_idx):
 
         combined_emb = self.batch_to_embedding(batch)
-        outputs = self(combined_emb)  
+
+        if len(combined_emb.shape) == 5:
+            # (b, p, s, t, e) since icpc have multiple 5mins parts. merge with batch dimension
+            input_emb = rearrange(combined_emb, 'b p s t e -> (b p) s t e')
+            outputs = self(input_emb)  
+
+            outputs = rearrange(outputs, '(b p) s -> b p s', b=batch['label'].shape[0]) # release the batch dimension
+            outputs = reduce(outputs, 'b p s -> b s', 'mean')  # average the predictions from all parts
+        else:
+            outputs = self(combined_emb)  
 
         # if it's in 4-way prediction, then need to convert to 2-way prediction for icpc
         labels, predicted_labels = self.outputs_conversion(batch, outputs, icpc_4_to_2=(self.cfg.dataset.num_classes == 4))
-
 
         # Store labels and predictions for later use in test_epoch_end
         return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
@@ -325,6 +346,10 @@ class PredictionHead(pl.LightningModule):
                                             self.device, self.cfg.max_segs, use_trained=self.cfg.use_trained).to(self.device)
             emb2 = load_embedding_from_hdf5(batch["audio_path_2"], self.encoder, 
                                             self.device, self.cfg.max_segs, use_trained=self.cfg.use_trained).to(self.device)
+            if emb1.shape[1] != emb2.shape[1]:
+                shape = min(emb1.shape[1], emb2.shape[1])
+                emb1 = emb1[:, :shape, :]
+                emb2 = emb2[:, :shape, :]
             emb = torch.cat((emb1, emb2), dim=-2)  # (b, t1+t2, e)
         else:
             emb = load_embedding_from_hdf5(batch["audio_path"], self.encoder, 
@@ -346,7 +371,13 @@ class PredictionHead(pl.LightningModule):
 
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.learning_rate)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, weight_decay=self.cfg.weight_decay)
+        # scheduler = {
+        #     'scheduler': StepLR(optimizer, step_size=5, gamma=0.7),
+        #     'interval': 'epoch',  # or 'step' for step-wise scheduling
+        #     'frequency': 1,       # how many epochs/steps to wait before applying scheduler
+        # }
+        return [optimizer]
 
 
 

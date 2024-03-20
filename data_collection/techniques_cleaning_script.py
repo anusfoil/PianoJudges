@@ -60,7 +60,7 @@ def add_self_recorded():
     
 
 def onehot_techniques():
-    metadata = pd.read_csv('/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv')
+    metadata = pd.read_csv('/homes/hz009/Research/PianoJudge/data_collection/virtuoso_metadata.csv')
     # metadata = pd.read_csv('/import/c4dm-datasets/PianoJudge/techniques/metadata.csv')
 
     import audioread
@@ -68,9 +68,9 @@ def onehot_techniques():
     tol_duration = 0
     # load all of the audios
     for _, row in tqdm(metadata.iterrows()):
-        path = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/' + row['audio_path'] 
-        with audioread.audio_open(path) as f:
-            tol_duration += f.duration
+            path = '/import/c4dm-datasets/ATEPP-audio/' + row['audio_path']
+            with audioread.audio_open(path) as f:
+                tol_duration += f.duration
         
     hook()
     # one-hot encode the techniques

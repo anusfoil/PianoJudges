@@ -3,14 +3,30 @@ from transformers import Wav2Vec2FeatureExtractor
 from transformers import AutoModel
 import torch
 from torch import nn
-import torchaudio.transforms as T
+# import torchaudio.transforms as T
 from datasets import load_dataset
 import hook
+
+from transformers import AutoModelForSeq2SeqLM
+from peft import get_peft_config, get_peft_model, LoraConfig, TaskType
+
+
+peft_config = LoraConfig(
+    task_type=TaskType.SEQ_2_SEQ_LM, 
+    # target_modules=
+    inference_mode=False, r=8, lora_alpha=32, lora_dropout=0.1
+)
+
 
 # loading our model weights
 model = AutoModel.from_pretrained("m-a-p/MERT-v1-330M", trust_remote_code=True)
 # loading the corresponding preprocessor config
 processor = Wav2Vec2FeatureExtractor.from_pretrained("m-a-p/MERT-v1-330M",trust_remote_code=True)
+
+
+model = get_peft_model(model, peft_config)
+model.print_trainable_parameters()
+hook()
 
 # load demo audio and set processor
 dataset = load_dataset("hf-internal-testing/librispeech_asr_demo", "clean", split="validation")
@@ -49,3 +65,5 @@ print(time_reduced_hidden_states.shape) # [25, 1024]
 aggregator = nn.Conv1d(in_channels=25, out_channels=1, kernel_size=1)
 weighted_avg_hidden_states = aggregator(time_reduced_hidden_states.unsqueeze(0)).squeeze()
 print(weighted_avg_hidden_states.shape) # [1024]
+
+

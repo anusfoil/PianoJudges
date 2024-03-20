@@ -1,3 +1,4 @@
+.gitignore
 **/hook.py
 jukebox/
 outputs/
@@ -8,3 +9,4 @@ checkpoints/
 try_*
 AudioMAE/
 data_collection/fetch.py
+plotting/*

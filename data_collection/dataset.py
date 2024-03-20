@@ -16,8 +16,8 @@ ADVANCED_PATH = '/import/c4dm-datasets/PianoJudge/advanced/metadata.csv'
 VIRTUOSO_PATH = '/import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv'
 DIFFICULTYAT_PATH = '/import/c4dm-datasets/ATEPP/atepp_metadata_difficulty_henle_.csv'
 DIFFICULTYMK_PATH = '/import/c4dm-datasets/PianoJudge/difficulty_mk/metadata.csv'
-DIFFICULTYCP_PATH = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv'
-DIFFICULTYCP_DIR = '/import/c4dm-datasets/PianoJudge/difficulty_cipi/'
+DIFFICULTYCP_PATH = '/import/c4dm-scratch-02/difficulty_cipi/CIPI_youtube_links.csv'
+DIFFICULTYCP_DIR = '/import/c4dm-scratch-02/difficulty_cipi/'
 TECHNIQUE_PATH = '/import/c4dm-datasets/PianoJudge/techniques/metadata.csv'
 TECHNIQUE_DIR = '/import/c4dm-datasets/PianoJudge/techniques/'
 ATEPP_DIR = '/import/c4dm-datasets/ATEPP-audio/'
@@ -299,7 +299,10 @@ class DifficultyMKDataloader:
 
 
 class DifficultyCPDataloader:
-    def __init__(self, mode='train', split_ratio=0.8, class_size=100, rs=42):
+    def __init__(self, mode='train', split_ratio=0.8, num_classes=9, rs=42):
+
+        self.num_classes = num_classes # can be either 9 or 3
+
         # Read the metadata CSV file
         metadata = pd.read_csv(DIFFICULTYCP_PATH)
         # metadata = metadata.sample(frac=1, random_state=rs)
@@ -313,6 +316,8 @@ class DifficultyCPDataloader:
         elif mode == 'test':
             self.metadata = balanced_metadata[balanced_metadata['split'] == 'test']
 
+        self.metadata = self.metadata.sample(frac=1, random_state=rs)
+
 
     def __len__(self):
         return len(self.metadata)
@@ -321,6 +326,8 @@ class DifficultyCPDataloader:
         
         p = DIFFICULTYCP_DIR + self.metadata.iloc[idx]['audio_path']
         label = int(self.metadata.iloc[idx]['henle']) - 1
+        if self.num_classes == 3:
+            label = int(label / 3)
         return {
             "audio_path": p,
             "label": label
@@ -332,6 +339,7 @@ class TechniqueDataloader:
     def __init__(self, mode='train', split_ratio=0.8, rs=42):
         # Read the metadata CSV file
         metadata = pd.read_csv(TECHNIQUE_PATH)
+        metadata = metadata.sample(frac=1, random_state=rs)
 
         self.label_columns = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
 
@@ -363,6 +371,7 @@ class TechniqueDataloader:
 if __name__ == "__main__":
 
     # Create dataloader
+    dataloader = ExpertiseDataloader()
     # dataloader = DifficultyATDataloader()
     dataloader = DifficultyCPDataloader()
     # dataloader = ICPCDatalocader()
