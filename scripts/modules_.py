@@ -13,7 +13,7 @@ import hook
 
 import pytorch_lightning as pl
 from torch.optim.lr_scheduler import StepLR
-from .utils import init_encoder, load_embedding_from_hdf5, encoding_shape, PlusMinusOneAccuracy
+from .utils import init_encoder, load_embedding_from_hdf5, PlusMinusOneAccuracy, apply_label_smoothing
 
 
 class ConvBlock(nn.Module):
@@ -133,14 +133,17 @@ class PredictionHead(pl.LightningModule):
             self.criterion = nn.CrossEntropyLoss()
             self.label_dtype = torch.long
         elif cfg.objective == "multi-label classification":
-            self.criterion = nn.BCEWithLogitsLoss()
+
+            # pos_weight since the labels are sparse
+
+            self.criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(cfg.dataset.pos_weight) * 1.4)
             self.label_dtype = torch.long
 
             self.map = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, task='multilabel')
             # no average, print ap for each class
             self.ap_classes = torchmetrics.AveragePrecision(num_labels=cfg.dataset.num_classes, average=None, task='multilabel')
             self.multilabel_accuracy = torchmetrics.Accuracy(num_labels=cfg.dataset.num_classes, task='multilabel')
-            self.auc = torchmetrics.AUROC(num_labels=cfg.dataset.num_classes, task='multilabel')
+            self.auc = torchmetrics.classification.MultilabelAUROC(num_labels=cfg.dataset.num_classes)
 
         else:  # default to regression if not classification
             self.criterion = nn.MSELoss()
@@ -181,8 +184,15 @@ class PredictionHead(pl.LightningModule):
             multilabel_accuracy = self.multilabel_accuracy(predicted_labels, labels)
             auc = self.auc(outputs, labels)
 
+            # if torch.isnan(ap_classes).any():
+            #     hook()
+            # if self.current_epoch == 50:
+            #     hook()
+
             class_labels = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
-            for label in class_labels:
+            for i, label in enumerate(class_labels):
+                if (not labels[:, i].sum()) and torch.isnan(ap_classes[class_labels.index(label)]):
+                    continue # don't log the ones that doesn't have label and result in nan
                 self.log(f'valAP/{label}', ap_classes[class_labels.index(label)], on_epoch=True, prog_bar=True)
 
             self.log('val_mAP', map, on_epoch=True, prog_bar=True)
@@ -276,6 +286,9 @@ class PredictionHead(pl.LightningModule):
 
         # Forward pass
         outputs = self(emb)
+
+        if self.cfg.objective == "multi-label classification": # apply label smoothing
+            labels = apply_label_smoothing(labels)
 
         # assert(outputs.shape == labels.shape)
         loss = self.criterion(outputs, labels)
@@ -371,7 +384,9 @@ class PredictionHead(pl.LightningModule):
 
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, weight_decay=self.cfg.weight_decay)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, 
+                                    # weight_decay=self.cfg.weight_decay
+                                    )
         # scheduler = {
         #     'scheduler': StepLR(optimizer, step_size=5, gamma=0.7),
         #     'interval': 'epoch',  # or 'step' for step-wise scheduling

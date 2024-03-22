@@ -12,15 +12,16 @@ objective: 'multi-label classification'
 max_segs: 30  # each audio encoding segment is 10s. 30 segments = 5 minutes
 
 dataset:
+  pos_weight: [3.625, 4.55, 6.16, 5.34, 5.16, 5.34, 4.41]
   num_classes: 7
   pair_mode: 'once'
   n_segs: 30
   train:
-    batch_size: 24
+    batch_size: 12
     num_workers: 12
     shuffle: True
   eval:
-    batch_size: 24
+    batch_size: 12
     num_workers: 12
     shuffle: True
   test:

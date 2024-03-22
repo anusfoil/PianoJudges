@@ -6,7 +6,7 @@ recompute: False
 epochs: 5
 random_seed: 13
 max_epochs: 500
-learning_rate: 1e-5
+learning_rate: 5e-5
 weight_decay: 0
 objective: 'classification' # 'regression'
 max_segs: 30  # each audio encoding segment is 10s. 30 segments = 5 minutes
@@ -15,11 +15,11 @@ dataset:
   num_classes: 9
   n_segs: 30
   train:
-    batch_size: 12
+    batch_size: 64
     num_workers: 0
     shuffle: True
   eval:
-    batch_size: 12
+    batch_size: 64
     shuffle: False
   test:
     batch_size: 2

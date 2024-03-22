@@ -69,16 +69,17 @@ def main(cfg: DictConfig):
     model = PredictionHead(cfg, 
                             embedding_dim=encoding_shape(cfg.encoder)[1], 
                             embedding_len=encoding_shape(cfg.encoder)[0])
+    label = 'multi' if "multi" in cfg.task else 'single'
     train_loader = DataLoader(
-        TechniqueDataloader(mode='train'), 
+        TechniqueDataloader(mode='train', label=label), 
         **cfg.dataset.train
     )
     valid_loader = DataLoader(
-        TechniqueDataloader(mode='test'), 
+        TechniqueDataloader(mode='test', label=label), 
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(
-        TechniqueDataloader(mode='test'), 
+        TechniqueDataloader(mode='test', label=label), 
         **cfg.dataset.test, 
     )
 

@@ -336,11 +336,12 @@ class DifficultyCPDataloader:
 
 
 class TechniqueDataloader:
-    def __init__(self, mode='train', split_ratio=0.8, rs=42):
+    def __init__(self, mode='train', split_ratio=0.8, rs=42, label='multi'):
         # Read the metadata CSV file
         metadata = pd.read_csv(TECHNIQUE_PATH)
         metadata = metadata.sample(frac=1, random_state=rs)
 
+        self.label = label
         self.label_columns = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
 
         split_index = int(len(metadata) * split_ratio)
@@ -361,7 +362,11 @@ class TechniqueDataloader:
     def __getitem__(self, idx):
         
         p = TECHNIQUE_DIR + self.metadata.iloc[idx]['id'] + '.wav'
-        labels = list(self.metadata.iloc[idx][self.label_columns])
+
+        if self.label == 'multi':
+            labels = list(self.metadata.iloc[idx][self.label_columns])
+        elif self.label == 'single':
+            labels = np.argmax(self.metadata.iloc[idx][self.label_columns])
         return {
             "audio_path": p,
             "label": labels

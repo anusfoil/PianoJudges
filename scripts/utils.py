@@ -578,7 +578,10 @@ class PlusMinusOneAccuracy(Metric):
         # Compute the final accuracy
         return self.correct.float() / self.total
 
-
+# Assuming the apply_label_smoothing function as defined previously
+def apply_label_smoothing(targets, alpha=0.1):
+    smoothed_targets = targets * (1 - alpha) + (1 - targets) * alpha
+    return smoothed_targets
 
 
 import hydra
