@@ -291,6 +291,11 @@ class PredictionHead(pl.LightningModule):
         except:
             labels = torch.tensor(torch.stack(batch["label"]), dtype=torch.float32, device=self.device).T
 
+        if len(emb.shape) == 5:
+            labels = repeat(labels, 'b -> (b p)', p=emb.shape[1])
+            emb = rearrange(emb, 'b p s t e -> (b p) s t e')
+            
+
         # Forward pass
         outputs = self(emb)
 
@@ -333,6 +338,14 @@ class PredictionHead(pl.LightningModule):
         # Print classification summary
         print(classification_report(all_true_labels, all_predicted_labels, labels=list(range(2))))
         loss = self.criterion(torch.tensor(all_predicted_outputs), torch.tensor(all_true_labels))
+        acc = self.accuracy.to('cpu')(torch.tensor(all_predicted_labels), torch.tensor(all_true_labels))
+        f1 = self.f1.to('cpu')(torch.tensor(all_predicted_labels), torch.tensor(all_true_labels))
+
+        # save and write 
+        with open(f"/homes/hz009/Research/PianoJudge/checkpoints/{self.cfg.task}_{self.cfg.mode}_{self.cfg.encoder}_results.txt", "w") as f:
+            f.write(classification_report(all_true_labels, all_predicted_labels, labels=list(range(2)))
+                    + f"\nLoss: {loss.item()}\nF1: {f1.item()}\nAccuracy: {acc.item()}")
+        hook()
 
 
     def outputs_conversion(self, batch, outputs, icpc_4_to_2=False):

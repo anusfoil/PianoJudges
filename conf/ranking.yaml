@@ -16,15 +16,15 @@ dataset:
   pair_mode: 'once'
   n_segs: 30
   train:
-    batch_size: 24
+    batch_size: 12
     num_workers: 12
     shuffle: True
   eval:
-    batch_size: 24
+    batch_size: 12
     num_workers: 12
     shuffle: True
   test:
-    batch_size: 24
+    batch_size: 12
     num_workers: 12
     shuffle: False
   

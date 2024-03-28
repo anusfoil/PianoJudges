@@ -377,7 +377,7 @@ class TechniqueDataloader:
 if __name__ == "__main__":
 
     # Create dataloader
-    dataloader = ExpertiseDataloader()
+    dataloader = ExpertiseDataloader(pair_mode='once')
     # dataloader = DifficultyATDataloader()
     dataloader = DifficultyCPDataloader()
     # dataloader = ICPCDatalocader()
