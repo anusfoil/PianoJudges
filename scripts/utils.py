@@ -18,6 +18,62 @@ from ..data_collection.dataset import *
 
 ################# Utility function for encoders ###################
 
+def compute_spectrogram_embeddings(audio_path, n_fft=400, hop_length=160, n_mels=128, resample_rate=24000, 
+                                   segment_duration=10, max_segs=None, compute_all=False):
+    import torchaudio
+    import torchaudio.transforms as T
+
+    # Load the audio file
+    try:
+        waveform, original_sampling_rate = torchaudio.load(audio_path)
+    except Exception as e:
+        print(f"Audio failed to read for {audio_path}: {e}")
+        return []
+
+    # Resample if necessary
+    if resample_rate != original_sampling_rate:
+        resampler = T.Resample(original_sampling_rate, resample_rate)
+        waveform = resampler(waveform)
+
+    # Convert waveform to mono by averaging across channels if needed
+    if waveform.size(0) > 1:
+        waveform = torch.mean(waveform, dim=0, keepdim=True)
+
+    # Spectrogram transform
+    transform = T.MelSpectrogram(sample_rate=resample_rate, n_fft=n_fft, hop_length=hop_length, n_mels=n_mels)
+    
+    # Compute number of segments
+    num_samples = waveform.size(1)
+    num_segments = num_samples // (resample_rate * segment_duration)
+    if max_segs and not compute_all:
+        num_segments = min(num_segments, max_segs)
+
+    # Compute the spectrograms for each segment
+    spectrograms = []
+    for i in range(num_segments):
+        start_sample = i * resample_rate * segment_duration
+        end_sample = start_sample + resample_rate * segment_duration
+        segment = waveform[:, start_sample:end_sample]
+        spectrogram = transform(segment)
+        spectrograms.append(spectrogram)
+
+    # If there are no segments, return a tensor of zeros with the appropriate shape
+    if len(spectrograms) == 0:
+        num_features = n_mels  
+        spectrograms = [torch.zeros((1, num_features, resample_rate * segment_duration // hop_length))]
+
+    # Stack and pad spectrograms to have the same shape
+    spectrograms = torch.nn.utils.rnn.pad_sequence(spectrograms, batch_first=True)
+    spectrograms = rearrange(spectrograms, "b 1 m f -> b m f")[:, :, :1500]
+
+    if compute_all:
+        # Reshape spectrograms for 'compute_all' scenario
+        end = spectrograms.shape[0] - spectrograms.shape[0] % 30
+        spectrograms = rearrange(spectrograms[:end], '(p s) m f -> p s m f', s=30)
+
+    assert(spectrograms.shape[-2:] == torch.Size([128, 1500]))
+    return spectrograms
+
 
 def compute_mert_embeddings(audio_path, model, processor, resample_rate, segment_duration=10, max_segs=None, compute_all=False):
     import torchaudio
@@ -225,6 +281,9 @@ def compute_audio_embeddings(audio_path, audio_inits, method, device_, segment_d
         fp = audio_inits['fp']
         return compute_audiomae_embeddings(audio_path, amae, fp, device_, segment_duration, max_segs, compute_all=compute_all)
     
+    elif method == 'spec':
+        return compute_spectrogram_embeddings(audio_path, segment_duration=segment_duration, max_segs=max_segs)    
+    
     else:
         raise ValueError("Invalid method specified")
 
@@ -344,7 +403,7 @@ def init_encoder(encoder, device, use_trained=False):
         from .audiomae_wrapper import AudioMAE
 
         if use_trained:
-            ckpt_path = '/homes/hz009/audiomae_checkpoint/experiments/checkpoint-40.pth'
+            ckpt_path = '/homes/hz009/audiomae_checkpoint/experiments/checkpoint-59.pth'
         else:
             ckpt_path = '/homes/hz009/Research/PianoJudge/AudioMAE/finetuned.pth'
         amae = AudioMAE.create_audiomae(ckpt_path=ckpt_path, device=device)
@@ -363,6 +422,8 @@ def encoding_shape(encoder):
         return (870, 1024)
     elif encoder == 'audiomae':
         return (512, 768)
+    elif encoder == 'spec':
+        return (128, 1500)
 
 
 
@@ -577,6 +638,73 @@ class PlusMinusOneAccuracy(Metric):
     def compute(self):
         # Compute the final accuracy
         return self.correct.float() / self.total
+
+
+class FlexibleAccuracy(Metric):
+    def __init__(self, num_classes, average, compute_on_step=True):
+        super().__init__()
+
+        self.num_classes = num_classes
+        self.average = average
+        self.compute_on_step = compute_on_step
+        self.add_state("correct_count", default=torch.tensor(0), dist_reduce_fx="sum")
+        self.add_state("total_count", default=torch.tensor(0), dist_reduce_fx="sum")
+
+    def update(self, preds: torch.Tensor, target: torch.Tensor):
+        # preds are logits or probabilities from the model
+        # target is the binary multi-label matrix
+        
+        # Compare predicted labels with the target binary matrix
+        correct = target[torch.arange(target.size(0)), preds]
+        
+        # Update the correct and total counts
+        self.correct_count += correct.sum()
+        self.total_count += target.size(0)
+
+    def compute(self):
+        # Compute the accuracy
+        accuracy = self.correct_count.float() / self.total_count
+        return accuracy
+
+
+
+class FlexibleF1(Metric):
+    def __init__(self, num_classes, average, **kwargs):
+        super().__init__(**kwargs)
+        self.num_classes = num_classes
+        self.average = average
+        self.add_state("true_positives", default=torch.tensor(0), dist_reduce_fx="sum")
+        self.add_state("predicted_positives", default=torch.tensor(0), dist_reduce_fx="sum")
+        self.add_state("actual_positives", default=torch.tensor(0), dist_reduce_fx="sum")
+
+    def update(self, preds: torch.Tensor, target: torch.Tensor):
+        
+        preds = torch.nn.functional.one_hot(preds, num_classes=7)
+        
+        # At least one correct prediction
+        correct = ((preds.int() & target.int()).sum(dim=1) >= 1)
+
+        # Calculate true positives
+        self.true_positives += correct.sum()
+
+        # Calculate predicted positives
+        self.predicted_positives += preds.sum()
+
+        # Calculate actual positives
+        self.actual_positives += target.sum()
+
+    def compute(self):
+        # Calculate precision
+        precision = self.true_positives / (self.predicted_positives + 1e-6)
+
+        # Calculate recall
+        recall = self.true_positives / (self.actual_positives + 1e-6)
+
+        # Calculate F1
+        f1 = 2 * (precision * recall) / (precision + recall + 1e-6)
+        return f1
+
+
 
 # Assuming the apply_label_smoothing function as defined previously
 def apply_label_smoothing(targets, alpha=0.1):

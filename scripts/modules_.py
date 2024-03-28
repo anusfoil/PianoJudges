@@ -13,7 +13,7 @@ import hook
 
 import pytorch_lightning as pl
 from torch.optim.lr_scheduler import StepLR
-from .utils import init_encoder, load_embedding_from_hdf5, PlusMinusOneAccuracy, apply_label_smoothing
+from .utils import init_encoder, load_embedding_from_hdf5, PlusMinusOneAccuracy, FlexibleAccuracy, FlexibleF1, apply_label_smoothing
 
 
 class ConvBlock(nn.Module):
@@ -149,11 +149,16 @@ class PredictionHead(pl.LightningModule):
             self.criterion = nn.MSELoss()
             self.label_dtype = torch.float32
 
-        self.precision_metric = torchmetrics.Precision(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
-        self.recall = torchmetrics.Recall(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
-        self.f1 = torchmetrics.F1Score(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
-        self.accuracy = torchmetrics.Accuracy(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
-        self.accuracy_pmone = PlusMinusOneAccuracy(num_classes=cfg.dataset.num_classes, average='macro')
+
+        if cfg.task == 'technique':
+            self.accuracy = FlexibleAccuracy(num_classes=cfg.dataset.num_classes, average='macro')
+            self.f1 = FlexibleF1(num_classes=cfg.dataset.num_classes, average='macro')
+        else:
+            self.precision_metric = torchmetrics.Precision(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
+            self.recall = torchmetrics.Recall(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
+            self.f1 = torchmetrics.F1Score(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
+            self.accuracy = torchmetrics.Accuracy(num_classes=cfg.dataset.num_classes, average='macro', task='multiclass')
+            self.accuracy_pmone = PlusMinusOneAccuracy(num_classes=cfg.dataset.num_classes, average='macro')            
 
 
     def forward(self, x):
@@ -184,10 +189,6 @@ class PredictionHead(pl.LightningModule):
             multilabel_accuracy = self.multilabel_accuracy(predicted_labels, labels)
             auc = self.auc(outputs, labels)
 
-            # if torch.isnan(ap_classes).any():
-            #     hook()
-            # if self.current_epoch == 50:
-            #     hook()
 
             class_labels = ['Scales', 'Arpeggios', 'Ornaments', 'Repeatednotes', 'Doublenotes', 'Octave', 'Staccato']
             for i, label in enumerate(class_labels):
@@ -200,16 +201,19 @@ class PredictionHead(pl.LightningModule):
             self.log('val_auc', auc, on_epoch=True, prog_bar=True)
         else:
             # Update metrics
-            precision = self.precision_metric(predicted_labels, labels)
-            recall = self.recall(predicted_labels, labels)
-            f1_score = self.f1(predicted_labels, labels)
-            accuracy = self.accuracy(predicted_labels, labels)
-
             print(predicted_labels, labels)
-            self.log('val_precision', precision, on_epoch=True, prog_bar=True)
-            self.log('val_recall', recall, on_epoch=True, prog_bar=True)
-            self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
+
+            accuracy = self.accuracy(predicted_labels, labels)
+            f1_score = self.f1(predicted_labels, labels)
             self.log('val_accuracy', accuracy, on_epoch=True, prog_bar=True)
+            self.log('val_f1_score', f1_score, on_epoch=True, prog_bar=True)
+            
+            if self.cfg.task != 'technique':
+                precision = self.precision_metric(predicted_labels, labels)
+                recall = self.recall(predicted_labels, labels)
+
+                self.log('val_precision', precision, on_epoch=True, prog_bar=True)
+                self.log('val_recall', recall, on_epoch=True, prog_bar=True)
 
             if (self.cfg.task == 'diff') and (self.cfg.dataset.num_classes == 9): # log +- 1 acc for diff task
                 accuracy_pmone = self.accuracy_pmone(predicted_labels, labels)
@@ -222,6 +226,9 @@ class PredictionHead(pl.LightningModule):
         all_true_labels = torch.cat([x['true_labels'] for x in outputs], dim=0).cpu().numpy()
         all_predicted_labels = torch.cat([x['predicted_labels'] for x in outputs], dim=0).cpu().numpy()
 
+        if self.cfg.task == 'technique':
+            return
+        
         if self.cfg.objective != "multi-label classification":
             # Calculate the confusion matrix
             cm = confusion_matrix(all_true_labels, all_predicted_labels, labels=list(range(self.cfg.dataset.num_classes)))
@@ -287,8 +294,8 @@ class PredictionHead(pl.LightningModule):
         # Forward pass
         outputs = self(emb)
 
-        if self.cfg.objective == "multi-label classification": # apply label smoothing
-            labels = apply_label_smoothing(labels)
+        # if self.cfg.objective == "multi-label classification": # apply label smoothing
+        #     labels = apply_label_smoothing(labels)
 
         # assert(outputs.shape == labels.shape)
         loss = self.criterion(outputs, labels)

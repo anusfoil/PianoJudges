@@ -2,7 +2,7 @@
 port: 17576
 use_trained: False
 max_segs: 30
-gpu: 3
+gpu: 0
 
 category:
   # novice:
@@ -34,7 +34,8 @@ category:
 encoder:
   # - jukebox
   # - dac
-  - mert
+  - spec
+  # - mert
   # - audiomae
   
 

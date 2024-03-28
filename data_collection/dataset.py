@@ -366,7 +366,8 @@ class TechniqueDataloader:
         if self.label == 'multi':
             labels = list(self.metadata.iloc[idx][self.label_columns])
         elif self.label == 'single':
-            labels = np.argmax(self.metadata.iloc[idx][self.label_columns])
+            # labels = np.argmax(self.metadata.iloc[idx][self.label_columns])
+            labels = list(self.metadata.iloc[idx][self.label_columns])
         return {
             "audio_path": p,
             "label": labels
