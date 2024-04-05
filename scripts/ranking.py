@@ -101,7 +101,7 @@ def main(cfg: DictConfig):
                 logger=wandb_logger,
                 accelerator="gpu",
                 devices=cfg.gpu,
-                max_epochs=30,
+                max_epochs=5,
                 limit_val_batches=0,
                 num_sanity_val_steps=0
             )

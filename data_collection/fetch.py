@@ -33,7 +33,7 @@ def should_download(title, duration, filter_keywords, max_duration=10000000000):
 
 def download_channel_videos(url, filter_keywords):
     # Command to fetch video information
-    if "channel" in url or "user" in url:
+    if "channel" in url or "user" in url or "list" in url:
         command = ['yt-dlp', '--dump-json', '--verbose', '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', '--flat-playlist', url]
     else:
         command = ['yt-dlp', '--dump-json', '--verbose', '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', url]
@@ -48,6 +48,10 @@ def download_channel_videos(url, filter_keywords):
         title = video_json.get('title', '')
         duration = video_json.get('duration', 0)  # Get the duration in seconds
         video_url = 'https://www.youtube.com/watch?v=' + video_json['id']
+        
+        if os.path.exists(DATA_DIR + video_json['id'] + '.wav') or type(duration) != int:
+            print(f"Skipping {video_json['id'] }")
+            continue
 
         # Check if the video should be downloaded based on title and duration
         if should_download(title, duration, filter_keywords):
@@ -296,13 +300,16 @@ if __name__ == "__main__":
 
     # DATA_DIR = "/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/"
     # url_file = "/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
+    DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
+    url_file = "/homes/hz009/Research/PianoJudge/data_collection/preliminary_round_url.txt"
     # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
     # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 
     # DATA_DIR = "/import/c4dm-datasets/PianoJudge/techniques/"
     # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/technique_groups.txt"
 
-    DATA_DIR = "/import/c4dm-datasets/PianoJudge/difficulty_cipi/"
+    # DATA_DIR = "/import/c4dm-datasets/PianoJudge/difficulty_cipi/"
     # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/mikrokosmos.txt"
 
     # delete_unreferenced_wav_files(DATA_DIR + "metadata.csv", DATA_DIR, category)
@@ -314,20 +321,23 @@ if __name__ == "__main__":
 
     # Define keywords to filter out, and download
     filter_keywords = ['concerto', 'duets']
-    # with open(url_file) as f:
-    #     urls = f.readlines()
-    urls = pd.read_csv('/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv')['YouTube Link 1']
-    for url in urls:
+    with open(url_file) as f:
+        urls = f.readlines()
+    # urls = pd.read_csv('/import/c4dm-datasets/PianoJudge/difficulty_cipi/CIPI_youtube_links.csv')['YouTube Link 1']
+    for idx, url in enumerate(urls):
+        print(idx)
         if url[0] != '#': # not commented out
             id = url.split('v=')[-1].strip()
-            if 'shorts' in id:
-                id = id.split('shorts/')[-1].strip()
+            if 'v=' not in url:
+                id = url.split('v/')[-1].strip()
             if os.path.exists(DATA_DIR + id + '.wav'):
                 print(f"Skipping {id}")
                 continue
+            if 'shorts' in id:
+                id = id.split('shorts/')[-1].strip()
             download_channel_videos(url, filter_keywords)
 
-    # write_metadata_to_csv()
+    write_metadata_to_csv()
     cleanup_artifacts()
 
     

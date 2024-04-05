@@ -171,8 +171,7 @@ class ICPCDataloader:
             self.metadata = self.metadata[split_index:]
 
         self.pair_mode = pair_mode
-        self.pairs = self.create_pairs()
-
+        self.pairs = self.create_pairs() # 1028
 
     def create_pairs(self):
         return_pairs = []
@@ -181,6 +180,7 @@ class ICPCDataloader:
         if self.pair_mode == 'all':
             pairs = list(itertools.combinations(self.metadata.iterrows(), 2))
             all_pairs = random.sample(pairs, len(pairs)) # 1596
+            all_pairs = all_pairs + [(b, a) for a, b in all_pairs]
 
         elif self.pair_mode == 'once':
             shuffled_data = random.sample(list(self.metadata.iterrows()), len(self.metadata))
@@ -200,7 +200,7 @@ class ICPCDataloader:
                 label = 1 if self.num_classes == 2 else 2
             else:
                 label = 1
-                if self.num_classes == 2:
+                if self.num_classes == 2: # remove the ones that's in the same level, since we can't say who is better!
                     continue
 
             label_counter[label] += 1
