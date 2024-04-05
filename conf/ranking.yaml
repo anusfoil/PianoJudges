@@ -17,15 +17,15 @@ dataset:
   n_segs: 30
   train:
     batch_size: 12
-    num_workers: 12
+    num_workers: 0
     shuffle: True
   eval:
     batch_size: 12
-    num_workers: 12
+    num_workers: 0
     shuffle: True
   test:
     batch_size: 12
-    num_workers: 12
+    num_workers: 0
     shuffle: False
   
 

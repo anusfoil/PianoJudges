@@ -10,3 +10,4 @@ try_*
 AudioMAE/
 data_collection/fetch.py
 plotting/*
+pairs_prediction.csv
