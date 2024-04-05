@@ -2,7 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 import hook
 
-metadata = pd.read_csv("/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv")
+metadata = pd.read_csv("/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv")
 pairs_prediction  = pd.read_csv("/homes/hz009/Research/PianoJudge/checkpoints/rank_test_dac_2_True_predictions.csv")
 
 # map the paths in prediction table to names

@@ -22,8 +22,8 @@ TECHNIQUE_PATH = '/import/c4dm-datasets/PianoJudge/techniques/metadata.csv'
 TECHNIQUE_DIR = '/import/c4dm-datasets/PianoJudge/techniques/'
 ATEPP_DIR = '/import/c4dm-datasets/ATEPP-audio/'
 
-ICPC_PATH = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv'
-ICPC_RESULT_PATH = "/import/c4dm-datasets/ICPC2015-dataset/data/results.tsv"
+ICPC_PATH = '/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv'
+ICPC_RESULT_PATH = "/import/c4dm-scratch-02/ICPC2015-dataset/data/results.tsv"
 
 
 class ExpertiseDataloader:
@@ -188,8 +188,8 @@ class ICPCDataloader:
             all_pairs = list(zip(it, it)) # 28
 
         for (idx1, row1), (idx2, row2) in all_pairs:
-            path1 = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row1['id'] + ".wav"
-            path2 = '/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row2['id'] + ".wav"
+            path1 = '/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row1['id'] + ".wav"
+            path2 = '/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/' + row2['id'] + ".wav"
             score1 = row1['ranking_score']
             score2 = row2['ranking_score']
 

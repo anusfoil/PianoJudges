@@ -294,8 +294,8 @@ if __name__ == "__main__":
 
     category = 'difficulty_cipi'
 
-    # DATA_DIR = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/"
-    # url_file = "/import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
+    # DATA_DIR = "/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/"
+    # url_file = "/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/urls_all.list"
     # DATA_DIR = f"/import/c4dm-datasets/PianoJudge/{category}/"
     # url_file = f"/homes/hz009/Research/PianoJudge/data_collection/{category}_channels.txt"
 

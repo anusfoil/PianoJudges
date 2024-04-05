@@ -18,9 +18,9 @@ category:
   #   metadata: /import/c4dm-datasets/ATEPP-audio/ATEPP-meta-audio.csv
   #   save_path: /import/c4dm-scratch-02/ATEPP-audio-embeddings/
   icpc:
-    folder_path: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/
-    metadata: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv
-    save_path: /import/c4dm-datasets/ICPC2015-dataset/data/raw/00_preliminary/wav/
+    folder_path: /import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/
+    metadata: /import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv
+    save_path: /import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/
   # technique:
   #   folder_path: /import/c4dm-datasets/PianoJudge/techniques/
   #   metadata: /import/c4dm-datasets/PianoJudge/techniques/metadata.csv
