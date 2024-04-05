@@ -326,7 +326,8 @@ class PredictionHead(pl.LightningModule):
         labels, predicted_labels = self.outputs_conversion(batch, outputs, icpc_4_to_2=(self.cfg.dataset.num_classes == 4))
 
         # Store labels and predictions for later use in test_epoch_end
-        return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs}
+        return {'true_labels': labels, 'predicted_labels': predicted_labels, 'predicted_outputs': outputs,
+                'path_1': batch['audio_path_1'], 'path_2': batch['audio_path_2'] }
 
 
     def test_epoch_end(self, outputs):
@@ -342,11 +343,19 @@ class PredictionHead(pl.LightningModule):
         f1 = self.f1.to('cpu')(torch.tensor(all_predicted_labels), torch.tensor(all_true_labels))
 
         # save and write 
-        with open(f"/homes/hz009/Research/PianoJudge/checkpoints/{self.cfg.task}_{self.cfg.mode}_{self.cfg.encoder}_results.txt", "w") as f:
+        with open(f"/homes/hz009/Research/PianoJudge/checkpoints/{self.cfg.task}_{self.cfg.mode}_{self.cfg.encoder}_{self.cfg.dataset.num_classes}_{self.cfg.use_trained}_results.txt", "w") as f:
             f.write(classification_report(all_true_labels, all_predicted_labels, labels=list(range(2)))
                     + f"\nLoss: {loss.item()}\nF1: {f1.item()}\nAccuracy: {acc.item()}")
-        hook()
+        
 
+        # write the paths and prediction into csv
+        with open(f"/homes/hz009/Research/PianoJudge/checkpoints/{self.cfg.task}_{self.cfg.mode}_{self.cfg.encoder}_{self.cfg.dataset.num_classes}_{self.cfg.use_trained}_predictions.csv", "w") as f:
+            f.write("path_1,path_2,predicted_labels,true_labels\n")
+            for i in range(len(outputs)):
+                for j in range(len(outputs[i]['path_1'])):
+                    f.write(f"{outputs[i]['path_1'][j]},{outputs[i]['path_2'][j]},{outputs[i]['predicted_labels'][j]},{outputs[i]['true_labels'][j]}\n")
+
+        hook()
 
     def outputs_conversion(self, batch, outputs, icpc_4_to_2=False):
         # Convert labels to tensor
