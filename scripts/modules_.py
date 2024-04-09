@@ -73,7 +73,7 @@ class AudioCNNTransformer(nn.Module):
         )
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_encoder_layers)
 
-        # Regression Layer
+        # Regression or classification Layer
         self.regression = nn.Linear(dim_transformer * n_segs , out_classes)
 
     def forward(self, x):

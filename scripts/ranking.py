@@ -78,7 +78,7 @@ def main(cfg: DictConfig):
         **cfg.dataset.eval, 
     )
     test_loader = DataLoader(
-        ICPCDataloader(pair_mode='all', num_classes=2, mode="test"),  # use all pairs in the testing set
+        ICPCDataloader(pair_mode='all', num_classes=2, mode="test", split_ratio=0),  # use all pairs in the testing set
         # ExpertiseDataloader(mode='test', pair_mode=cfg.dataset.pair_mode, num_classes=cfg.dataset.num_classes), 
         **cfg.dataset.test, 
     )

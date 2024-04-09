@@ -2,6 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 import hook
 
+gt_results = pd.read_csv("/import/c4dm-scratch-02/ICPC2015-dataset/data/results.tsv", delimiter="\t")
 metadata = pd.read_csv("/import/c4dm-scratch-02/ICPC2015-dataset/data/raw/00_preliminary/wav/metadata_.csv")
 pairs_prediction  = pd.read_csv("/homes/hz009/Research/PianoJudge/checkpoints/rank_test_dac_2_True_predictions.csv")
 
@@ -84,8 +85,9 @@ def select_candidates_for_stage(df, eligible_candidates, stage):
     # Select the top candidates based on rank count
     selected_candidates = rank_counts.nlargest(num_to_select).index.tolist()
     
-    if stage == 'Stage I':
-        hook()
+    if stage == 'Prelim.':
+        rank_counts = rank_counts.sort_values(ascending=False)
+        rank_counts.to_csv('/homes/hz009/Research/PianoJudge/rank_counts.csv', index=True)
     
     return selected_candidates
 
@@ -116,11 +118,42 @@ def get_compeitition_results():
     results.loc[results['Competitor'].isin(final_candidates), 'Final'] = 1
 
     # Save the results to a CSV file
-    results.to_csv('predicted_competition_results.csv', index=False)
+    results.to_csv('/homes/hz009/Research/PianoJudge/predicted_competition_results.csv', index=False)
+    return results
+
+
+def prelim_match(predictions_df, ground_truth_df):
+
+    eval_df = predictions_df.merge(ground_truth_df, left_on='Competitor', right_on='name')
+
+    # Calculate accuracy
+    accuracy = (eval_df['Prelim.'] == eval_df['preliminary']).mean()
+
+    # Print the accuracy
+    print(f"Accuracy: {accuracy * 100:.2f}%")
+
+    # Calculate precision, recall, and F1-score
+    tp = ((eval_df['Prelim.'] == 1) & (eval_df['preliminary'] == 1)).sum()
+    fp = ((eval_df['Prelim.'] == 1) & (eval_df['preliminary'] == 0)).sum()
+    fn = ((eval_df['Prelim.'] == 0) & (eval_df['preliminary'] == 1)).sum()
+
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+    f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+
+    # Print precision, recall, and F1-score
+    print(f"Precision: {precision:.2f}")
+    print(f"Recall: {recall:.2f}")
+    print(f"F1-Score: {f1_score:.2f}")
+
+
 
 
 if __name__ == "__main__":
     # check_consistency()
-    get_compeitition_results()
+    results = get_compeitition_results()
+    prelim_match(results, gt_results)
+
+
 
 hook()
