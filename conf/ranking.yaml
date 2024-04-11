@@ -3,7 +3,6 @@ encoder: 'jukebox'
 use_trained: False
 mode: 'train'
 recompute: False
-epochs: 5
 random_seed: 13
 max_epochs: 500
 learning_rate: 5e-5
