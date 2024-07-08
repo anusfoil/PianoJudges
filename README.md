@@ -1,4 +1,4 @@
-# PianoJudge
+# PianoJudges
 
 
 [![arXiv Paper](https://img.shields.io/badge/arXiv-Paper-brightgreen)](https://arxiv.org/abs/2407.04518) [![Project page](https://img.shields.io/badge/project-page-orange)](https://bit.ly/3SYzozY)
