@@ -1,5 +1,8 @@
 # PianoJudge
 
+
+[![arXiv Paper](https://img.shields.io/badge/arXiv-Paper-brightgreen)](https://arxiv.org/abs/2407.04518) [![Project page](https://img.shields.io/badge/project-page-orange)](https://bit.ly/3SYzozY)
+
 Code repository following paper *From Audio Encoders to Piano Judges: Benchmarking Performance Understanding for Solo Piano*. 
 
 - [PianoJudge](#pianojudge)
@@ -59,3 +62,15 @@ python -m PianoJudge.scripts.competition_rank
 ```
 
 Setting mode=test will inference on all possible pairs and save to ```checkpoints/rank_test_*_prediction.csv```. The following scripts cleaned up the prediction. 
+
+
+### Reference
+```
+@inproceedings{Zhang2024FromJudges,
+    address = {San Francisco, USA},
+    author = {Zhang, Huan and Liang, Jinhua and Dixon, Simon},
+    booktitle = {Proceedings of the International Society for Music Information Retrieval Conference (ISMIR)},
+    title = {From Audio Encoders to Piano Judges: Benchmarking Performance Understanding for Solo Piano},
+    year = {2024}
+}
+```
