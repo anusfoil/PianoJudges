@@ -1,7 +1,7 @@
 # PianoJudges
 
 
-[![arXiv Paper](https://img.shields.io/badge/arXiv-Paper-brightgreen)](https://arxiv.org/abs/2407.04518) [![Project page](https://img.shields.io/badge/project-page-orange)](https://bit.ly/3SYzozY)
+[![arXiv Paper](https://img.shields.io/badge/arXiv-Paper-brightgreen)](https://arxiv.org/abs/2407.04518) [![Project page](https://img.shields.io/badge/project-page-orange)](http://river-blackberry-7de.notion.site)
 
 Code repository following paper *From Audio Encoders to Piano Judges: Benchmarking Performance Understanding for Solo Piano*. 
 
