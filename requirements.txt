@@ -21,7 +21,7 @@ omegaconf==2.3.0
 onnx==1.12.0
 pandas==1.5.3
 pathlib2==2.3.7.post1
-Pillow==10.3.0
+Pillow>=12.3.0
 protobuf==5.26.1
 pytest==8.0.0
 pytorch_lightning==1.6.1
