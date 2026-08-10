@@ -1,3 +1,5 @@
+
+
 # PianoJudges
 
 
@@ -26,7 +28,7 @@ The Pianism-labeling dataset (PLD) is a ~138 hours dataset featuring clips that'
 
 #### Fetching
 ```
-pyathon -m PianoJudge.data_collection.fetch
+python -m PianoJudge.data_collection.fetch
 ```
 List of channels for novice, advanced, and virtuoso levels are found in ```data_collection/*_channels.txt```, please modify the paths in ```fetch.py```. Downloaded audio files can be also requested from the author.
 
